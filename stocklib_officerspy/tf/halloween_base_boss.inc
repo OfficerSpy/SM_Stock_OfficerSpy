@@ -1,4 +1,3 @@
-#include <stocklib_officerspy/baseentity>
 #include <stocklib_officerspy/shared/tf_shareddefs>
 
 stock int TF2_SpawnBossAtPos(HalloweenBossType bossType, const float vSpawnPos[3], int nTeam = TF_TEAM_HALLOWEEN, int owner = INVALID_ENT_REFERENCE)
@@ -22,7 +21,7 @@ stock int TF2_SpawnBossAtPos(HalloweenBossType bossType, const float vSpawnPos[3
 			finalSpawnPos[2] += 10.0;
 			
 			TeleportEntity(pBoss, finalSpawnPos); //SetAbsOrigin
-			BaseEntity_ChangeTeam(pBoss, nTeam));
+			SetEntProp(pBoss, Prop_Send, "m_iTeamNum", nTeam); //ChangeTeam
 			SetEntityOwner(pBoss, owner);
 			
 			DispatchSpawn(pBoss);

@@ -1,5 +1,11 @@
 #include <stocklib_officerspy/shared/shareddefs>
 
+stock void BasePlayer_SetHealth(int client, int amt)
+{
+	SetEntProp(client, Prop_Send, "m_iHealth", amt);
+	SetEntProp(client, Prop_Data, "m_iHealth", amt); //CBaseEntity
+}
+
 stock bool BasePlayer_IsBot(int client)
 {
 	return (GetEntityFlags(client) & FL_FAKECLIENT) != 0;

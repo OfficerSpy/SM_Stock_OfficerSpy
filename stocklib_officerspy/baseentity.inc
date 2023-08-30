@@ -4,7 +4,27 @@ stock void BaseEntity_SetOwnerEntity(int entity, int pOwner)
 	SetEntPropEnt(entity, Prop_Send, "m_hOwnerEntity", pOwner);
 }
 
-stock void BaseEntity_ChangeTeam(int iTeamNum)
+stock int BaseEntity_GetMaxHealth(int entity)
+{
+	return GetEntProp(entity, Prop_Data, "m_iMaxHealth");
+}
+
+stock void BaseEntity_SetMaxHealth(int entity, int amt)
+{
+	SetEntProp(entity, Prop_Data, "m_iMaxHealth", amt);
+}
+
+stock int BaseEntity_GetHealth(int entity)
+{
+	return GetEntProp(entity, Prop_Data, "m_iHealth");
+}
+
+stock void BaseEntity_SetHealth(int entity, int amt)
+{
+	SetEntProp(entity, Prop_Data, "m_iHealth", amt);
+}
+
+stock void BaseEntity_ChangeTeam(int entity, int iTeamNum)
 {
 	SetEntProp(entity, Prop_Send, "m_iTeamNum", iTeamNum);
 }

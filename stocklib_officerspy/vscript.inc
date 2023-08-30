@@ -1,3 +1,7 @@
+/* These are makeshift stocks to make use of functions exposed in VScript.
+These will only work if the game in question supports VScript.
+They will do nothing useful otherwise. */
+
 stock void VS_ApplyAbsVelocityImpulse(int entity, float inVecImpulse[3])
 {
 	char buffer[256]; Format(buffer, sizeof(buffer), "!self.ApplyAbsVelocityImpulse(Vector(%f, %f, %f))", inVecImpulse[0], inVecImpulse[1], inVecImpulse[2]);
