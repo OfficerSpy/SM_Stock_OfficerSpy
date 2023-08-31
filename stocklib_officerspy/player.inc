@@ -8,14 +8,14 @@ stock void BasePlayer_SetHealth(int client, int amt)
 
 stock bool BasePlayer_IsBot(int client)
 {
-	return (GetEntityFlags(client) & FL_FAKECLIENT) != 0;
+	return GetEntityFlags(client) & FL_FAKECLIENT != 0;
 }
 
 //This is just how the games check for fake players
 //IsFakeClient is a more reliable way of checking whether or not the player isn't real
 stock bool BasePlayer_IsFakeClient(int client)
 {
-	return (GetEntityFlags(client) & FL_FAKECLIENT) != 0;
+	return GetEntityFlags(client) & FL_FAKECLIENT != 0;
 }
 
 stock int CollectPlayers(ArrayList players, int team = TEAM_ANY, bool isAlive = false, bool shouldAppend = false)

@@ -1,4 +1,4 @@
-#include <tf2>
+#include <tf2_stocks>
 
 #define TF_TEAM_COUNT	view_as<int>(TFTeam_Blue) + 1
 

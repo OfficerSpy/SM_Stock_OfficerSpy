@@ -8,3 +8,19 @@
 
 #define MAX_TEAMS	32
 #define MAX_TEAM_NAME_LENGTH	32
+
+//Vision filters
+//These exist in the source-sdk-2013, but they seem to be TF2 specific
+#define TF_VISION_FILTER_NONE			0
+#define TF_VISION_FILTER_PYRO			(1<<0)
+#define TF_VISION_FILTER_HALLOWEEN		(1<<1)
+#define TF_VISION_FILTER_ROME			(1<<2)
+
+enum
+{
+	VISION_MODE_NONE = 0,
+	VISION_MODE_PYRO,
+	VISION_MODE_HALLOWEEN,
+	VISION_MODE_ROME,
+	MAX_VISION_MODES
+};
