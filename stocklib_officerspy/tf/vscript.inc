@@ -51,7 +51,7 @@ enum DifficultyType
 
 stock void VS_AddCustomAttribute(int client, char[] name, float value, float delay = -1.0)
 {
-	char buffer[256];	Format(buffer, sizeof(buffer), "!self.AddCustomAttribute(%s, %f, %f)", name, value, delay);
+	char buffer[256];	Format(buffer, sizeof(buffer), "!self.AddCustomAttribute(\"%s\", %f, %f)", name, value, delay);
 	
 	SetVariantString(buffer);
 	AcceptEntityInput(client, "RunScriptCode");

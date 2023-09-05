@@ -1,8 +1,16 @@
-#include <stocklib_officerspy/shared/tf_shareddefs>
+#define TF_HBB_TEAM_HALLOWEEN	view_as<int>(TFTeam_Blue) + 2
 
-stock int TF2_SpawnBossAtPos(HalloweenBossType bossType, const float vSpawnPos[3], int nTeam = TF_TEAM_HALLOWEEN, int owner = INVALID_ENT_REFERENCE)
+enum HalloweenBossType
 {
-	char strBossType[128];
+	HALLOWEEN_BOSS_INVALID = 0,
+	HALLOWEEN_BOSS_HHH = 1,
+	HALLOWEEN_BOSS_MONOCULUS = 2,
+	HALLOWEEN_BOSS_MERASMUS = 3,
+};
+
+stock int TF2_SpawnBossAtPos(HalloweenBossType bossType, const float vSpawnPos[3], int nTeam = TF_HBB_TEAM_HALLOWEEN, int owner = INVALID_ENT_REFERENCE)
+{
+	char strBossType[20];
 	switch(bossType)
 	{
 		case HALLOWEEN_BOSS_HHH:	strBossType = "headless_hatman";

@@ -1,4 +1,11 @@
-#include <stocklib_officerspy/shared/shareddefs>
+enum
+{
+	VISION_MODE_NONE = 0,
+	VISION_MODE_PYRO,
+	VISION_MODE_HALLOWEEN,
+	VISION_MODE_ROME,
+	MAX_VISION_MODES
+};
 
 stock void BaseEntity_ClearModelIndexOverrides(int entity)
 {
