@@ -1,9 +1,9 @@
-stock bool IsMiniBoss(int client)
+stock bool TFPlayer_IsMiniBoss(int client)
 {
 	return view_as<bool>(GetEntProp(client, Prop_Send, "m_bIsMiniBoss"));
 }
 
-stock void SetIsMiniBoss(int client, bool isMiniBoss)
+stock void TFPlayer_SetIsMiniBoss(int client, bool isMiniBoss)
 {
 	SetEntProp(client, Prop_Send, "m_bIsMiniBoss", isMiniBoss);
 }
