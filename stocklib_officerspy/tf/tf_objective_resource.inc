@@ -3,7 +3,14 @@ You must pass in the entity index of the tf_objective_resource entity as a param
 For best accuracy, these should be called once after CPopulationManager::UpdateObjectiveResource
 However, seems calling increments and decrements dircetly after it causes it to stack for some reason
 It's better to just set them to a constant number to enforce a consistent value instead */
-#include <stocklib_officerspy/shared/tf_shareddefs>
+
+#define MVM_CLASS_FLAG_NONE				0
+#define MVM_CLASS_FLAG_NORMAL			(1<<0)
+#define MVM_CLASS_FLAG_SUPPORT			(1<<1)
+#define MVM_CLASS_FLAG_MISSION			(1<<2)
+#define MVM_CLASS_FLAG_MINIBOSS			(1<<3)
+#define MVM_CLASS_FLAG_ALWAYSCRIT		(1<<4)
+#define MVM_CLASS_FLAG_SUPPORT_LIMITED	(1<<5)
 
 stock void TFOR_ClearMannVsMachineWaveClassFlags(int iResource)
 {

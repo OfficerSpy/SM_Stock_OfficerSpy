@@ -49,3 +49,11 @@ stock void VS_SetMaxHealth(int entity, int amt)
 	SetVariantString(buffer);
 	AcceptEntityInput(entity, "RunScriptCode");
 }
+
+stock void VS_SetModelScale(int entity, float scale, float change_duration = 0.0)
+{
+	char buffer[256]; Format(buffer, sizeof(buffer), "!self.SetModelScale(%f, %f)", scale, change_duration);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(entity, "RunScriptCode");
+}

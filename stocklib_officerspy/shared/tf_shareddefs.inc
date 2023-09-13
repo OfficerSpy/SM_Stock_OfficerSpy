@@ -4,9 +4,6 @@
 
 #define TF_TEAM_AUTOASSIGN	TF_TEAM_COUNT + 1
 
-#define TF_TEAM_PVE_INVADERS	TFTeam_Blue
-#define TF_TEAM_PVE_DEFENDERS	TFTeam_Red
-
 #define TF_TEAM_PVE_INVADERS_GIANTS 4
 
 //TF damage flags
@@ -37,11 +34,3 @@ stock bool IsHeadshot(int iType)
 {
 	return iType == TF_CUSTOM_HEADSHOT || iType == TF_CUSTOM_HEADSHOT_DECAPITATION;
 }
-
-#define MVM_CLASS_FLAG_NONE				0
-#define MVM_CLASS_FLAG_NORMAL			(1<<0)
-#define MVM_CLASS_FLAG_SUPPORT			(1<<1)
-#define MVM_CLASS_FLAG_MISSION			(1<<2)
-#define MVM_CLASS_FLAG_MINIBOSS			(1<<3)
-#define MVM_CLASS_FLAG_ALWAYSCRIT		(1<<4)
-#define MVM_CLASS_FLAG_SUPPORT_LIMITED	(1<<5)

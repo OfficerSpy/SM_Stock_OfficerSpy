@@ -1,3 +1,9 @@
+#define BASEENT_LIFE_ALIVE				0
+#define BASEENT_LIFE_DYING				1
+#define BASEENT_LIFE_DEAD				2
+#define BASEENT_LIFE_RESPAWNABLE		3
+#define BASEENT_LIFE_DISCARDBODY		4
+
 enum
 {
 	VISION_MODE_NONE = 0,
@@ -169,4 +175,36 @@ stock float BaseEntity_GetGravity(int entity)
 stock void BaseEntity_SetGravity(int entity, float gravity)
 {
 	SetEntPropFloat(entity, Prop_Data, "m_flGravity", gravity);
+}
+
+stock bool BaseEntity_IsPlayerSimulated(int entity)
+{
+	return view_as<bool>(GetEntProp(entity, Prop_Send, "m_bIsPlayerSimulated"));
+}
+
+#pragma deprecated Use GetEntityMoveType instead
+stock MoveType BaseEntity_GetMoveType(int entity)
+{
+	return view_as<MoveType>(GetEntProp(entity, Prop_Data, "m_MoveType"));
+}
+
+stock int BaseEntity_GetMoveCollide(int entity)
+{
+	return GetEntProp(entity, Prop_Data, "m_MoveCollide");
+}
+
+stock int BaseEntity_GetCollisionGroup(int entity)
+{
+	return GetEntProp(entity, Prop_Send, "m_CollisionGroup");
+}
+
+#pragma deprecated Use GetEntityFlags instead
+stock int BaseEntity_GetFlags(int entity)
+{
+	return GetEntProp(entity, Prop_Send, "m_fFlags");
+}
+
+stock bool BaseEntity_IsAlive(int entity)
+{
+	return GetEntProp(entity, Prop_Data, "m_lifeState") == BASEENT_LIFE_ALIVE;
 }
