@@ -12,7 +12,122 @@ It's better to just set them to a constant number to enforce a consistent value 
 #define MVM_CLASS_FLAG_ALWAYSCRIT		(1<<4)
 #define MVM_CLASS_FLAG_SUPPORT_LIMITED	(1<<5)
 
-stock void TFOR_ClearMannVsMachineWaveClassFlags(int iResource)
+stock void TF2_SetMannVsMachineMaxWaveCount(int iResource, int nCount)
+{
+	SetEntProp(iResource, Prop_Send, "m_nMannVsMachineMaxWaveCount", nCount);
+}
+
+stock int TF2_GetMannVsMachineMaxWaveCount(int iResource)
+{
+	return GetEntProp(iResource, Prop_Send,	"m_nMannVsMachineMaxWaveCount");
+}
+
+stock void TF2_SetMannVsMachineWaveCount(int iResource, int nCount)
+{
+	SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveCount", nCount);
+}
+
+stock int TF2_GetMannVsMachineWaveCount(int iResource)
+{
+	return GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveCount");
+}
+
+stock void TF2_SetMannVsMachineWaveEnemyCount(int iResource, int nCount)
+{
+	SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount", nCount);
+}
+
+stock int TF2_GetMannVsMachineWaveEnemyCount(int iResource)
+{
+	return GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount");
+}
+
+stock void TF2_AddMvMWorldMoney(int iResource, int nCurrency)
+{
+	SetEntProp(iResource, Prop_Send, "m_nMvMWorldMoney", GetEntProp(iResource, Prop_Send, "m_nMvMWorldMoney") + nCurrency);
+}
+
+stock void TF2_SetMannVsMachineNextWaveTime(int iResource, float flTime)
+{
+	SetEntPropFloat(iResource, Prop_Send, "m_flMannVsMachineNextWaveTime", flTime);
+}
+
+stock void TF2_SetMannVsMachineBetweenWaves(int iResource, bool bVal)
+{
+	SetEntProp(iResource, Prop_Send, "m_bMannVsMachineBetweenWaves", bVal);
+}
+
+stock bool TF2_GetMannVsMachineIsBetweenWaves(int iResource)
+{
+	return view_as<bool>(GetEntProp(iResource, Prop_Send, "m_bMannVsMachineBetweenWaves"));
+}
+
+stock void TF2_GetMannVsMachineWaveClassName(int iResource, int nIndex, char[] buffer, int maxlen)
+{
+	GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames", buffer, maxlen, nIndex);
+}
+
+stock int TF2_GetMannVsMachineWaveClassFlags(int iResource, int nIndex)
+{
+	return GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassFlags", _, nIndex);
+}
+
+stock void TF2_SetFlagCarrierUpgradeLevel(int iResource, int nLevel)
+{
+	SetEntProp(iResource, Prop_Send, "m_nFlagCarrierUpgradeLevel", nLevel);
+}
+
+stock int TF2_GetFlagCarrierUpgradeLevel(int iResource)
+{
+	return GetEntProp(iResource, Prop_Send, "m_nFlagCarrierUpgradeLevel");
+}
+
+stock void TF2_SetBaseMvMBombUpgradeTime(int iResource, float nTime)
+{
+	SetEntPropFloat(iResource, Prop_Send, "m_flMvMBaseBombUpgradeTime", nTime);
+}
+
+stock float TF2_GetBaseMvMBombUpgradeTime(int iResource)
+{
+	return GetEntPropFloat(iResource, Prop_Send, "m_flMvMBaseBombUpgradeTime");
+}
+
+stock void TF2_SetNextMvMBombUpgradeTime(int iResource, float nTime)
+{
+	SetEntPropFloat(iResource, Prop_Send, "m_flMvMNextBombUpgradeTime", nTime);
+}
+
+stock float TF2_GetNextMvMBombUpgradeTime(int iResource)
+{
+	return GetEntPropFloat(iResource, Prop_Send, "m_flMvMNextBombUpgradeTime");
+}
+
+stock void TF2_SetMannVsMachineChallengeIndex(int iResource, int iIndex)
+{
+	SetEntProp(iResource, Prop_Send, "m_iChallengeIndex", iIndex);
+}
+
+stock int TF2_GetMannVsMachineChallengeIndex(int iResource)
+{
+	return GetEntProp(iResource, Prop_Send, "m_iChallengeIndex");
+}
+
+stock void TF2_SetMvMPopfileName(int iResource, char[] iszMvMPopfileName)
+{
+	SetEntPropString(iResource, Prop_Send, "m_iszMvMPopfileName", iszMvMPopfileName);
+}
+
+stock void TF2_GetMvMPopfileName(int iResource, char[] buffer, int maxlen)
+{
+	GetEntPropString(iResource, Prop_Send, "m_iszMvMPopfileName", buffer, maxlen);
+}
+
+stock void TF2_SetMannVsMachineEventPopfileType(int iResource, int nType)
+{
+	SetEntProp(iResource, Prop_Send, "m_nMvMEventPopfileType", nType);
+}
+
+stock void TF2_ClearMannVsMachineWaveClassFlags(int iResource)
 {
 	int waveClassFlagsCount = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassFlags");
 	
@@ -26,7 +141,7 @@ stock void TFOR_ClearMannVsMachineWaveClassFlags(int iResource)
 		SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassFlags2", MVM_CLASS_FLAG_NONE, _, i);
 }
 
-stock void TFOR_AddMannVsMachineWaveClassFlags(int iResource, int index, int flags)
+stock void TF2_AddMannVsMachineWaveClassFlags(int iResource, int index, int flags)
 {
 	int waveClassFlagsCount = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassFlags");
 	
@@ -52,7 +167,7 @@ stock void TFOR_AddMannVsMachineWaveClassFlags(int iResource, int index, int fla
 	}
 }
 
-stock int TFOR_GetMannVsMachineWaveClassCount(int iResource, int index)
+stock int TF2_GetMannVsMachineWaveClassCount(int iResource, int index)
 {
 	int waveClassCountsCount = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	
@@ -69,7 +184,7 @@ stock int TFOR_GetMannVsMachineWaveClassCount(int iResource, int index)
 	return 0;
 }
 
-stock void TFOR_SetMannVsMachineWaveClassActive(int iResource, char[] classIconName, bool active = true)
+stock void TF2_SetMannVsMachineWaveClassActive(int iResource, char[] classIconName, bool active = true)
 {
 	int waveClassNamesCount = GetEntPropArraySize(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames");
 	
@@ -98,7 +213,7 @@ stock void TFOR_SetMannVsMachineWaveClassActive(int iResource, char[] classIconN
 	}
 }
 
-stock void TFOR_SetMannVsMachineWaveClassCount(int iResource, int index, int count)
+stock void TF2_SetMannVsMachineWaveClassCount(int iResource, int index, int count)
 {
 	int waveClassCountsCount = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	
@@ -115,7 +230,7 @@ stock void TFOR_SetMannVsMachineWaveClassCount(int iResource, int index, int cou
 		SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts2", count, _, index);
 }
 
-stock void TFOR_SetMannVsMachineWaveClassName(int iResource, int index, char[] classIconName)
+stock void TF2_SetMannVsMachineWaveClassName(int iResource, int index, char[] classIconName)
 {
 	int waveClassNamesCount = GetEntPropArraySize(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames");
 	
@@ -132,7 +247,7 @@ stock void TFOR_SetMannVsMachineWaveClassName(int iResource, int index, char[] c
 		SetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames2", classIconName, index);
 }
 
-stock void TFOR_IncrementMannVsMachineWaveClassCount(int iResource, char[] classIconName, int flags)
+stock void TF2_IncrementMannVsMachineWaveClassCount(int iResource, char[] classIconName, int flags)
 {
 	int waveClassNamesCount = GetEntPropArraySize(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames");
 	
@@ -176,7 +291,7 @@ stock void TFOR_IncrementMannVsMachineWaveClassCount(int iResource, char[] class
 	}
 }
 
-stock void TFOR_DecrementMannVsMachineWaveClassCount(int iResource, char[] classIconName, int flags)
+stock void TF2_DecrementMannVsMachineWaveClassCount(int iResource, char[] classIconName, int flags)
 {
 	int waveClassNamesCount = GetEntPropArraySize(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames");
 	
@@ -196,7 +311,7 @@ stock void TFOR_DecrementMannVsMachineWaveClassCount(int iResource, char[] class
 				SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts", 0, _, i);
 			
 			if (!currentCount)
-				TFOR_SetMannVsMachineWaveClassActive(iResource, classIconName, false);
+				TF2_SetMannVsMachineWaveClassActive(iResource, classIconName, false);
 			
 			return;
 		}
@@ -219,27 +334,27 @@ stock void TFOR_DecrementMannVsMachineWaveClassCount(int iResource, char[] class
 				SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts2", 0, _, i);
 			
 			if (!currentCount)
-				TFOR_SetMannVsMachineWaveClassActive(iResource, classIconName, false);
+				TF2_SetMannVsMachineWaveClassActive(iResource, classIconName, false);
 			
 			return;
 		}
 	}
 }
 
-stock void TFOR_IncrementTeleporterCount(int iResource)
+stock void TF2_IncrementTeleporterCount(int iResource)
 {
-	TFOR_IncrementMannVsMachineWaveClassCount(iResource, "teleporter", MVM_CLASS_FLAG_MISSION);
+	TF2_IncrementMannVsMachineWaveClassCount(iResource, "teleporter", MVM_CLASS_FLAG_MISSION);
 }
 
-stock void TFOR_DecrementTeleporterCount(int iResource)
+stock void TF2_DecrementTeleporterCount(int iResource)
 {
-	TFOR_DecrementMannVsMachineWaveClassCount(iResource, "teleporter", MVM_CLASS_FLAG_MISSION);
+	TF2_DecrementMannVsMachineWaveClassCount(iResource, "teleporter", MVM_CLASS_FLAG_MISSION);
 }
 
 //The functions below are extra and are not based on code from the game
 
 //Adds a custom tank icon to the wavebar, replacing the default one
-stock void TFOR_AddCustomTankIcon(int iResource, char[] name, int count, bool isCrit = false, bool isBoss = true, isSupport = false, isSupportLimited = false)
+stock void TF2_AddCustomTankIcon(int iResource, char[] name, int count, bool isCrit = false, bool isBoss = true, isSupport = false, isSupportLimited = false)
 {
 	int flags = MVM_CLASS_FLAG_NORMAL;
 	
@@ -255,12 +370,12 @@ stock void TFOR_AddCustomTankIcon(int iResource, char[] name, int count, bool is
 	if (isSupportLimited)
 		flags = flags | MVM_CLASS_FLAG_SUPPORT_LIMITED;
 	
-	TFOR_DecrementWaveIconSpawnCount(iResource, "tank", MVM_CLASS_FLAG_NORMAL|MVM_CLASS_FLAG_MINIBOSS|(isSupport ? MVM_CLASS_FLAG_SUPPORT : 0)|(isSupportLimited ? MVM_CLASS_FLAG_SUPPORT_LIMITED : 0), count, false);
-	TFOR_IncrementWaveIconSpawnCount(iResource, name, flags, count, false);
+	TF2_DecrementWaveIconSpawnCount(iResource, "tank", MVM_CLASS_FLAG_NORMAL|MVM_CLASS_FLAG_MINIBOSS|(isSupport ? MVM_CLASS_FLAG_SUPPORT : 0)|(isSupportLimited ? MVM_CLASS_FLAG_SUPPORT_LIMITED : 0), count, false);
+	TF2_IncrementWaveIconSpawnCount(iResource, name, flags, count, false);
 }
 
 // Get wavebar spawn count of an icon with specified name and flags
-stock int TFOR_GetWaveIconSpawnCount(int iResource, char[] name, int flags)
+stock int TF2_GetWaveIconSpawnCount(int iResource, char[] name, int flags)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	char classNames[128];
@@ -287,7 +402,7 @@ stock int TFOR_GetWaveIconSpawnCount(int iResource, char[] name, int flags)
 // Set wavebar spawn count of an icon with specified name and flags
 // If count is set to 0, removes the icon from the wavebar
 // Can be used to put custom icons on a wavebar
-stock void TFOR_SetWaveIconSpawnCount(int iResource, char[] name, int flags, int count, bool changeMaxEnemyCount = true)
+stock void TF2_SetWaveIconSpawnCount(int iResource, char[] name, int flags, int count, bool changeMaxEnemyCount = true)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	char nameSlot[128];
@@ -367,14 +482,14 @@ stock void TFOR_SetWaveIconSpawnCount(int iResource, char[] name, int flags, int
 
 // Increment wavebar spawn count of an icon with specified name and flags
 // Can be used to put custom icons on a wavebar
-stock void TFOR_IncrementWaveIconSpawnCount(int iResource, char[] name, int flags, int count = 1, bool changeMaxEnemyCount = true)
+stock void TF2_IncrementWaveIconSpawnCount(int iResource, char[] name, int flags, int count = 1, bool changeMaxEnemyCount = true)
 {
-	TFOR_SetWaveIconSpawnCount(iResource, name, flags, TFOR_GetWaveIconSpawnCount(iResource, name, flags) + count, changeMaxEnemyCount);
+	TF2_SetWaveIconSpawnCount(iResource, name, flags, TF2_GetWaveIconSpawnCount(iResource, name, flags) + count, changeMaxEnemyCount);
 }
 
 // Increment wavebar spawn count of an icon with specified name and flags
 // Use it to decrement the spawn count when the enemy is killed. Should not be used for support type icons
-stock void TFOR_DecrementWaveIconSpawnCount(int iResource, char[] name, int flags, int count = 1, bool changeMaxEnemyCount = false)
+stock void TF2_DecrementWaveIconSpawnCount(int iResource, char[] name, int flags, int count = 1, bool changeMaxEnemyCount = false)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	char nameSlot[128];
@@ -429,7 +544,7 @@ stock void TFOR_DecrementWaveIconSpawnCount(int iResource, char[] name, int flag
 }
 
 // Used for mission and support limited bots to display them on a wavebar during the wave, set by the game automatically when an enemy with this icon spawn
-stock void TFOR_SetWaveIconActive(int iResource, char[] name, int flags, bool active)
+stock void TF2_SetWaveIconActive(int iResource, char[] name, int flags, bool active)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	char nameSlot[128];
@@ -458,7 +573,7 @@ stock void TFOR_SetWaveIconActive(int iResource, char[] name, int flags, bool ac
 }
 
 // Used for mission and support limited bots to display them on a wavebar during the wave, set by the game automatically when an enemy with this icon spawn
-stock bool TFOR_GetWaveIconActive(int iResource, char[] name, int flags)
+stock bool TF2_GetWaveIconActive(int iResource, char[] name, int flags)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	char nameSlot[128];

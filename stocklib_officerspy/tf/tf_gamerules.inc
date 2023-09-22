@@ -1,5 +1,5 @@
 #include <stocklib_officerspy/player>
-#include <stocklib_officerspy/vscript>
+#include <stocklib_officerspy/stocklib_extra_vscript>
 
 #define GAMERULES_TF_TEAM_PVE_INVADERS	TFTeam_Blue
 #define GAMERULES_TF_TEAM_PVE_DEFENDERS	TFTeam_Red
