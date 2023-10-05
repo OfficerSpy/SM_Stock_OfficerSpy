@@ -34,3 +34,14 @@ stock bool IsHeadshot(int iType)
 {
 	return iType == TF_CUSTOM_HEADSHOT || iType == TF_CUSTOM_HEADSHOT_DECAPITATION;
 }
+
+stock TFTeam GetEnemyTeam(TFTeam team)
+{
+	if (team == TFTeam_Red)
+		return TFTeam_Blue;
+	
+	if (team == TFTeam_Blue)
+		return TFTeam_Red;
+	
+	return team;
+}

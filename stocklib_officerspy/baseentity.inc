@@ -1,8 +1,15 @@
+#include <stocklib_officerspy/baseentity_shared>
+
 #define BASEENT_LIFE_ALIVE				0
 #define BASEENT_LIFE_DYING				1
 #define BASEENT_LIFE_DEAD				2
 #define BASEENT_LIFE_RESPAWNABLE		3
 #define BASEENT_LIFE_DISCARDBODY		4
+
+#define BASEENT_CONTENTS_BLOCKLOS	CONTENTS_MIST
+
+#define BASEENT_MASK_BLOCKLOS			CONTENTS_SOLID|CONTENTS_MOVEABLE|BASEENT_CONTENTS_BLOCKLOS
+#define BASEENT_MASK_BLOCKLOS_AND_NPCS	BASEENT_MASK_BLOCKLOS|CONTENTS_MONSTER
 
 enum
 {
@@ -132,7 +139,7 @@ stock void BaseEntity_GetLocalAngles(int entity, float buffer[3])
 
 stock void BaseEntity_GetAbsOrigin(int entity, float buffer[3])
 {
-	GetEntPropVector(entity, Prop_Data, "m_vecAbsOrigin", buffer);	
+	GetEntPropVector(entity, Prop_Data, "m_vecAbsOrigin", buffer);
 }
 
 stock void BaseEntity_GetAbsAngles(int entity, float buffer[3])
@@ -207,4 +214,51 @@ stock int BaseEntity_GetFlags(int entity)
 stock bool BaseEntity_IsAlive(int entity)
 {
 	return GetEntProp(entity, Prop_Data, "m_lifeState") == BASEENT_LIFE_ALIVE;
+}
+
+stock bool BaseEntity_FVisible1(int entity, int pEntity, int traceMask, int ppBlocker = -1)
+{
+	if (GetEntityFlags(pEntity) & FL_NOTARGET)
+		return false;
+	
+	float vecLookerOrigin[3]; BaseEntity_EyePosition(entity, vecLookerOrigin);
+	float vecTargetOrigin[3]; BaseEntity_EyePosition(pEntity, vecTargetOrigin);
+	
+	Handle trace;
+	
+	if (GetConVarBool(FindConVar("ai_LOS_mode")))
+	{
+		trace = TR_TraceRayEx(vecLookerOrigin, vecTargetOrigin, traceMask, RayType_EndPoint);
+	}
+	else
+	{
+		if (traceMask == BASEENT_MASK_BLOCKLOS)
+			traceMask = BASEENT_MASK_BLOCKLOS_AND_NPCS;
+		
+		if (entity > 0 && entity <= MaxClients)
+			traceMask &= ~BASEENT_CONTENTS_BLOCKLOS;
+		
+		//TODO: filter?
+		trace = TR_TraceRayEx(vecLookerOrigin, vecTargetOrigin, traceMask, RayType_EndPoint);
+	}
+	
+	if (TR_GetFraction(trace) != 1.0 || TR_StartSolid(trace))
+	{
+		if (TR_GetEntityIndex(trace) == pEntity)
+		{
+			delete trace;
+			return true;
+		}
+		
+		//TODO: vehicle stuff?
+		
+		if (ppBlocker > 0)
+			ppBlocker = TR_GetEntityIndex(trace);
+		
+		delete trace;
+		return false;
+	}
+	
+	delete trace;
+	return true;
 }
