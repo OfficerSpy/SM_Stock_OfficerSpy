@@ -190,7 +190,7 @@ stock void TF2_SetMannVsMachineWaveClassActive(int iResource, char[] classIconNa
 	
 	for (int i = 0; i < waveClassNamesCount; i++)
 	{
-		char waveClassNamesString[256]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames", waveClassNamesString, sizeof(waveClassNamesString), i);
+		char waveClassNamesString[PLATFORM_MAX_PATH]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames", waveClassNamesString, sizeof(waveClassNamesString), i);
 		
 		if (StrEqual(waveClassNamesString, classIconName))
 		{
@@ -203,7 +203,7 @@ stock void TF2_SetMannVsMachineWaveClassActive(int iResource, char[] classIconNa
 	
 	for (int i = 0; i < waveClassNames2Count; i++)
 	{
-		char waveClassNamesString[256]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames2", waveClassNamesString, sizeof(waveClassNamesString), i);
+		char waveClassNamesString[PLATFORM_MAX_PATH]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames2", waveClassNamesString, sizeof(waveClassNamesString), i);
 		
 		if (StrEqual(waveClassNamesString, classIconName))
 		{
@@ -254,7 +254,7 @@ stock void TF2_IncrementMannVsMachineWaveClassCount(int iResource, char[] classI
 	int i = 0;
 	for (i = 0; i < waveClassNamesCount; i++)
 	{
-		char waveClassNamesString[256]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames", waveClassNamesString, sizeof(waveClassNamesString), i);
+		char waveClassNamesString[PLATFORM_MAX_PATH]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames", waveClassNamesString, sizeof(waveClassNamesString), i);
 		int waveClassFlags = GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassFlags", _, i);
 		
 		if (StrEqual(waveClassNamesString, classIconName) && waveClassFlags & flags)
@@ -274,7 +274,7 @@ stock void TF2_IncrementMannVsMachineWaveClassCount(int iResource, char[] classI
 	
 	for (i = 0; i < waveClassNames2Count; i++)
 	{
-		char waveClassNamesString[256]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames2", waveClassNamesString, sizeof(waveClassNamesString), i);
+		char waveClassNamesString[PLATFORM_MAX_PATH]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames2", waveClassNamesString, sizeof(waveClassNamesString), i);
 		int waveClassFlags = GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassFlags2", _, i);
 		
 		if (StrEqual(waveClassNamesString, classIconName) && waveClassFlags & flags)
@@ -298,7 +298,7 @@ stock void TF2_DecrementMannVsMachineWaveClassCount(int iResource, char[] classI
 	int i = 0;
 	for (i = 0; i < waveClassNamesCount; i++)
 	{
-		char waveClassNamesString[256]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames", waveClassNamesString, sizeof(waveClassNamesString), i);
+		char waveClassNamesString[PLATFORM_MAX_PATH]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames", waveClassNamesString, sizeof(waveClassNamesString), i);
 		int waveClassFlags = GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassFlags", _, i);
 		
 		if (StrEqual(waveClassNamesString, classIconName) && waveClassFlags & flags)
@@ -321,7 +321,7 @@ stock void TF2_DecrementMannVsMachineWaveClassCount(int iResource, char[] classI
 	
 	for (i = 0; i < waveClassNames2Count; i++)
 	{
-		char waveClassNamesString[256]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames2", waveClassNamesString, sizeof(waveClassNamesString), i);
+		char waveClassNamesString[PLATFORM_MAX_PATH]; GetEntPropString(iResource, Prop_Data, "m_iszMannVsMachineWaveClassNames2", waveClassNamesString, sizeof(waveClassNamesString), i);
 		int waveClassFlags = GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassFlags2", _, i);
 		
 		if (StrEqual(waveClassNamesString, classIconName) && waveClassFlags & flags)
@@ -370,7 +370,7 @@ stock void TF2_AddCustomTankIcon(int iResource, char[] name, int count, bool isC
 	if (isSupportLimited)
 		flags = flags | MVM_CLASS_FLAG_SUPPORT_LIMITED;
 	
-	TF2_DecrementWaveIconSpawnCount(iResource, "tank", MVM_CLASS_FLAG_NORMAL|MVM_CLASS_FLAG_MINIBOSS|(isSupport ? MVM_CLASS_FLAG_SUPPORT : 0)|(isSupportLimited ? MVM_CLASS_FLAG_SUPPORT_LIMITED : 0), count, false);
+	TF2_DecrementWaveIconSpawnCount(iResource, "tank", MVM_CLASS_FLAG_NORMAL | MVM_CLASS_FLAG_MINIBOSS | (isSupport ? MVM_CLASS_FLAG_SUPPORT : 0) | (isSupportLimited ? MVM_CLASS_FLAG_SUPPORT_LIMITED : 0), count, false);
 	TF2_IncrementWaveIconSpawnCount(iResource, name, flags, count, false);
 }
 
@@ -417,7 +417,7 @@ stock void TF2_SetWaveIconSpawnCount(int iResource, char[] name, int flags, int 
 			SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts", count, _, i);
 			SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassFlags", flags, _, i);
 			
-			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL|MVM_CLASS_FLAG_MINIBOSS)))
+			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL | MVM_CLASS_FLAG_MINIBOSS)))
 				SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount", GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount") + count);
 			
 			return;
@@ -429,7 +429,7 @@ stock void TF2_SetWaveIconSpawnCount(int iResource, char[] name, int flags, int 
 			
 			SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts", count, _, i);
 			
-			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL|MVM_CLASS_FLAG_MINIBOSS)))
+			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL | MVM_CLASS_FLAG_MINIBOSS)))
 				SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount", GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount") + count - preCount);
 			
 			if (count <= 0)
@@ -453,7 +453,7 @@ stock void TF2_SetWaveIconSpawnCount(int iResource, char[] name, int flags, int 
 			SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts2", count, _, i);
 			SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassFlags2", flags, _, i);
 			
-			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL|MVM_CLASS_FLAG_MINIBOSS)))
+			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL | MVM_CLASS_FLAG_MINIBOSS)))
 				SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount", GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount") + count);
 			
 			return;
@@ -465,7 +465,7 @@ stock void TF2_SetWaveIconSpawnCount(int iResource, char[] name, int flags, int 
 			
 			SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts2", count, _, i);
 			
-			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL|MVM_CLASS_FLAG_MINIBOSS)))
+			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL | MVM_CLASS_FLAG_MINIBOSS)))
 				SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount", GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount") + count - preCount);
 			
 			if (count <= 0)
@@ -504,7 +504,7 @@ stock void TF2_DecrementWaveIconSpawnCount(int iResource, char[] name, int flags
 			
 			SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts", preCount - count > 0 ? preCount - count : 0, _, i);
 			
-			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL|MVM_CLASS_FLAG_MINIBOSS)))
+			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL | MVM_CLASS_FLAG_MINIBOSS)))
 				SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount", GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount") - (count > preCount ? preCount : count));
 			
 			if (preCount - count <= 0)
@@ -528,7 +528,7 @@ stock void TF2_DecrementWaveIconSpawnCount(int iResource, char[] name, int flags
 			
 			SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts2", preCount - count > 0 ? preCount - count : 0, _, i);
 			
-			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL|MVM_CLASS_FLAG_MINIBOSS)))
+			if (changeMaxEnemyCount && (flags & (MVM_CLASS_FLAG_NORMAL | MVM_CLASS_FLAG_MINIBOSS)))
 				SetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount", GetEntProp(iResource, Prop_Send, "m_nMannVsMachineWaveEnemyCount") - (count > preCount ? preCount : count));
 			
 			if (preCount - count <= 0)
