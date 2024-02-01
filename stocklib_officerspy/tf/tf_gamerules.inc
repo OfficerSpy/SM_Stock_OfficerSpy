@@ -43,7 +43,7 @@ stock bool TF2_IsMannVsMachineMode()
 	return view_as<bool>(GameRules_GetProp("m_bPlayingMannVsMachine"));
 }
 
-stock bool TF2_SetMannVsMachineAlarmStatus(bool bStatus)
+stock void TF2_SetMannVsMachineAlarmStatus(bool bStatus)
 {
 	GameRules_SetProp("m_bMannVsMachineAlarmStatus", bStatus);
 }
