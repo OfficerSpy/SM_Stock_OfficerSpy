@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_tffx_included
+	#endinput
+#endif
+#define _stock_officerspy_tffx_included
+
 #include <stocklib_officerspy/gameinterface>
 
 enum //WeaponSound_t

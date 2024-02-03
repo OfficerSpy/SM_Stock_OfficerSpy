@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_halloween_base_boss_included
+	#endinput
+#endif
+#define _stock_officerspy_halloween_base_boss_included
+
 #define TF_HBB_TEAM_HALLOWEEN	view_as<int>(TFTeam_Blue) + 2
 
 enum HalloweenBossType

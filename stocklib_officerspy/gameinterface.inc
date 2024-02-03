@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_gameinterface_included
+	#endinput
+#endif
+#define _stock_officerspy_gameinterface_included
+
 stock int GetParticleSystemIndex(const char[] pParticleSystemName)
 {
     if (pParticleSystemName[0])

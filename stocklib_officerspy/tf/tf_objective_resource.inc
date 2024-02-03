@@ -4,6 +4,11 @@ For best accuracy, these should be called once after CPopulationManager::UpdateO
 However, seems calling increments and decrements dircetly after it causes it to stack for some reason
 It's better to just set them to a constant number to enforce a consistent value instead */
 
+#if defined _stock_officerspy_tfobjectiveresource_included
+	#endinput
+#endif
+#define _stock_officerspy_tfobjectiveresource_included
+
 #define MVM_CLASS_FLAG_NONE				0
 #define MVM_CLASS_FLAG_NORMAL			(1<<0)
 #define MVM_CLASS_FLAG_SUPPORT			(1<<1)

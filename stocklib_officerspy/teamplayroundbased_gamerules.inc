@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_gamerules_included
+	#endinput
+#endif
+#define _stock_officerspy_gamerules_included
+
 stock void TeamplayRoundBasedRules_BroadcastSound(int team, const char[] sound, int additionalSoundFlags = 0)
 {
 	Event hEvent = CreateEvent("teamplay_broadcast_audio");

@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_tfplayershared_included
+	#endinput
+#endif
+#define _stock_officerspy_tfplayershared_included
+
 #include <tf2_stocks>
 
 stock TFClassType TF2_GetDisguiseClass(int client)

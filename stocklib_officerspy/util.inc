@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_util_included
+	#endinput
+#endif
+#define _stock_officerspy_util_included
+
 /* Though most of these functions can be easily recreated in SP, there may be some that were derived from other plugins
 ScreenFade and ScreenShake are mostly taken from Sentry Buster NPC */
 #define UTIL_FFADE_IN			0x0001

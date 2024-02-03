@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_player_included
+	#endinput
+#endif
+#define _stock_officerspy_player_included
+
 //It's gonna be real dumb when this gets defined multiple times
 #define BASEPLAYER_TEAM_ANY	-2
 #define	BASEPLAYER_TEAM_INVALID	-1

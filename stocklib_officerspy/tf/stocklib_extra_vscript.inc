@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_tf_extra_vscript_included
+	#endinput
+#endif
+#define _stock_officerspy_tf_extra_vscript_included
+
 enum WeaponRestrictionType
 {
 	ANY_WEAPON		= 0,

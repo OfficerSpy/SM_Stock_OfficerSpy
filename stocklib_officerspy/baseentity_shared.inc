@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_baseentityshared_included
+	#endinput
+#endif
+#define _stock_officerspy_baseentityshared_included
+
 stock void BaseEntity_EyePosition(int entity, float buffer[3])
 {
 	float absOrigin[3]; GetEntPropVector(entity, Prop_Data, "m_vecAbsOrigin", absOrigin); //GetAbsOrigin

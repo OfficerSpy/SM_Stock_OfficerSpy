@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_tfgamerules_included
+	#endinput
+#endif
+#define _stock_officerspy_tfgamerules_included
+
 #include <stocklib_officerspy/player>
 #include <stocklib_officerspy/stocklib_extra_vscript>
 

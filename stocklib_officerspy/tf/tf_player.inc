@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_tfplayer_included
+	#endinput
+#endif
+#define _stock_officerspy_tfplayer_included
+
 enum
 {
 	TFPLAYER_OBS_MODE_NONE = 0,

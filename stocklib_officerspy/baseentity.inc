@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_baseentity_included
+	#endinput
+#endif
+#define _stock_officerspy_baseentity_included
+
 #include <stocklib_officerspy/baseentity_shared>
 
 #define BASEENT_LIFE_ALIVE				0

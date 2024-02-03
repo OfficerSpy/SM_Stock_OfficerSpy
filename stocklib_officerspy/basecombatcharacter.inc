@@ -1,3 +1,8 @@
+#if defined _stock_officerspy_basecombatcharacter_included
+	#endinput
+#endif
+#define _stock_officerspy_basecombatcharacter_included
+
 stock void BaseCombatCharacter_AddGlowEffect(int entity)
 {
 	SetEntProp(entity, Prop_Send, "m_bGlowEnabled", true);
