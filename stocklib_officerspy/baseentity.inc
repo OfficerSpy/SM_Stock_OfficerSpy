@@ -267,3 +267,8 @@ stock bool BaseEntity_FVisible1(int entity, int pEntity, int traceMask, int ppBl
 	delete trace;
 	return true;
 }
+
+stock int BaseEntity_GetTeamNumber(int entity)
+{
+	return GetEntProp(entity, Prop_Send, "m_iTeamNum");
+}
