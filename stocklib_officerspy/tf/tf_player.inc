@@ -3,18 +3,20 @@
 #endif
 #define _stock_officerspy_tfplayer_included
 
+#if !defined OBS_MODE_NONE
 enum
 {
-	TFPLAYER_OBS_MODE_NONE = 0,
-	TFPLAYER_OBS_MODE_DEATHCAM,
-	TFPLAYER_OBS_MODE_FREEZECAM,
-	TFPLAYER_OBS_MODE_FIXED,
-	TFPLAYER_OBS_MODE_IN_EYE,
-	TFPLAYER_OBS_MODE_CHASE,
-	TFPLAYER_OBS_MODE_POI,
-	TFPLAYER_OBS_MODE_ROAMING,
-	TFPLAYER_NUM_OBSERVER_MODES,
+	OBS_MODE_NONE = 0,
+	OBS_MODE_DEATHCAM,
+	OBS_MODE_FREEZECAM,
+	OBS_MODE_FIXED,
+	OBS_MODE_IN_EYE,
+	OBS_MODE_CHASE,
+	OBS_MODE_POI,
+	OBS_MODE_ROAMING,
+	NUM_OBSERVER_MODES,
 };
+#endif
 
 stock TFClassType TF2_GetDesiredPlayerClassIndex(int client)
 {
@@ -33,7 +35,7 @@ stock void TF2_SetIsMiniBoss(int client, bool isMiniBoss)
 
 stock bool TF2_ModeWantsSpectatorGUI(int iMode)
 {
-	return iMode != TFPLAYER_OBS_MODE_FREEZECAM && iMode != TFPLAYER_OBS_MODE_DEATHCAM;
+	return iMode != OBS_MODE_FREEZECAM && iMode != OBS_MODE_DEATHCAM;
 }
 
 stock float TF2_GetLastDamageReceivedTime(int client)

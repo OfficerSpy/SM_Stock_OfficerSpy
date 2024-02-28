@@ -3,12 +3,13 @@
 #endif
 #define _stock_officerspy_player_included
 
-//It's gonna be real dumb when this gets defined multiple times
-#define BASEPLAYER_TEAM_ANY	-2
-#define	BASEPLAYER_TEAM_INVALID	-1
-#define BASEPLAYER_TEAM_UNASSIGNED	0
-#define BASEPLAYER_TEAM_SPECTATOR	1
-#define BASEPLAYER_LAST_SHARED_TEAM	BASEPLAYER_TEAM_SPECTATOR
+#if !defined TEAM_ANY
+#define TEAM_ANY	-2
+#define	TEAM_INVALID	-1
+#define TEAM_UNASSIGNED	0
+#define TEAM_SPECTATOR	1
+#define LAST_SHARED_TEAM	TEAM_SPECTATOR
+#endif
 
 stock void BasePlayer_SetHealth(int client, int amt)
 {
@@ -28,7 +29,7 @@ stock bool BasePlayer_IsFakeClient(int client)
 	return GetEntityFlags(client) & FL_FAKECLIENT != 0;
 }
 
-stock int CollectPlayers(ArrayList players, int team = BASEPLAYER_TEAM_ANY, bool isAlive = false, bool shouldAppend = false)
+stock int CollectPlayers(ArrayList players, int team = TEAM_ANY, bool isAlive = false, bool shouldAppend = false)
 {
 	if (!shouldAppend)
 		players.Clear();
@@ -38,7 +39,7 @@ stock int CollectPlayers(ArrayList players, int team = BASEPLAYER_TEAM_ANY, bool
 		if (!IsClientInGame(i))
 			continue;
 		
-		if (team != BASEPLAYER_TEAM_ANY && GetClientTeam(i) != team)
+		if (team != TEAM_ANY && GetClientTeam(i) != team)
 			continue;
 		
 		if (isAlive && !IsPlayerAlive(i))

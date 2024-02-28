@@ -5,37 +5,41 @@
 
 #include <stocklib_officerspy/gameinterface>
 
+#if !defined EMPTY
 enum //WeaponSound_t
 {
-	TFWS_EMPTY,
-	TFWS_SINGLE,
-	TFWS_SINGLE_NPC,
-	TFWS_WPN_DOUBLE,
-	TFWS_DOUBLE_NPC,
-	TFWS_BURST,
-	TFWS_RELOAD,
-	TFWS_RELOAD_NPC,
-	TFWS_MELEE_MISS,
-	TFWS_MELEE_HIT,
-	TFWS_MELEE_HIT_WORLD,
-	TFWS_SPECIAL1,
-	TFWS_SPECIAL2,
-	TFWS_SPECIAL3,
-	TFWS_TAUNT,
-	TFWS_DEPLOY,
-	TFWS_NUM_SHOOT_SOUND_TYPES,
+	EMPTY,
+	SINGLE,
+	SINGLE_NPC,
+	WPN_DOUBLE,
+	DOUBLE_NPC,
+	BURST,
+	RELOAD,
+	RELOAD_NPC,
+	MELEE_MISS,
+	MELEE_HIT,
+	MELEE_HIT_WORLD,
+	SPECIAL1,
+	SPECIAL2,
+	SPECIAL3,
+	TAUNT,
+	DEPLOY,
+	NUM_SHOOT_SOUND_TYPES,
 };
+#endif
 
-enum //ParticleAttachment_t
+#if !defined PATTACH_ABSORIGIN
+enum ParticleAttachment_t
 {
-	TFPATTACH_ABSORIGIN = 0,
-	TFPATTACH_ABSORIGIN_FOLLOW,
-	TFPATTACH_CUSTOMORIGIN,
-	TFPATTACH_POINT,
-	TFPATTACH_POINT_FOLLOW,
-	TFPATTACH_WORLDORIGIN,
-	TFPATTACH_ROOTBONE_FOLLOW
+	PATTACH_ABSORIGIN = 0,
+	PATTACH_ABSORIGIN_FOLLOW,
+	PATTACH_CUSTOMORIGIN,
+	PATTACH_POINT,
+	PATTACH_POINT_FOLLOW,
+	PATTACH_WORLDORIGIN,
+	PATTACH_ROOTBONE_FOLLOW
 };
+#endif
 
 stock void TE_FireBullets(int iPlayerIndex, const float vOrigin[3], const float vAngles[3], int iWeaponID, int iMode, int iSeed, float flSpread, bool bCritical)
 {
@@ -51,7 +55,7 @@ stock void TE_FireBullets(int iPlayerIndex, const float vOrigin[3], const float 
 	TE_SendToAll();
 }
 
-stock void TE_TFExplosion(float flDelay, const float vecOrigin[3], const float vecNormal[3], int iWeaponID, int nEntIndex, int nDefID = -1, int nSound = TFWS_SPECIAL1, int iCustomParticleIndex = INVALID_STRING_INDEX)
+stock void TE_TFExplosion(float flDelay, const float vecOrigin[3], const float vecNormal[3], int iWeaponID, int nEntIndex, int nDefID = -1, int nSound = SPECIAL1, int iCustomParticleIndex = INVALID_STRING_INDEX)
 {
 	TE_Start("TFExplosion");
 	TE_WriteVector("m_vecOrigin", vecOrigin);
@@ -81,7 +85,7 @@ stock void TE_TFParticleEffect(float flDelay, const char[] pszParticleName, int 
 	TE_SendToAll(flDelay);
 }
 
-stock void TE_TFParticleEffectComplex(float flDelay, const char[] pszParticleName, float vecOrigin[3], float vecAngles[3], float optionalColor1[3] = NULL_VECTOR, float optionalColor2[3] = NULL_VECTOR, int eParticleAttachment = -1, float vecOffset[3] = NULL_VECTOR, int pEntity = -1, int eAttachType = TFPATTACH_CUSTOMORIGIN, float vecStart[3] = NULL_VECTOR)
+stock void TE_TFParticleEffectComplex(float flDelay, const char[] pszParticleName, float vecOrigin[3], float vecAngles[3], float optionalColor1[3] = NULL_VECTOR, float optionalColor2[3] = NULL_VECTOR, int eParticleAttachment = -1, float vecOffset[3] = NULL_VECTOR, int pEntity = -1, ParticleAttachment_t eAttachType = PATTACH_CUSTOMORIGIN, float vecStart[3] = NULL_VECTOR)
 {
 	TE_Start("TFParticleEffect");
 	TE_WriteNum("m_iParticleSystemIndex", GetParticleSystemIndex(pszParticleName));
@@ -93,7 +97,7 @@ stock void TE_TFParticleEffectComplex(float flDelay, const char[] pszParticleNam
 	if (pEntity != -1)
 	{
 		TE_WriteNum("entindex", pEntity);
-		TE_WriteNum("m_iAttachType", eAttachType);
+		TE_WriteNum("m_iAttachType", view_as<int>(eAttachType));
 	}
 	
 	if (!IsNullVector(optionalColor1))

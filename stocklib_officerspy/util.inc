@@ -5,22 +5,26 @@
 
 /* Though most of these functions can be easily recreated in SP, there may be some that were derived from other plugins
 ScreenFade and ScreenShake are mostly taken from Sentry Buster NPC */
-#define UTIL_FFADE_IN			0x0001
-#define UTIL_FFADE_OUT			0x0002
-#define UTIL_FFADE_MODULATE		0x0004
-#define UTIL_FFADE_STAYOUT		0x0008
-#define UTIL_FFADE_PURGE			0x0010
-#define UTIL_SCREENFADE_FRACBITS	9
+#if !defined FFADE_IN
+#define FFADE_IN			0x0001
+#define FFADE_OUT			0x0002
+#define FFADE_MODULATE		0x0004
+#define FFADE_STAYOUT		0x0008
+#define FFADE_PURGE			0x0010
+#define SCREENFADE_FRACBITS	9
+#endif
 
+#if !defined SHAKE_START
 enum //ShakeCommand_t
 {
-	UTIL_SHAKE_START = 0,
-	UTIL_SHAKE_STOP,
-	UTIL_SHAKE_AMPLITUDE,
-	UTIL_SHAKE_FREQUENCY,
-	UTIL_SHAKE_START_RUMBLEONLY,
-	UTIL_SHAKE_START_NORUMBLE,
+	SHAKE_START = 0,
+	SHAKE_STOP,
+	SHAKE_AMPLITUDE,
+	SHAKE_FREQUENCY,
+	SHAKE_START_RUMBLEONLY,
+	SHAKE_START_NORUMBLE
 };
+#endif
 
 stock int FixedUnsigned16(float value, int scale)
 {
@@ -58,9 +62,9 @@ stock float ComputeShakeAmplitude(const float center[3], const float shake[3], f
 
 stock void TransmitShakeEvent(int player, float localAmplitude, float frequency, float duration, int eCommand)
 {
-	if ((localAmplitude > 0.0) || (eCommand == UTIL_SHAKE_STOP))
+	if ((localAmplitude > 0.0) || (eCommand == SHAKE_STOP))
 	{
-		if (eCommand == UTIL_SHAKE_STOP)
+		if (eCommand == SHAKE_STOP)
 			localAmplitude = 0.0;
 		
 		BfWrite msg = UserMessageToBfWrite(StartMessageOne("Shake", player, USERMSG_RELIABLE));
@@ -86,7 +90,7 @@ stock void UTIL_ScreenShake(const float center[3], float amplitude, float freque
 	
 	for (int i = 1; i <= MaxClients; i++)
 	{
-		if (!IsClientInGame(i) || (!bAirShake && (eCommand == UTIL_SHAKE_START) && !(GetEntityFlags(i) & FL_ONGROUND)))
+		if (!IsClientInGame(i) || (!bAirShake && (eCommand == SHAKE_START) && !(GetEntityFlags(i) & FL_ONGROUND)))
 			continue;
 		
 		float playerCenter[3];
@@ -108,8 +112,8 @@ stock void UTIL_ScreenFade(int player, int color[4], float fadeTime, float fadeH
 	BfWrite bf = UserMessageToBfWrite(StartMessageOne("Fade", player, USERMSG_RELIABLE));
 	if (bf != null)
 	{
-		bf.WriteShort(FixedUnsigned16(fadeTime, 1 << UTIL_SCREENFADE_FRACBITS));
-		bf.WriteShort(FixedUnsigned16(fadeHold, 1 << UTIL_SCREENFADE_FRACBITS));
+		bf.WriteShort(FixedUnsigned16(fadeTime, 1 << SCREENFADE_FRACBITS));
+		bf.WriteShort(FixedUnsigned16(fadeHold, 1 << SCREENFADE_FRACBITS));
 		bf.WriteShort(flags);
 		bf.WriteByte(color[0]);
 		bf.WriteByte(color[1]);

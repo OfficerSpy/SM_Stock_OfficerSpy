@@ -9,6 +9,7 @@ It's better to just set them to a constant number to enforce a consistent value 
 #endif
 #define _stock_officerspy_tfobjectiveresource_included
 
+#if !defined MVM_CLASS_FLAG_NONE
 #define MVM_CLASS_FLAG_NONE				0
 #define MVM_CLASS_FLAG_NORMAL			(1<<0)
 #define MVM_CLASS_FLAG_SUPPORT			(1<<1)
@@ -16,6 +17,7 @@ It's better to just set them to a constant number to enforce a consistent value 
 #define MVM_CLASS_FLAG_MINIBOSS			(1<<3)
 #define MVM_CLASS_FLAG_ALWAYSCRIT		(1<<4)
 #define MVM_CLASS_FLAG_SUPPORT_LIMITED	(1<<5)
+#endif
 
 stock void TF2_SetMannVsMachineMaxWaveCount(int iResource, int nCount)
 {

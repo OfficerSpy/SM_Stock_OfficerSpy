@@ -3,6 +3,7 @@
 #endif
 #define _stock_officerspy_tf_extra_vscript_included
 
+#if !defined ANY_WEAPON
 enum WeaponRestrictionType
 {
 	ANY_WEAPON		= 0,
@@ -10,7 +11,9 @@ enum WeaponRestrictionType
 	PRIMARY_ONLY	= 0x0002,
 	SECONDARY_ONLY	= 0x0004
 };
+#endif
 
+#if !defined REMOVE_ON_DEATH
 enum AttributeType
 {
 	NONE	= 0,
@@ -43,20 +46,23 @@ enum AttributeType
 	PARACHUTE	= (1 << 26),
 	PROJECTILE_SHIELD	= (1 << 27)
 };
+#endif
 
+#if !defined BOTSKILL_UNDEFINED
 enum DifficultyType
 {
-	TFBOT_DIFF_UNDEFINED = -1,
-	TFBOT_DIFF_EASY = 0,
-	TFBOT_DIFF_NORMAL = 1,
-	TFBOT_DIFF_HARD = 2,
-	TFBOT_DIFF_EXPERT = 3,
+	BOTSKILL_UNDEFINED = -1,
+	BOTSKILL_EASY = 0,
+	BOTSKILL_NORMAL = 1,
+	BOTSKILL_HARD = 2,
+	BOTSKILL_EXPERT = 3,
 	NUM_DIFFICULTY_LEVELS
 };
+#endif
 
 stock void VS_AddCustomAttribute(int client, char[] name, float value, float delay = -1.0)
 {
-	char buffer[256];	Format(buffer, sizeof(buffer), "!self.AddCustomAttribute(\"%s\", %f, %f)", name, value, delay);
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.AddCustomAttribute(\"%s\", %f, %f)", name, value, delay);
 	
 	SetVariantString(buffer);
 	AcceptEntityInput(client, "RunScriptCode");
@@ -64,7 +70,7 @@ stock void VS_AddCustomAttribute(int client, char[] name, float value, float del
 
 stock void VS_ForceChangeTeam(int client, int team, bool fullTeamSwitch = false)
 {
-	char buffer[256];	Format(buffer, sizeof(buffer), "!self.ForceChangeTeam(%d, %s)", team, fullTeamSwitch ? "true" : "false");
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.ForceChangeTeam(%d, %s)", team, fullTeamSwitch ? "true" : "false");
 	
 	SetVariantString(buffer);
 	AcceptEntityInput(client, "RunScriptCode");
@@ -72,7 +78,7 @@ stock void VS_ForceChangeTeam(int client, int team, bool fullTeamSwitch = false)
 
 stock void VS_AddBotAttribute(int tfbot, AttributeType attributeFlags)
 {
-	char buffer[256]; Format(buffer, sizeof(buffer), "!self.AddBotAttribute(%d)", attributeFlags)
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.AddBotAttribute(%d)", attributeFlags)
 	
 	SetVariantString(buffer);
 	AcceptEntityInput(tfbot, "RunScriptCode");
@@ -80,7 +86,7 @@ stock void VS_AddBotAttribute(int tfbot, AttributeType attributeFlags)
 
 stock void VS_AddWeaponRestriction(int tfbot, WeaponRestrictionType restrictionFlags)
 {
-	char buffer[256]; Format(buffer, sizeof(buffer), "!self.AddWeaponRestriction(%d)", restrictionFlags)
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.AddWeaponRestriction(%d)", restrictionFlags)
 	
 	SetVariantString(buffer);
 	AcceptEntityInput(tfbot, "RunScriptCode");
@@ -100,7 +106,7 @@ stock void VS_ClearWeaponRestrictions(int tfbot)
 
 stock void VS_SetDifficulty(int tfbot, DifficultyType difficulty)
 {
-	char buffer[256]; Format(buffer, sizeof(buffer), "!self.SetDifficulty(%d)", difficulty);
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.SetDifficulty(%d)", difficulty);
 	
 	SetVariantString(buffer);
 	AcceptEntityInput(tfbot, "RunScriptCode");
@@ -108,7 +114,7 @@ stock void VS_SetDifficulty(int tfbot, DifficultyType difficulty)
 
 stock void VS_SetAutoJump(int tfbot, float flAutoJumpMin, float flAutoJumpMax)
 {
-	char buffer[256]; Format(buffer, sizeof(buffer), "!self.SetAutoJump(%f, %f)", flAutoJumpMin, flAutoJumpMax);
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.SetAutoJump(%f, %f)", flAutoJumpMin, flAutoJumpMax);
 	
 	SetVariantString(buffer);
 	AcceptEntityInput(tfbot, "RunScriptCode");
@@ -116,7 +122,7 @@ stock void VS_SetAutoJump(int tfbot, float flAutoJumpMin, float flAutoJumpMax)
 
 stock void VS_SetMaxVisionRangeOverride(int tfbot, float range)
 {
-	char buffer[256]; Format(buffer, sizeof(buffer), "!self.SetMaxVisionRangeOverride(%f)", range);
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.SetMaxVisionRangeOverride(%f)", range);
 
 	SetVariantString(buffer);
 	AcceptEntityInput(tfbot, "RunScriptCode");

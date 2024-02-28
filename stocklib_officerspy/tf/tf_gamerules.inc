@@ -6,26 +6,33 @@
 #include <stocklib_officerspy/player>
 #include <stocklib_officerspy/stocklib_extra_vscript>
 
-#define GAMERULES_TF_TEAM_PVE_INVADERS	TFTeam_Blue
-#define GAMERULES_TF_TEAM_PVE_DEFENDERS	TFTeam_Red
+#if !defined TF_TEAM_PVE_INVADERS
+#define TF_TEAM_PVE_INVADERS	TFTeam_Blue
+#endif
 
+#if !defined TF_TEAM_PVE_DEFENDERS
+#define TF_TEAM_PVE_DEFENDERS	TFTeam_Red
+#endif
+
+#if !defined TF_GAMETYPE_UNDEFINED
 enum //ETFGameType
 {
-	GR_TF_GAMETYPE_UNDEFINED = 0,
-	GR_TF_GAMETYPE_CTF,
-	GR_TF_GAMETYPE_CP,
-	GR_TF_GAMETYPE_ESCORT,
-	GR_TF_GAMETYPE_ARENA,
-	GR_TF_GAMETYPE_MVM,
-	GR_TF_GAMETYPE_RD,
-	GR_TF_GAMETYPE_PASSTIME,
-	GR_TF_GAMETYPE_PD,
-	GR_TF_GAMETYPE_COUNT
+	TF_GAMETYPE_UNDEFINED = 0,
+	TF_GAMETYPE_CTF,
+	TF_GAMETYPE_CP,
+	TF_GAMETYPE_ESCORT,
+	TF_GAMETYPE_ARENA,
+	TF_GAMETYPE_MVM,
+	TF_GAMETYPE_RD,
+	TF_GAMETYPE_PASSTIME,
+	TF_GAMETYPE_PD,
+	TF_GAMETYPE_COUNT
 };
+#endif
 
 stock bool TF2_IsInArenaMode()
 {
-	return GameRules_GetProp("m_nGameType") == GR_TF_GAMETYPE_ARENA;
+	return GameRules_GetProp("m_nGameType") == TF_GAMETYPE_ARENA;
 }
 
 stock bool TF2_IsInKothMode()
@@ -70,7 +77,7 @@ stock bool TF2_GameModeUsesMiniBosses()
 
 stock bool TF2_IsPasstimeMode()
 {
-	return GameRules_GetProp("m_nGameType") == GR_TF_GAMETYPE_PASSTIME;
+	return GameRules_GetProp("m_nGameType") == TF_GAMETYPE_PASSTIME;
 }
 
 stock bool TF2_IsMannVsMachineRespecEnabled()
@@ -115,7 +122,7 @@ stock bool TF2_IsPVEModeControlled(int who)
 	//This assumes the entity is always a player and honestly
 	//it should never be anything else as far as I know
 	if (TF2_IsMannVsMachineMode())
-		return TF2_GetClientTeam(who) == GAMERULES_TF_TEAM_PVE_INVADERS ? true : false;
+		return TF2_GetClientTeam(who) == TF_TEAM_PVE_INVADERS ? true : false;
 	
 	if (TF2_IsPVEModeActive())
 		return TF2_GetClientTeam(who) == TFTeam_Red ? true : false;

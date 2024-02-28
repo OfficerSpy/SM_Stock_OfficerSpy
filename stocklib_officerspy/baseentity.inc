@@ -5,17 +5,24 @@
 
 #include <stocklib_officerspy/baseentity_shared>
 
-#define BASEENT_LIFE_ALIVE				0
-#define BASEENT_LIFE_DYING				1
-#define BASEENT_LIFE_DEAD				2
-#define BASEENT_LIFE_RESPAWNABLE		3
-#define BASEENT_LIFE_DISCARDBODY		4
+#if !defined LIFE_ALIVE
+#define LIFE_ALIVE				0
+#define LIFE_DYING				1
+#define LIFE_DEAD				2
+#define LIFE_RESPAWNABLE		3
+#define LIFE_DISCARDBODY		4
+#endif
 
-#define BASEENT_CONTENTS_BLOCKLOS	CONTENTS_MIST
+#if !defined CONTENTS_BLOCKLOS
+#define CONTENTS_BLOCKLOS	CONTENTS_MIST
+#endif
 
-#define BASEENT_MASK_BLOCKLOS			CONTENTS_SOLID|CONTENTS_MOVEABLE|BASEENT_CONTENTS_BLOCKLOS
-#define BASEENT_MASK_BLOCKLOS_AND_NPCS	BASEENT_MASK_BLOCKLOS|CONTENTS_MONSTER
+#if !defined MASK_BLOCKLOS
+#define MASK_BLOCKLOS			CONTENTS_SOLID|CONTENTS_MOVEABLE|CONTENTS_BLOCKLOS
+#define MASK_BLOCKLOS_AND_NPCS	MASK_BLOCKLOS|CONTENTS_MONSTER
+#endif
 
+#if !defined VISION_MODE_NONE
 enum
 {
 	VISION_MODE_NONE = 0,
@@ -24,6 +31,7 @@ enum
 	VISION_MODE_ROME,
 	MAX_VISION_MODES
 };
+#endif
 
 stock void BaseEntity_ClearModelIndexOverrides(int entity)
 {
@@ -218,7 +226,7 @@ stock int BaseEntity_GetFlags(int entity)
 
 stock bool BaseEntity_IsAlive(int entity)
 {
-	return GetEntProp(entity, Prop_Data, "m_lifeState") == BASEENT_LIFE_ALIVE;
+	return GetEntProp(entity, Prop_Data, "m_lifeState") == LIFE_ALIVE;
 }
 
 stock bool BaseEntity_FVisible1(int entity, int pEntity, int traceMask, int ppBlocker = -1)
@@ -237,11 +245,11 @@ stock bool BaseEntity_FVisible1(int entity, int pEntity, int traceMask, int ppBl
 	}
 	else
 	{
-		if (traceMask == BASEENT_MASK_BLOCKLOS)
-			traceMask = BASEENT_MASK_BLOCKLOS_AND_NPCS;
+		if (traceMask == MASK_BLOCKLOS)
+			traceMask = MASK_BLOCKLOS_AND_NPCS;
 		
 		if (entity > 0 && entity <= MaxClients)
-			traceMask &= ~BASEENT_CONTENTS_BLOCKLOS;
+			traceMask &= ~CONTENTS_BLOCKLOS;
 		
 		//TODO: filter?
 		trace = TR_TraceRayEx(vecLookerOrigin, vecTargetOrigin, traceMask, RayType_EndPoint);
