@@ -3,8 +3,6 @@
 #endif
 #define _stock_officerspy_baseentity_included
 
-#include <stocklib_officerspy/baseentity_shared>
-
 #if !defined LIFE_ALIVE
 #define LIFE_ALIVE				0
 #define LIFE_DYING				1
@@ -18,11 +16,14 @@
 #endif
 
 #if !defined MASK_BLOCKLOS
-#define MASK_BLOCKLOS			CONTENTS_SOLID|CONTENTS_MOVEABLE|CONTENTS_BLOCKLOS
+#define MASK_BLOCKLOS	CONTENTS_SOLID|CONTENTS_MOVEABLE|CONTENTS_BLOCKLOS
+#endif
+
+#if !defined MASK_BLOCKLOS_AND_NPCS
 #define MASK_BLOCKLOS_AND_NPCS	MASK_BLOCKLOS|CONTENTS_MONSTER
 #endif
 
-#if !defined VISION_MODE_NONE
+#if !defined ENUMERATION_VISON_MODE
 enum
 {
 	VISION_MODE_NONE = 0,
@@ -31,6 +32,25 @@ enum
 	VISION_MODE_ROME,
 	MAX_VISION_MODES
 };
+#define ENUMERATION_VISON_MODE
+#endif
+
+#if !defined ENUMERATION_EF && !defined EF_BONEMERGE
+enum
+{
+	EF_BONEMERGE	= 0x001,
+	EF_BRIGHTLIGHT	= 0x002,
+	EF_DIMLIGHT	= 0x004,
+	EF_NOINTERP	= 0x008,
+	EF_NOSHADOW	= 0x010,
+	EF_NODRAW	= 0x020,
+	EF_NORECEIVESHADOW	= 0x040,
+	EF_BONEMERGE_FASTCULL	= 0x080,
+	EF_ITEM_BLINK	= 0x100,
+	EF_PARENT_ANIMATES	= 0x200,
+	EF_MAX_BITS	= 10
+};
+#define ENUMERATION_EF
 #endif
 
 stock void BaseEntity_ClearModelIndexOverrides(int entity)
@@ -279,4 +299,82 @@ stock bool BaseEntity_FVisible1(int entity, int pEntity, int traceMask, int ppBl
 stock int BaseEntity_GetTeamNumber(int entity)
 {
 	return GetEntProp(entity, Prop_Send, "m_iTeamNum");
+}
+
+stock void BaseEntity_EyePosition(int entity, float buffer[3])
+{
+	float absOrigin[3]; GetEntPropVector(entity, Prop_Data, "m_vecAbsOrigin", absOrigin); //GetAbsOrigin
+	float viewOffset[3]; GetEntPropVector(entity, Prop_Data, "m_vecViewOffset", viewOffset); //GetViewOffset
+	
+	AddVectors(absOrigin, viewOffset, buffer);
+}
+
+stock void BaseEntity_EyeAngles(int entity, float buffer[3])
+{
+	GetEntPropVector(entity, Prop_Data, "m_angAbsRotation", buffer); //GetAbsAngles
+}
+
+stock void BaseEntity_LocalEyeAngles(int entity, float buffer[3])
+{
+	GetEntPropVector(entity, Prop_Data, "m_angRotation", buffer); //GetLocalAngles
+}
+
+stock void BaseEntity_EarPosition(int entity, float buffer[3])
+{
+	BaseEntity_EyePosition(entity, buffer);
+}
+
+stock void BaseEntity_SetViewOffset(int entity, float v[3])
+{
+	SetEntPropVector(entity, Prop_Data, "m_vecViewOffset", v);
+}
+
+stock void BaseEntity_GetViewOffset(int entity, float buffer[3])
+{
+	GetEntPropVector(entity, Prop_Data, "m_vecViewOffset", buffer);
+}
+
+stock void BaseEntity_ApplyAbsVelocityImpulse(int entity, const float inVecImpulse[3])
+{
+	if (!IsNullVector(inVecImpulse))
+	{
+		float vecImpulse[3]; vecImpulse = inVecImpulse;
+		
+		//MISSING: safety checks?
+		
+		if (GetEntityMoveType(entity) == MOVETYPE_VPHYSICS)
+		{
+			//MISSING: VPhysicsGetObject()->AddVelocity( &vecImpulse, NULL );
+		}
+		else
+		{
+			float vAbsVelocity[3]; GetEntPropVector(entity, Prop_Data, "m_vecAbsVelocity", vAbsVelocity); //GetAbsVelocity
+			
+			float vecResult[3];
+			AddVectors(vAbsVelocity, vecImpulse, vecResult);
+			TeleportEntity(entity, NULL_VECTOR, NULL_VECTOR, vecResult); //SetAbsVelocity
+		}
+	}
+}
+
+#pragma deprecated This function is not correct
+stock void BaseEntity_WorldSpaceCenter(int entity, float buffer[3])
+{
+	/* TOOD: this is not how this function works!
+	The actual function goes through like this:
+	CBaseEntity::WorldSpaceCenter < CCollisionProperty::WorldSpaceCenter */
+	
+	GetEntPropVector(entity, Prop_Data, "m_vecAbsOrigin", buffer);
+}
+
+stock void BaseEntity_AddEffects(int entity, int nEffects)
+{
+	int flags = GetEntProp(entity, Prop_Send, "m_fEffects");
+	flags |= nEffects;
+	SetEntProp(entity, Prop_Send, "m_fEffects", flags);
+	
+	if (nEffects & EF_NODRAW)
+	{
+		//MISSING: DispatchUpdateTransmitState
+	}
 }

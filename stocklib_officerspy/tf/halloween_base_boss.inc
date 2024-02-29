@@ -7,7 +7,7 @@
 #define TF_TEAM_HALLOWEEN	view_as<int>(TFTeam_Blue) + 2
 #endif
 
-#if !defined HALLOWEEN_BOSS_INVALID
+#if !defined HalloweenBossType_ENABLED
 enum HalloweenBossType
 {
 	HALLOWEEN_BOSS_INVALID = 0,
@@ -15,6 +15,7 @@ enum HalloweenBossType
 	HALLOWEEN_BOSS_MONOCULUS = 2,
 	HALLOWEEN_BOSS_MERASMUS = 3,
 };
+#define HalloweenBossType_ENABLED
 #endif
 
 stock int TF2_SpawnBossAtPos(HalloweenBossType bossType, const float vSpawnPos[3], int nTeam = TF_TEAM_HALLOWEEN, int owner = INVALID_ENT_REFERENCE)

@@ -4,6 +4,29 @@
 #define _stock_officerspy_tfplayershared_included
 
 #include <tf2_stocks>
+#include <stocklib_officerspy/other/cpp_valve>
+
+#if !defined ETFStreak_ENABLED
+enum ETFStreak
+{
+	kTFStreak_Kills	= 0,
+	kTFStreak_KillsAll	= 1,
+	kTFStreak_Ducks	= 2,
+	kTFStreak_Duck_levelup	= 3, 
+	kTFStreak_COUNT	= 4
+};
+#define ETFStreak_ENABLED
+#endif
+
+#if !defined ENUMERATION_MELEE
+enum
+{
+	MELEE_NOCRIT = 0,
+	MELEE_MINICRIT = 1,
+	MELEE_CRIT = 2,
+};
+#define ENUMERATION_MELEE
+#endif
 
 stock TFClassType TF2_GetDisguiseClass(int client)
 {
@@ -250,6 +273,111 @@ stock bool TF2_IsCarryingObject(int client)
 stock int TF2_GetCarriedObject(int client)
 {
 	return GetEntPropEnt(client, Prop_Send, "m_hCarriedObject");
+}
+
+stock void TF2_SetFeignDeathReady(int client, bool bVal)
+{
+	SetEntProp(client, Prop_Send, "m_bFeignDeathReady", bVal);
+}
+
+stock bool TF2_IsFeignDeathReady(int client)
+{
+	return view_as<bool>(GetEntProp(client, Prop_Send, "m_bFeignDeathReady"));
+}
+
+stock void TF2_SetShieldEquipped(int client, bool bVal)
+{
+	SetEntProp(client, Prop_Send, "m_bShieldEquipped", bVal);
+}
+
+stock bool TF2_IsShieldEquipped(int client)
+{
+	return view_as<bool>(GetEntProp(client, Prop_Send, "m_bShieldEquipped"));
+}
+
+stock void TF2_SetParachuteEquipped(int client, bool bVal)
+{
+	SetEntProp(client, Prop_Send, "m_bParachuteEquipped", bVal);
+}
+
+stock bool TF2_IsParachuteEquipped(int client)
+{
+	return view_as<bool>(GetEntProp(client, Prop_Send, "m_bParachuteEquipped"));
+}
+
+stock void TF2_SetNextMeleeCrit(int client, int iVal)
+{
+	SetEntProp(client, Prop_Send, "m_iNextMeleeCrit", iVal);
+}
+
+stock int TF2_GetNextMeleeCrit(int client)
+{
+	return GetEntProp(client, Prop_Send, "m_iNextMeleeCrit");
+}
+
+stock void TF2_SetDecapitations(int client, int iVal)
+{
+	SetEntProp(client, Prop_Send, "m_iDecapitations", iVal);
+}
+
+stock int TF2_GetDecapitations(int client)
+{
+	return GetEntProp(client, Prop_Send, "m_iDecapitations");
+}
+
+stock void TF2_SetStreak(int client, ETFStreak streak_type, int iVal)
+{
+	SetEntProp(client, Prop_Send, "m_nStreaks", iVal, _, view_as<int>(streak_type));
+}
+
+stock int TF2_GetStreak(int client, ETFStreak streak_type)
+{
+	return GetEntProp(client, Prop_Send, "m_nStreaks", _, view_as<int>(streak_type));
+}
+
+stock int TF2_IncrementStreak(int client, ETFStreak streak_type, int iVal)
+{
+	//TODO: duck streaks?
+	
+	SetEntProp(client, Prop_Send, "m_nStreaks", GetEntProp(client, Prop_Send, "m_nStreaks", _, view_as<int>(streak_type)) + iVal, _, view_as<int>(streak_type));
+	
+	return GetEntProp(client, Prop_Send, "m_nStreaks", _, view_as<int>(streak_type));
+}
+
+stock void TF2_ResetStreaks(int client)
+{
+	for (int streak_type = 0; streak_type < kTFStreak_COUNT; streak_type++)
+		SetEntProp(client, Prop_Send, "m_nStreaks", 0, _, streak_type);
+}
+
+stock int TF2_GetRevengeCrits(int client)
+{
+	return GetEntProp(client, Prop_Send, "m_iRevengeCrits");
+}
+
+stock float TF2_GetNextNoiseMakerTime(int client)
+{
+	return GetEntPropFloat(client, Prop_Send, "m_flNextNoiseMakerTime");
+}
+
+stock void TF2_SetNextNoiseMakerTime(int client, float time)
+{
+	SetEntPropFloat(client, Prop_Send, "m_flNextNoiseMakerTime", time);
+}
+
+stock void TF2_IncrementRespawnTouchCount(int client)
+{
+	SetEntProp(client, Prop_Send, "m_iSpawnRoomTouchCount", GetEntProp(client, Prop_Send, "m_iSpawnRoomTouchCount") + 1);
+}
+
+stock void TF2_DecrementRespawnTouchCount(int client)
+{
+	SetEntProp(client, Prop_Send, "m_iSpawnRoomTouchCount", MaxInt(GetEntProp(client, Prop_Send, "m_iSpawnRoomTouchCount") - 1, 0));
+}
+
+stock int TF2_GetRespawnTouchCount(int client)
+{
+	return GetEntProp(client, Prop_Send, "m_iSpawnRoomTouchCount");
 }
 
 stock float TF2_GetPercentInvisible(int client)

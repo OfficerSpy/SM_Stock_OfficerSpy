@@ -23,6 +23,14 @@ stock void VS_SetAbsAngles(int entity, float absAngles[3])
 	AcceptEntityInput(entity, "RunScriptCode");
 }
 
+stock void VS_SetAbsVelocity(int entity, float velocity[3])
+{
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.SetAbsVelocity(Vector(%f, %f, %f))", velocity[0], velocity[1], velocity[2]);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(entity, "RunScriptCode");
+}
+
 stock void VS_SetAbsOrigin(int entity, float absOrigin[3])
 {
 	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.SetAbsOrigin(Vector(%f, %f, %f))", absOrigin[0], absOrigin[1], absOrigin[2]);
@@ -61,4 +69,12 @@ stock void VS_SetModelScale(int entity, float scale, float change_duration = 0.0
 	
 	SetVariantString(buffer);
 	AcceptEntityInput(entity, "RunScriptCode");
+}
+
+stock void VS_SnapEyeAngles(int client, float angles[3])
+{
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.SnapEyeAngles(QAngle(%f, %f, %f))", angles[0], angles[1], angles[2]);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(client, "RunScriptCode");
 }

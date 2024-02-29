@@ -3,7 +3,11 @@
 #endif
 #define _stock_officerspy_tfplayer_included
 
-#if !defined OBS_MODE_NONE
+#include <stocklib_officerspy/tf/tf_item>
+#include <stocklib_officerspy/other/cpp>
+#include <stocklib_officerspy/other/cpp_valve>
+
+#if !defined ENUMERATION_OBS_MODE
 enum
 {
 	OBS_MODE_NONE = 0,
@@ -16,6 +20,21 @@ enum
 	OBS_MODE_ROAMING,
 	NUM_OBSERVER_MODES,
 };
+#define ENUMERATION_OBS_MODE
+#endif
+
+#if !defined ETFFlagType_ENABLED
+enum ETFFlagType
+{
+	TF_FLAGTYPE_CTF = 0,
+	TF_FLAGTYPE_ATTACK_DEFEND,
+	TF_FLAGTYPE_TERRITORY_CONTROL,
+	TF_FLAGTYPE_INVADE,
+	TF_FLAGTYPE_RESOURCE_CONTROL,
+	TF_FLAGTYPE_ROBOT_DESTRUCTION,
+	TF_FLAGTYPE_PLAYER_DESTRUCTION
+};
+#define ETFFlagType_ENABLED
 #endif
 
 stock TFClassType TF2_GetDesiredPlayerClassIndex(int client)
@@ -145,8 +164,7 @@ stock int TF2_GetExperienceLevel(int client)
 
 stock void TF2_SetExperienceLevel(int client, int nValue)
 {
-	//TODO: this is limited by a MAX value
-	SetEntProp(client, Prop_Send, "m_nExperienceLevel", nValue);
+	SetEntProp(client, Prop_Send, "m_nExperienceLevel", MaxInt(nValue, 1));
 }
 
 stock void TF2_SetMatchSafeToLeave(int client, bool bMatchSafeToLeave)
@@ -161,8 +179,7 @@ stock float TF2_GetKartHealth(int client)
 
 stock void TF2_AddKartDamage(int client, int iDamage)
 {
-	//TODO: this is limited by a MAX value
-	SetEntProp(client, Prop_Send, "m_iKartHealth", iDamage);
+	SetEntProp(client, Prop_Send, "m_iKartHealth", MaxInt(0, GetEntProp(client, Prop_Send, "m_iKartHealth") + iDamage));
 }
 
 stock int TF2_GetGrapplingHookTarget(int client)
@@ -215,4 +232,83 @@ stock bool TF2_IsInPurgatory(int client)
 stock bool TF2_IsMiniBoss(int client)
 {
 	return view_as<bool>(GetEntProp(client, Prop_Send, "m_bIsMiniBoss"));
+}
+
+stock bool TF2_HasCampaignMedal(int client, int iMedal)
+{
+	return GetEntProp(client, Prop_Send, "m_iCampaignMedals") & iMedal != 0;
+}
+
+//Same as BaseCombatCharacter_GetActiveWeapon
+stock int TF2_GetActiveTFWeapon(int client)
+{
+	//The assert is not necessary as it feels like it was meant to return NULL regardless
+	return GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
+}
+
+stock bool TF2_HasItem(int client)
+{
+	return GetEntPropEnt(client, Prop_Send, "m_hItem") != -1;
+}
+
+stock void TF2_SetItem(int client, int pItem)
+{
+	SetEntPropEnt(client, Prop_Send, "m_hItem", pItem);
+	
+	if (pItem != -1)
+		SetEntProp(client, Prop_Send, "m_bGlowEnabled", true); //AddGlowEffect
+	else
+		SetEntProp(client, Prop_Send, "m_bGlowEnabled", false); //RemoveGlowEffect
+	
+	if (pItem != -1 && TF2_GetItemID(pItem) == TF_ITEM_CAPTURE_FLAG)
+	{
+		//MISSING: remove invisiblity
+	}
+}
+
+stock int TF2_GetItem(int client)
+{
+	return GetEntPropEnt(client, Prop_Send, "m_hItem");
+}
+
+stock bool TF2_HasTheFlag(int client, ETFFlagType[] exceptionTypes = {}, int nNumExceptions = 0)
+{
+	int item = GetEntPropEnt(client, Prop_Send, "m_hItem");
+	
+	if (item != -1 && TF2_GetItemID(item) == TF_ITEM_CAPTURE_FLAG)
+	{
+		for (int i = 0; i < nNumExceptions; i++)
+			if (exceptionTypes[i] == view_as<ETFFlagType>(GetEntProp(item, Prop_Send, "m_nType")))
+				return false
+		
+		return true;
+	}
+	
+	return false;
+}
+
+stock int TF2_GetClosestCaptureZone(int client)
+{
+	int pCaptureZone = -1;
+	float flClosestDistance = FLT_MAX;
+	float origin[3]; GetClientAbsOrigin(client, origin);
+	float center[3];
+	
+	int pTempCaptureZone = -1;
+	while ((pTempCaptureZone = FindEntityByClassname(pTempCaptureZone, "func_capturezone")) != -1)
+	{
+		if (GetEntProp(pTempCaptureZone, Prop_Send, "m_bDisabled") == 0 && GetEntProp(pTempCaptureZone, Prop_Send, "m_iTeamNum") == GetClientTeam(client))
+		{
+			BaseEntity_WorldSpaceCenter(pCaptureZone, center);
+			float fCurrentDistance = GetVectorDistance(origin, center);
+			
+			if (flClosestDistance > fCurrentDistance)
+			{
+				pCaptureZone = pTempCaptureZone;
+				flClosestDistance = fCurrentDistance;
+			}
+		}
+	}
+	
+	return pCaptureZone;
 }

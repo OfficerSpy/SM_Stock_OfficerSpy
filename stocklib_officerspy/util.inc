@@ -14,8 +14,8 @@ ScreenFade and ScreenShake are mostly taken from Sentry Buster NPC */
 #define SCREENFADE_FRACBITS	9
 #endif
 
-#if !defined SHAKE_START
-enum //ShakeCommand_t
+#if !defined ShakeCommand_t_ENABLED
+enum ShakeCommand_t
 {
 	SHAKE_START = 0,
 	SHAKE_STOP,
@@ -24,6 +24,7 @@ enum //ShakeCommand_t
 	SHAKE_START_RUMBLEONLY,
 	SHAKE_START_NORUMBLE
 };
+#define ShakeCommand_t_ENABLED
 #endif
 
 stock int FixedUnsigned16(float value, int scale)
@@ -60,7 +61,7 @@ stock float ComputeShakeAmplitude(const float center[3], const float shake[3], f
 	return localAmplitude;
 }
 
-stock void TransmitShakeEvent(int player, float localAmplitude, float frequency, float duration, int eCommand)
+stock void TransmitShakeEvent(int player, float localAmplitude, float frequency, float duration, ShakeCommand_t eCommand)
 {
 	if ((localAmplitude > 0.0) || (eCommand == SHAKE_STOP))
 	{
@@ -81,7 +82,7 @@ stock void TransmitShakeEvent(int player, float localAmplitude, float frequency,
 }
 
 const float MAX_SHAKE_AMPLITUDE = 16.0;
-stock void UTIL_ScreenShake(const float center[3], float amplitude, float frequency, float duration, float radius, int eCommand, bool bAirShake)
+stock void UTIL_ScreenShake(const float center[3], float amplitude, float frequency, float duration, float radius, ShakeCommand_t eCommand, bool bAirShake)
 {
 	float localAmplitude;
 	

@@ -3,7 +3,7 @@
 #endif
 #define _stock_officerspy_tf_extra_vscript_included
 
-#if !defined ANY_WEAPON
+#if !defined WeaponRestrictionType_ENABLED
 enum WeaponRestrictionType
 {
 	ANY_WEAPON		= 0,
@@ -11,9 +11,10 @@ enum WeaponRestrictionType
 	PRIMARY_ONLY	= 0x0002,
 	SECONDARY_ONLY	= 0x0004
 };
+#define WeaponRestrictionType_ENABLED
 #endif
 
-#if !defined REMOVE_ON_DEATH
+#if !defined AttributeType_ENABLED
 enum AttributeType
 {
 	NONE	= 0,
@@ -46,9 +47,10 @@ enum AttributeType
 	PARACHUTE	= (1 << 26),
 	PROJECTILE_SHIELD	= (1 << 27)
 };
+#define AttributeType_ENABLED
 #endif
 
-#if !defined BOTSKILL_UNDEFINED
+#if !defined DifficultyType_ENABLED
 enum DifficultyType
 {
 	BOTSKILL_UNDEFINED = -1,
@@ -58,6 +60,7 @@ enum DifficultyType
 	BOTSKILL_EXPERT = 3,
 	NUM_DIFFICULTY_LEVELS
 };
+#define DifficultyType_ENABLED
 #endif
 
 stock void VS_AddCustomAttribute(int client, char[] name, float value, float delay = -1.0)

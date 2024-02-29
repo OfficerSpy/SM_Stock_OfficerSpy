@@ -14,8 +14,8 @@
 #define TF_TEAM_PVE_DEFENDERS	TFTeam_Red
 #endif
 
-#if !defined TF_GAMETYPE_UNDEFINED
-enum //ETFGameType
+#if !defined ETFGameType_ENABLED
+enum ETFGameType
 {
 	TF_GAMETYPE_UNDEFINED = 0,
 	TF_GAMETYPE_CTF,
@@ -28,11 +28,12 @@ enum //ETFGameType
 	TF_GAMETYPE_PD,
 	TF_GAMETYPE_COUNT
 };
+#define ETFGameType_ENABLED
 #endif
 
 stock bool TF2_IsInArenaMode()
 {
-	return GameRules_GetProp("m_nGameType") == TF_GAMETYPE_ARENA;
+	return view_as<ETFGameType>(GameRules_GetProp("m_nGameType")) == TF_GAMETYPE_ARENA;
 }
 
 stock bool TF2_IsInKothMode()
