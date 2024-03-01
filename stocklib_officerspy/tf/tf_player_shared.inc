@@ -346,7 +346,7 @@ stock int TF2_IncrementStreak(int client, ETFStreak streak_type, int iVal)
 
 stock void TF2_ResetStreaks(int client)
 {
-	for (int streak_type = 0; streak_type < kTFStreak_COUNT; streak_type++)
+	for (int streak_type = 0; streak_type < view_as<int>(kTFStreak_COUNT); streak_type++)
 		SetEntProp(client, Prop_Send, "m_nStreaks", 0, _, streak_type);
 }
 
@@ -402,4 +402,19 @@ stock int TF2_GetHealerByIndex(int client, int index)
 	
 	//m_aHealers[index].pHealer
 	return (LoadFromAddress(pHealers + view_as<Address>(index * 0x24), NumberType_Int32) & 0xFFF);
+}
+
+stock bool TF2_AddToSpyCloakMeter(int client, float val) //MISSING: bForce
+{
+	//MISSING: Weapon_OwnsThisID
+	
+	//MISSING: attribute NoCloakWhenCloaked
+	
+	float cloakMeter = GetEntPropFloat(client, Prop_Send, "m_flCloakMeter");
+	
+	bool bResult = (val > 0 && cloakMeter < 100.0);
+	
+	SetEntPropFloat(client, Prop_Send, "m_flCloakMeter", ClampFloat(cloakMeter + val, 0.0, 100.0));
+	
+	return bResult;
 }

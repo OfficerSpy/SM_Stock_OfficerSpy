@@ -3,6 +3,8 @@
 #endif
 #define _stock_officerspy_util_included
 
+#include <stocklib_officerspy/baseentity>
+
 /* Though most of these functions can be easily recreated in SP, there may be some that were derived from other plugins
 ScreenFade and ScreenShake are mostly taken from Sentry Buster NPC */
 #if !defined FFADE_IN
@@ -94,8 +96,7 @@ stock void UTIL_ScreenShake(const float center[3], float amplitude, float freque
 		if (!IsClientInGame(i) || (!bAirShake && (eCommand == SHAKE_START) && !(GetEntityFlags(i) & FL_ONGROUND)))
 			continue;
 		
-		float playerCenter[3];
-		playerCenter = WorldSpaceCenter(i);
+		float playerCenter[3]; BaseEntity_WorldSpaceCenter(i, playerCenter);
 		
 		localAmplitude = ComputeShakeAmplitude(center, playerCenter, amplitude, radius);
 		
