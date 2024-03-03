@@ -249,6 +249,15 @@ stock bool BaseEntity_IsAlive(int entity)
 	return GetEntProp(entity, Prop_Data, "m_lifeState") == LIFE_ALIVE;
 }
 
+stock bool BaseEntity_IsBaseObject(int entity)
+{
+	//In TF2, only CBaseObject entities are base objects
+	if (GetEngineVersion() == Engine_TF2)
+		return HasEntProp(entity, Prop_Data, "CBaseObjectUpgradeThink");
+	
+	return false;
+}
+
 stock bool BaseEntity_FVisible1(int entity, int pEntity, int traceMask, int ppBlocker = -1)
 {
 	if (GetEntityFlags(pEntity) & FL_NOTARGET)
