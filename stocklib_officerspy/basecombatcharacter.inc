@@ -3,9 +3,54 @@
 #endif
 #define _stock_officerspy_basecombatcharacter_included
 
+#include <stocklib_officerspy/baseflex>
+
 #if !defined MAX_WEAPONS
 #define MAX_WEAPONS	48
 #endif
+
+methodmap OSBaseCombatCharacter < OSBaseFlex
+{
+	public OSBaseCombatCharacter(int index)
+	{
+		return view_as<OSBaseCombatCharacter>(index);
+	}
+	
+	public void AddGlowEffect()
+	{
+		BaseCombatCharacter_AddGlowEffect(this.index);
+	}
+	
+	public void RemoveGlowEffect()
+	{
+		BaseCombatCharacter_RemoveGlowEffect(this.index);
+	}
+	
+	public bool IsGlowEffectActive()
+	{
+		return BaseCombatCharacter_IsGlowEffectActive(this.index);
+	}
+	
+	public int GetActiveWeapon()
+	{
+		return BaseCombatCharacter_GetActiveWeapon(this.index);
+	}
+	
+	public void SetActiveWeapon(int pNewWeapon)
+	{
+		BaseCombatCharacter_SetActiveWeapon(this.index, pNewWeapon);
+	}
+	
+	public void ClearActiveWeapon()
+	{
+		BaseCombatCharacter_ClearActiveWeapon(this.index);
+	}
+	
+	public void RemoveAllWeapons()
+	{
+		BaseCombatCharacter_RemoveAllWeapons(this.index);
+	}
+}
 
 stock void BaseCombatCharacter_AddGlowEffect(int entity)
 {

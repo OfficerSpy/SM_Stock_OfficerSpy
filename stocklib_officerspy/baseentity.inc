@@ -53,6 +53,264 @@ enum
 #define ENUMERATION_EF
 #endif
 
+methodmap OSBaseEntity
+{
+	public OSBaseEntity(int index)
+	{
+		return view_as<OSBaseEntity>(index);
+	}
+	
+	property int index
+	{
+		public get()	{ return view_as<int>(this); }
+	}
+	
+	public void ClearModelIndexOverrides()
+	{
+		BaseEntity_ClearModelIndexOverrides(this.index);
+	}
+	
+	public void SetModelIndexOverride(int index, int nValue)
+	{
+		BaseEntity_SetModelIndexOverride(this.index, index, nValue);
+	}
+	
+	public void SetOwnerEntity(int pOwner)
+	{
+		SetEntityOwner(this.index, pOwner);
+	}
+	
+	public int GetMaxHealth()
+	{
+		return BaseEntity_GetMaxHealth(this.index);
+	}
+	
+	public void SetMaxHealth(int amt)
+	{
+		BaseEntity_SetMaxHealth(this.index, amt);
+	}
+	
+	public int GetHealth()
+	{
+		return BaseEntity_GetHealth(this.index);
+	}
+	
+	public void SetHealth(int amt)
+	{
+		BaseEntity_SetHealth(this.index, amt);
+	}
+	
+	public void ChangeTeam(int iTeamNum)
+	{
+		BaseEntity_ChangeTeam(this.index, iTeamNum);
+	}
+	
+	public int GetMoveParent()
+	{
+		return BaseEntity_GetMoveParent(this.index);
+	}
+	
+	public int FirstMoveChild()
+	{
+		return BaseEntity_FirstMoveChild(this.index);
+	}
+	
+	public int NextMovePeer()
+	{
+		return BaseEntity_NextMovePeer(this.index);
+	}
+	
+	public int GetParent()
+	{
+		return BaseEntity_GetParent(this.index);
+	}
+	
+	public int GetParentAttachment()
+	{
+		return BaseEntity_GetParentAttachment(this.index);
+	}
+	
+	public void GetEntityName(char[] buffer, int maxlen)
+	{
+		BaseEntity_GetEntityName(this.index, buffer, maxlen);
+	}
+	
+	public void SetName(char[] newName)
+	{
+		BaseEntity_SetName(this.index, newName);
+	}
+	
+	public int GetSpawnFlags()
+	{
+		return BaseEntity_GetSpawnFlags(this.index);
+	}
+	
+	public void AddSpawnFlags(int nFlags)
+	{
+		BaseEntity_AddSpawnFlags(this.index, nFlags);
+	}
+	
+	public void RemoveSpawnFlags(int nFlags)
+	{
+		BaseEntity_RemoveSpawnFlags(this.index, nFlags);
+	}
+	
+	public void ClearSpawnFlags()
+	{
+		BaseEntity_ClearSpawnFlags(this.index);
+	}
+	
+	public bool HasSpawnFlags(int nFlags)
+	{
+		return BaseEntity_HasSpawnFlags(this.index, nFlags);
+	}
+	
+	public void GetLocalOrigin(float buffer[3])
+	{
+		BaseEntity_GetLocalOrigin(this.index, buffer);
+	}
+	
+	public void GetLocalAngles(float buffer[3])
+	{
+		BaseEntity_GetLocalAngles(this.index, buffer);
+	}
+	
+	public void GetAbsOrigin(float buffer[3])
+	{
+		BaseEntity_GetAbsOrigin(this.index, buffer);
+	}
+	
+	public void GetAbsAngles(float buffer[3])
+	{
+		BaseEntity_GetAbsAngles(this.index, buffer);
+	}
+	
+	public void GetLocalVelocity(float buffer[3])
+	{
+		BaseEntity_GetLocalVelocity(this.index, buffer);
+	}
+	
+	public void GetAbsVelocity(float buffer[3])
+	{
+		BaseEntity_GetAbsVelocity(this.index, buffer);
+	}
+	
+	public void GetLocalAngularVelocity(float buffer[3])
+	{
+		BaseEntity_GetLocalAngularVelocity(this.index, buffer);
+	}
+	
+	public void GetBaseVelocity(float buffer[3])
+	{
+		BaseEntity_GetBaseVelocity(this.index, buffer);
+	}
+	
+	public void SetBaseVelocity(float vec[3])
+	{
+		BaseEntity_SetBaseVelocity(this.index, vec);
+	}
+	
+	public float GetGravity()
+	{
+		return GetEntityGravity(this.index);
+	}
+	
+	public void SetGravity(float gravity)
+	{
+		SetEntityGravity(this.index, gravity);
+	}
+	
+	public bool IsPlayerSimulated()
+	{
+		return BaseEntity_IsPlayerSimulated(this.index);
+	}
+	
+	public MoveType GetMoveType()
+	{
+		return GetEntityMoveType(this.index);
+	}
+	
+	public int GetMoveCollide()
+	{
+		return BaseEntity_GetMoveCollide(this.index);
+	}
+	
+	public int GetCollisionGroup()
+	{
+		return BaseEntity_GetCollisionGroup(this.index);
+	}
+	
+	public int GetFlags()
+	{
+		return GetEntityFlags(this.index);
+	}
+	
+	public bool IsAlive()
+	{
+		return BaseEntity_IsAlive(this.index);
+	}
+	
+	public bool IsBaseObject()
+	{
+		return BaseEntity_IsBaseObject(this.index);
+	}
+	
+	public bool FVisible1(int pEntity, int traceMask, int ppBlocker = -1)
+	{
+		return BaseEntity_FVisible1(this.index, pEntity, traceMask, ppBlocker);
+	}
+	
+	public int GetTeamNumber()
+	{
+		return BaseEntity_GetTeamNumber(this.index);
+	}
+	
+	public void EyePosition(float buffer[3])
+	{
+		BaseEntity_EyePosition(this.index, buffer);
+	}
+	
+	public void EyeAngles(float buffer[3])
+	{
+		BaseEntity_EyeAngles(this.index, buffer);
+	}
+	
+	public void LocalEyeAngles(float buffer[3])
+	{
+		BaseEntity_LocalEyeAngles(this.index, buffer);
+	}
+	
+	public void EarPosition(float buffer[3])
+	{
+		BaseEntity_EarPosition(this.index, buffer);
+	}
+	
+	public void SetViewOffset(float vec[3])
+	{
+		BaseEntity_SetViewOffset(this.index, vec);
+	}
+	
+	public void GetViewOffset(float buffer[3])
+	{
+		BaseEntity_GetViewOffset(this.index, buffer);
+	}
+	
+	public void ApplyAbsVelocityImpulse(const float inVecImpulse[3])
+	{
+		BaseEntity_ApplyAbsVelocityImpulse(this.index, inVecImpulse);
+	}
+	
+	/* public void WorldSpaceCenter(float buffer[3])
+	{
+		BaseEntity_WorldSpaceCenter(this.index, buffer);
+	} */
+	
+	public void AddEffects(int nEffects)
+	{
+		BaseEntity_AddEffects(this.index, nEffects);
+	}
+}
+
 stock void BaseEntity_ClearModelIndexOverrides(int entity)
 {
 	for (int i = 0; i < MAX_VISION_MODES; i++)
@@ -125,10 +383,10 @@ stock void BaseEntity_GetEntityName(int entity, char[] buffer, int maxlen)
 	GetEntPropString(entity, Prop_Data, "m_iName", buffer, maxlen);
 }
 
-//Alternatively, you can set the keyvalue "targetname"
 stock void BaseEntity_SetName(int entity, char[] newName)
 {
-	SetEntPropString(entity, Prop_Data, "m_iName", newName);
+	// SetEntPropString(entity, Prop_Data, "m_iName", newName);
+	DispatchKeyValue(entity, "targetname", newName);
 }
 
 stock int BaseEntity_GetSpawnFlags(int entity)
@@ -333,9 +591,9 @@ stock void BaseEntity_EarPosition(int entity, float buffer[3])
 	BaseEntity_EyePosition(entity, buffer);
 }
 
-stock void BaseEntity_SetViewOffset(int entity, float v[3])
+stock void BaseEntity_SetViewOffset(int entity, float vec[3])
 {
-	SetEntPropVector(entity, Prop_Data, "m_vecViewOffset", v);
+	SetEntPropVector(entity, Prop_Data, "m_vecViewOffset", vec);
 }
 
 stock void BaseEntity_GetViewOffset(int entity, float buffer[3])
