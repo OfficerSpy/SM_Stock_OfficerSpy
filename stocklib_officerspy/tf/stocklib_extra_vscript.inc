@@ -63,6 +63,7 @@ enum DifficultyType
 #define DifficultyType_ENABLED
 #endif
 
+//CTFPlayer
 stock void VS_AddCustomAttribute(int client, char[] name, float value, float delay = -1.0)
 {
 	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.AddCustomAttribute(\"%s\", %f, %f)", name, value, delay);
@@ -79,6 +80,15 @@ stock void VS_ForceChangeTeam(int client, int team, bool fullTeamSwitch = false)
 	AcceptEntityInput(client, "RunScriptCode");
 }
 
+stock void VS_RemoveCondEx(int client, TFCond cond, bool ignoreDuration = false)
+{
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.RemoveCondEx(%d, %s)", cond, ignoreDuration ? "true" : "false");
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(client, "RunScriptCode");
+}
+
+//CTFBot
 stock void VS_AddBotAttribute(int tfbot, AttributeType attributeFlags)
 {
 	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.AddBotAttribute(%d)", attributeFlags)

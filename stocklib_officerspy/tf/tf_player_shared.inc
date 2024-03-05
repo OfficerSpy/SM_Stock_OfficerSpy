@@ -4,6 +4,7 @@
 #define _stock_officerspy_tfplayershared_included
 
 #include <tf2_stocks>
+#include <stocklib_officerspy/tf/stocklib_extra_vscript>
 #include <stocklib_officerspy/other/cpp_valve>
 
 #if !defined ETFStreak_ENABLED
@@ -27,6 +28,26 @@ enum
 };
 #define ENUMERATION_MELEE
 #endif
+
+#pragma deprecated Use TF2_AddCondition
+stock void TF2_AddCond(int client, TFCond eCond, float flDuration = TFCondDuration_Infinite, int pProvider = -1)
+{
+	TF2_AddCondition(client, eCond, flDuration, pProvider);
+}
+
+stock void TF2_RemoveCond(int client, TFCond eCond, bool ignore_duration = false)
+{
+	if (ignore_duration)
+		VS_RemoveCondEx(client, eCond, ignore_duration);
+	else
+		TF2_RemoveCondition(client, eCond);
+}
+
+#pragma deprecated Use TF2_IsPlayerInCondition
+stock bool TF2_InCond(int client, TFCond eCond)
+{
+	return TF2_IsPlayerInCondition(client, eCond);
+}
 
 stock TFClassType TF2_GetDisguiseClass(int client)
 {

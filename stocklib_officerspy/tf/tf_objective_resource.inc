@@ -9,6 +9,8 @@ It's better to just set them to a constant number to enforce a consistent value 
 #endif
 #define _stock_officerspy_tfobjectiveresource_included
 
+#include <stocklib_officerspy/team_objectiveresource>
+
 #if !defined MVM_CLASS_FLAG_NONE
 #define MVM_CLASS_FLAG_NONE				0
 #define MVM_CLASS_FLAG_NORMAL			(1<<0)
@@ -18,6 +20,188 @@ It's better to just set them to a constant number to enforce a consistent value 
 #define MVM_CLASS_FLAG_ALWAYSCRIT		(1<<4)
 #define MVM_CLASS_FLAG_SUPPORT_LIMITED	(1<<5)
 #endif
+
+#if !defined TFOR_TELEPORTER_STRING
+#define TFOR_TELEPORTER_STRING	"teleporter"
+#endif
+
+methodmap OSTFObjectiveResource < OSBaseTeamObjectiveResource
+{
+	public OSTFObjectiveResource(int index)
+	{
+		return view_as<OSTFObjectiveResource>(index);
+	}
+	
+	public void SetMannVsMachineMaxWaveCount(int nCount)
+	{
+		TF2_SetMannVsMachineMaxWaveCount(this.index, nCount);
+	}
+	
+	public int GetMannVsMachineMaxWaveCount()
+	{
+		return TF2_GetMannVsMachineMaxWaveCount(this.index);
+	}
+	
+	public void SetMannVsMachineWaveCount(int nCount)
+	{
+		TF2_SetMannVsMachineWaveCount(this.index, nCount);
+	}
+	
+	public int GetMannVsMachineWaveCount()
+	{
+		return TF2_GetMannVsMachineWaveCount(this.index);
+	}
+	
+	public void SetMannVsMachineWaveEnemyCount(int nCount)
+	{
+		TF2_SetMannVsMachineWaveEnemyCount(this.index, nCount);
+	}
+	
+	public int GetMannVsMachineWaveEnemyCount()
+	{
+		return TF2_GetMannVsMachineWaveEnemyCount(this.index);
+	}
+	
+	public void AddMvMWorldMoney(int nCurrency)
+	{
+		TF2_AddMvMWorldMoney(this.index, nCurrency);
+	}
+	
+	public void SetMannVsMachineNextWaveTime(float flTime)
+	{
+		TF2_SetMannVsMachineNextWaveTime(this.index, flTime);
+	}
+	
+	public void SetMannVsMachineBetweenWaves(bool bVal)
+	{
+		TF2_SetMannVsMachineBetweenWaves(this.index, bVal);
+	}
+	
+	public bool GetMannVsMachineIsBetweenWaves()
+	{
+		return TF2_GetMannVsMachineIsBetweenWaves(this.index);
+	}
+	
+	public void GetMannVsMachineWaveClassName(int nIndex, char[] buffer, int maxlen)
+	{
+		TF2_GetMannVsMachineWaveClassName(this.index, nIndex, buffer, maxlen);
+	}
+	
+	public int GetMannVsMachineWaveClassFlags(int nIndex)
+	{
+		return TF2_GetMannVsMachineWaveClassFlags(this.index, nIndex);
+	}
+	
+	public void SetFlagCarrierUpgradeLevel(int nLevel)
+	{
+		TF2_SetFlagCarrierUpgradeLevel(this.index, nLevel);
+	}
+	
+	public int GetFlagCarrierUpgradeLevel()
+	{
+		return TF2_GetFlagCarrierUpgradeLevel(this.index);
+	}
+	
+	public void SetBaseMvMBombUpgradeTime(float nTime)
+	{
+		TF2_SetBaseMvMBombUpgradeTime(this.index, nTime);
+	}
+	
+	public float GetBaseMvMBombUpgradeTime()
+	{
+		return TF2_GetBaseMvMBombUpgradeTime(this.index);
+	}
+	
+	public void SetNextMvMBombUpgradeTime(float nTime)
+	{
+		TF2_SetNextMvMBombUpgradeTime(this.index, nTime);
+	}
+	
+	public float GetNextMvMBombUpgradeTime()
+	{
+		return TF2_GetNextMvMBombUpgradeTime(this.index);
+	}
+	
+	public void SetMannVsMachineChallengeIndex(int iIndex)
+	{
+		TF2_SetMannVsMachineChallengeIndex(this.index, iIndex);
+	}
+	
+	public int GetMannVsMachineChallengeIndex()
+	{
+		return TF2_GetMannVsMachineChallengeIndex(this.index);
+	}
+	
+	public void SetMvMPopfileName(char[] iszMvMPopfileName)
+	{
+		TF2_SetMvMPopfileName(this.index, iszMvMPopfileName);
+	}
+	
+	public void GetMvMPopfileName(char[] buffer, int maxlen)
+	{
+		TF2_GetMvMPopfileName(this.index, buffer, maxlen);
+	}
+	
+	public void SetMannVsMachineEventPopfileType(int nType)
+	{
+		TF2_SetMannVsMachineEventPopfileType(this.index, nType);
+	}
+	
+	public void ClearMannVsMachineWaveClassFlags()
+	{
+		TF2_ClearMannVsMachineWaveClassFlags(this.index);
+	}
+	
+	public void AddMannVsMachineWaveClassFlags(int index, int flags)
+	{
+		TF2_AddMannVsMachineWaveClassFlags(this.index, index, flags);
+	}
+	
+	public int GetMannVsMachineWaveClassCount(int index)
+	{
+		return TF2_GetMannVsMachineWaveClassCount(this.index, index);
+	}
+	
+	public void SetMannVsMachineWaveClassActive(char[] classIconName, bool active = true)
+	{
+		TF2_SetMannVsMachineWaveClassActive(this.index, classIconName, active);
+	}
+	
+	public void SetMannVsMachineWaveClassCount(int index, int count)
+	{
+		TF2_SetMannVsMachineWaveClassCount(this.index, index, count);
+	}
+	
+	public void SetMannVsMachineWaveClassName(int index, char[] classIconName)
+	{
+		TF2_SetMannVsMachineWaveClassName(this.index, index, classIconName);
+	}
+	
+	public void IncrementMannVsMachineWaveClassCount(char[] classIconName, int flags)
+	{
+		TF2_IncrementMannVsMachineWaveClassCount(this.index, classIconName, flags);
+	}
+	
+	public void DecrementMannVsMachineWaveClassCount(char[] classIconName, int flags)
+	{
+		TF2_DecrementMannVsMachineWaveClassCount(this.index, classIconName, flags);
+	}
+	
+	public void IncrementTeleporterCount()
+	{
+		TF2_IncrementTeleporterCount(this.index);
+	}
+	
+	public void DecrementTeleporterCount()
+	{
+		TF2_DecrementTeleporterCount(this.index);
+	}
+	
+	public void GetTeleporterString(int iResource, char[] buffer, int maxlen)
+	{
+		TF2_GetTeleporterString(this.index, buffer, maxlen);
+	}
+}
 
 stock void TF2_SetMannVsMachineMaxWaveCount(int iResource, int nCount)
 {
@@ -350,12 +534,22 @@ stock void TF2_DecrementMannVsMachineWaveClassCount(int iResource, char[] classI
 
 stock void TF2_IncrementTeleporterCount(int iResource)
 {
-	TF2_IncrementMannVsMachineWaveClassCount(iResource, "teleporter", MVM_CLASS_FLAG_MISSION);
+	TF2_IncrementMannVsMachineWaveClassCount(iResource, TFOR_TELEPORTER_STRING, MVM_CLASS_FLAG_MISSION);
 }
 
 stock void TF2_DecrementTeleporterCount(int iResource)
 {
-	TF2_DecrementMannVsMachineWaveClassCount(iResource, "teleporter", MVM_CLASS_FLAG_MISSION);
+	TF2_DecrementMannVsMachineWaveClassCount(iResource, TFOR_TELEPORTER_STRING, MVM_CLASS_FLAG_MISSION);
+}
+
+stock void TF2_GetTeleporterString(int iResource, char[] buffer, int maxlen)
+{
+	strcopy(buffer, maxlen, TFOR_TELEPORTER_STRING);
+}
+
+stock int TF2_TFObjectiveResource()
+{
+	return FindEntityByClassname(-1, "tf_objective_resource");
 }
 
 //The functions below are extra and are not based on code from the game

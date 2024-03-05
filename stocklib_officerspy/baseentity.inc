@@ -250,6 +250,11 @@ methodmap OSBaseEntity
 		return BaseEntity_IsAlive(this.index);
 	}
 	
+	public int GetOwnerEntity()
+	{
+		return BaseEntity_GetOwnerEntity(this.index);
+	}
+	
 	public bool IsBaseObject()
 	{
 		return BaseEntity_IsBaseObject(this.index);
@@ -308,6 +313,13 @@ methodmap OSBaseEntity
 	public void AddEffects(int nEffects)
 	{
 		BaseEntity_AddEffects(this.index, nEffects);
+	}
+	
+	//The following functions are for vscript mods only
+	
+	public void MarkNeedsNamePurge()
+	{
+		BaseEntity_MarkNeedsNamePurge(this.index);
 	}
 }
 
@@ -507,6 +519,11 @@ stock bool BaseEntity_IsAlive(int entity)
 	return GetEntProp(entity, Prop_Data, "m_lifeState") == LIFE_ALIVE;
 }
 
+stock int BaseEntity_GetOwnerEntity(int entity)
+{
+	return GetEntPropEnt(entity, Prop_Send, "m_hOwnerEntity");
+}
+
 stock bool BaseEntity_IsBaseObject(int entity)
 {
 	//In TF2, only CBaseObject entities are base objects
@@ -644,4 +661,11 @@ stock void BaseEntity_AddEffects(int entity, int nEffects)
 	{
 		//MISSING: DispatchUpdateTransmitState
 	}
+}
+
+//BELOW FUNCTIONS ARE FOR VSCRIPT GAMES ONLY
+
+stock void BaseEntity_MarkNeedsNamePurge(int entity)
+{
+	SetEntProp(entity, Prop_Data, "m_bForcePurgeFixedupStrings", true);
 }

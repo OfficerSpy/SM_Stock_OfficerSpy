@@ -3,6 +3,8 @@
 #endif
 #define _stock_officerspy_player_included
 
+#include <stocklib_officerspy/basecombatcharacter>
+
 #if !defined TEAM_ANY
 #define TEAM_ANY	-2
 #define	TEAM_INVALID	-1
@@ -10,6 +12,29 @@
 #define TEAM_SPECTATOR	1
 #define LAST_SHARED_TEAM	TEAM_SPECTATOR
 #endif
+
+methodmap OSBasePlayer < OSBaseCombatCharacter
+{
+	public OSBasePlayer(int index)
+	{
+		return view_as<OSBasePlayer>(index);
+	}
+	
+	public void SetHealth(int amt)
+	{
+		BasePlayer_SetHealth(this.index, amt);
+	}
+	
+	public bool IsBot()
+	{
+		return BasePlayer_IsBot(this.index);
+	}
+	
+	public bool IsFakeClient()
+	{
+		return BasePlayer_IsFakeClient(this.index);
+	}
+}
 
 stock void BasePlayer_SetHealth(int client, int amt)
 {

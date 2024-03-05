@@ -162,7 +162,7 @@ methodmap OSBaseObject < OSBaseCombatCharacter
 		TF2_DetonateObject(this.index);
 	}
 	
-	public TFObjectType GetObjectType()
+	public TFObjectType GetType()
 	{
 		return TF2_GetObjectType(this.index);
 	}
@@ -325,7 +325,7 @@ stock void TF2_DetonateObject(int entity)
 }
 
 #pragma deprecated Use TF2_GetObjectType instead
-stock TFObjectType BaseObject_GetObjectType(int entity)
+stock TFObjectType BaseObject_GetType(int entity)
 {
 	return view_as<TFObjectType>(GetEntProp(entity, Prop_Send, "m_iObjectType"));
 }
