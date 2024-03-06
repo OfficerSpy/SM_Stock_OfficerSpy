@@ -57,7 +57,7 @@ stock void TE_FireBullets(int iPlayerIndex, const float vOrigin[3], const float 
 	TE_SendToAll();
 }
 
-stock void TE_TFExplosion(float flDelay, const float vecOrigin[3], const float vecNormal[3], int iWeaponID, int nEntIndex, int nDefID = -1, int nSound = SPECIAL1, int iCustomParticleIndex = INVALID_STRING_INDEX)
+stock void TE_TFExplosion(float flDelay, const float vecOrigin[3], const float vecNormal[3], int iWeaponID, int nEntIndex, int nDefID = -1, WeaponSound_t nSound = SPECIAL1, int iCustomParticleIndex = INVALID_STRING_INDEX)
 {
 	TE_Start("TFExplosion");
 	TE_WriteVector("m_vecOrigin", vecOrigin);
@@ -65,7 +65,7 @@ stock void TE_TFExplosion(float flDelay, const float vecOrigin[3], const float v
 	TE_WriteNum("m_iWeaponID", iWeaponID);
 	TE_WriteNum("entindex", nEntIndex);
 	TE_WriteNum("m_nDefID", nDefID);
-	TE_WriteNum("m_nSound", nSound);
+	TE_WriteNum("m_nSound", view_as<int>(nSound));
 	TE_WriteNum("m_iCustomParticleIndex", iCustomParticleIndex);
 	TE_SendToAll(flDelay);
 }

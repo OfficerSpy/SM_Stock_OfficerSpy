@@ -299,9 +299,59 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 	
 	//Below are CTFPlayerClassShared functions but these work on clients
 	
+	public bool IsClass(int client, TFClassType iClass)
+	{
+		return TF2_IsClass(this.index, iClass);
+	}
+	
+	public TFClassType GetClassIndex()
+	{
+		return TF2_GetPlayerClass(this.index);
+	}
+	
+	public void GetClassIconName(int client, char[] buffer, int maxlen)
+	{
+		TF2_GetClassIconName(this.index, buffer, maxlen);
+	}
+	
+	public void SetClassIconName(char[] iszClassIcon)
+	{
+		TF2_SetClassIconName(this.index, iszClassIcon);
+	}
+	
+	public bool HasCustomModel()
+	{
+		return TF2_HasCustomModel(this.index);
+	}
+	
 	public void SetCustomModel(char[] pszModelName, bool isUsingClassAnimations = false)
 	{
 		TF2_SetCustomModel(this.index, pszModelName, isUsingClassAnimations);
+	}
+	
+	public void SetCustomModelOffset(float vecOffset[3])
+	{
+		TF2_SetCustomModelOffset(this.index, vecOffset);
+	}
+	
+	public void SetCustomModelRotates(bool bRotates)
+	{
+		TF2_SetCustomModelRotates(this.index, bRotates);
+	}
+	
+	public void SetCustomModelRotation(float vecOffset[3])
+	{
+		TF2_SetCustomModelRotation(this.index, vecOffset);
+	}
+	
+	public void ClearCustomModelRotation()
+	{
+		TF2_ClearCustomModelRotation(this.index);
+	}
+	
+	public void SetCustomModelVisibleToSelf(bool bVisible)
+	{
+		TF2_SetCustomModelVisibleToSelf(this.index, bVisible);
 	}
 	
 	//Below are CTFPlayerShared functions but these work on clients
