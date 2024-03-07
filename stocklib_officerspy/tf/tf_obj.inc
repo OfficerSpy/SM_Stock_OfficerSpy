@@ -92,10 +92,10 @@ methodmap OSBaseObject < OSBaseCombatCharacter
 		return TF2_GetMaxUpgradeLevel();
 	}
 	
-	public int GetMiniBuildingStartingHealth()
+	/* public int GetMiniBuildingStartingHealth()
 	{
 		return TF2_GetMiniBuildingStartingHealth();
-	}
+	} */
 	
 	public bool IsBuiltOnAttachment()
 	{
@@ -248,10 +248,10 @@ stock int TF2_GetMaxUpgradeLevel()
 	return OBJ_MAX_UPGRADE_LEVEL;
 }
 
-stock int TF2_GetMiniBuildingStartingHealth()
+/* stock int TF2_GetMiniBuildingStartingHealth()
 {
 	return 100;
-}
+} */
 
 stock bool TF2_IsBuiltOnAttachment(int entity)
 {

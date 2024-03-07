@@ -299,7 +299,7 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 	
 	//Below are CTFPlayerClassShared functions but these work on clients
 	
-	public bool IsClass(int client, TFClassType iClass)
+	public bool IsClass(TFClassType iClass)
 	{
 		return TF2_IsClass(this.index, iClass);
 	}
@@ -309,7 +309,7 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 		return TF2_GetPlayerClass(this.index);
 	}
 	
-	public void GetClassIconName(int client, char[] buffer, int maxlen)
+	public void GetClassIconName(char[] buffer, int maxlen)
 	{
 		TF2_GetClassIconName(this.index, buffer, maxlen);
 	}

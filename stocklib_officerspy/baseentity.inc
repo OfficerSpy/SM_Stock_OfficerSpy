@@ -315,6 +315,11 @@ methodmap OSBaseEntity
 		BaseEntity_AddEffects(this.index, nEffects);
 	}
 	
+	public bool IsCombatItem()
+	{
+		return BaseEntity_IsCombatItem(this.index);
+	}
+	
 	//The following functions are for vscript mods only
 	
 	public void MarkNeedsNamePurge()
@@ -661,6 +666,19 @@ stock void BaseEntity_AddEffects(int entity, int nEffects)
 	{
 		//MISSING: DispatchUpdateTransmitState
 	}
+}
+
+stock bool BaseEntity_IsCombatItem(int entity)
+{
+	char classname[PLATFORM_MAX_PATH]; GetEntityClassname(entity, classname, sizeof(classname));
+	
+	if (GetEngineVersion() == Engine_TF2)
+	{
+		//Only these entities are combat items currently
+		return StrEqual(classname, "entity_medigun_shield") || StrEqual(classname, "entity_revive_marker");
+	}
+	
+	return false;
 }
 
 //BELOW FUNCTIONS ARE FOR VSCRIPT GAMES ONLY

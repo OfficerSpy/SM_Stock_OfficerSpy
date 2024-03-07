@@ -1,7 +1,7 @@
-#if defined _stock_officerspy_gamerules_included
+#if defined _stock_officerspy_teamplayroundbasedgamerules_included
 	#endinput
 #endif
-#define _stock_officerspy_gamerules_included
+#define _stock_officerspy_teamplayroundbasedgamerules_included
 
 stock void TeamplayRoundBasedRules_BroadcastSound(int team, const char[] sound, int additionalSoundFlags = 0)
 {

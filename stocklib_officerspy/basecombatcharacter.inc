@@ -101,3 +101,11 @@ stock void BaseCombatCharacter_RemoveAllWeapons(int entity)
 		}
 	}
 }
+
+// EXTRA UTILITY FUNCTIONS
+
+stock bool IsBaseCombatCharacter(int entity)
+{
+	//Rather obscure way of determing if this is CBCC
+	return HasEntProp(entity, Prop_Data, "m_eHull");
+}
