@@ -362,6 +362,16 @@ stock int BaseEntity_GetHealth(int entity)
 
 stock void BaseEntity_SetHealth(int entity, int amt)
 {
+	if (BaseEntity_IsPlayer(entity))
+	{
+		// SetEntProp(entity, Prop_Send, "m_iHealth", amt);
+		
+		SetVariantInt(amt);
+		AcceptEntityInput(entity, "SetHealth");
+		
+		return;
+	}
+	
 	SetEntProp(entity, Prop_Data, "m_iHealth", amt);
 }
 
@@ -666,6 +676,12 @@ stock void BaseEntity_AddEffects(int entity, int nEffects)
 	{
 		//MISSING: DispatchUpdateTransmitState
 	}
+}
+
+stock bool BaseEntity_IsPlayer(int entity)
+{
+	//Is there not a better way to do this?
+	return entity > 0 && entity <= MaxClients;
 }
 
 stock bool BaseEntity_IsCombatItem(int entity)

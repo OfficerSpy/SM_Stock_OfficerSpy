@@ -37,11 +37,6 @@ methodmap OSBasePlayer < OSBaseCombatCharacter
 		return view_as<OSBasePlayer>(index);
 	}
 	
-	public void SetHealth(int amt)
-	{
-		BasePlayer_SetHealth(this.index, amt);
-	}
-	
 	public bool IsBot()
 	{
 		return BasePlayer_IsBot(this.index);
@@ -66,15 +61,6 @@ methodmap OSBasePlayer < OSBaseCombatCharacter
 	{
 		return BasePlayer_GetDefaultFOV(this.index);
 	}
-}
-
-stock void BasePlayer_SetHealth(int client, int amt)
-{
-	// SetEntProp(client, Prop_Send, "m_iHealth", amt);
-	// SetEntProp(client, Prop_Data, "m_iHealth", amt); //CBaseEntity
-	
-	SetVariantInt(amt);
-	AcceptEntityInput(client, "SetHealth");
 }
 
 stock bool BasePlayer_IsBot(int client)

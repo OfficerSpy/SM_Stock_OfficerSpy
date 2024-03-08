@@ -1,6 +1,11 @@
+#if defined _stock_officerspy_tfshareddefs_included
+	#endinput
+#endif
+#define _stock_officerspy_tfshareddefs_included
+
 #include <tf2_stocks>
 
-#define TF_TEAM_COUNT	view_as<int>(TFTeam_Blue) + 1
+/* #define TF_TEAM_COUNT	view_as<int>(TFTeam_Blue) + 1
 
 #define TF_TEAM_AUTOASSIGN	TF_TEAM_COUNT + 1
 
@@ -28,14 +33,14 @@
 #define TF_STUN_NO_EFFECTS					TF_STUNFLAG_NOSOUNDOREFFECT
 #define TF_STUN_LOSER_STATE					TF_STUNFLAG_THIRDPERSON
 #define TF_STUN_BY_TRIGGER					TF_STUNFLAG_GHOSTEFFECT
-#define TF_STUN_BOTH						TF_STUN_MOVEMENT | TF_STUN_CONTROLS
+#define TF_STUN_BOTH						TF_STUN_MOVEMENT | TF_STUN_CONTROLS */
 
 stock bool IsHeadshot(int iType)
 {
 	return iType == TF_CUSTOM_HEADSHOT || iType == TF_CUSTOM_HEADSHOT_DECAPITATION;
 }
 
-stock TFTeam GetEnemyTeam(TFTeam team)
+stock TFTeam TF2_GetEnemyTeam(TFTeam team)
 {
 	if (team == TFTeam_Red)
 		return TFTeam_Blue;
