@@ -3,14 +3,6 @@
 #endif
 #define _stock_officerspy_baseentity_included
 
-#if !defined LIFE_ALIVE
-#define LIFE_ALIVE				0
-#define LIFE_DYING				1
-#define LIFE_DEAD				2
-#define LIFE_RESPAWNABLE		3
-#define LIFE_DISCARDBODY		4
-#endif
-
 #if !defined CONTENTS_BLOCKLOS
 #define CONTENTS_BLOCKLOS	CONTENTS_MIST
 #endif
@@ -21,36 +13,6 @@
 
 #if !defined MASK_BLOCKLOS_AND_NPCS
 #define MASK_BLOCKLOS_AND_NPCS	MASK_BLOCKLOS|CONTENTS_MONSTER
-#endif
-
-#if !defined ENUMERATION_VISON_MODE
-enum
-{
-	VISION_MODE_NONE = 0,
-	VISION_MODE_PYRO,
-	VISION_MODE_HALLOWEEN,
-	VISION_MODE_ROME,
-	MAX_VISION_MODES
-};
-#define ENUMERATION_VISON_MODE
-#endif
-
-#if !defined ENUMERATION_EF && !defined EF_BONEMERGE
-enum
-{
-	EF_BONEMERGE	= 0x001,
-	EF_BRIGHTLIGHT	= 0x002,
-	EF_DIMLIGHT	= 0x004,
-	EF_NOINTERP	= 0x008,
-	EF_NOSHADOW	= 0x010,
-	EF_NODRAW	= 0x020,
-	EF_NORECEIVESHADOW	= 0x040,
-	EF_BONEMERGE_FASTCULL	= 0x080,
-	EF_ITEM_BLINK	= 0x100,
-	EF_PARENT_ANIMATES	= 0x200,
-	EF_MAX_BITS	= 10
-};
-#define ENUMERATION_EF
 #endif
 
 methodmap OSBaseEntity
@@ -318,6 +280,11 @@ methodmap OSBaseEntity
 	public bool IsCombatItem()
 	{
 		return BaseEntity_IsCombatItem(this.index);
+	}
+	
+	public bool ShouldCollide(int collisionGroup, int contentsMask)
+	{
+		return BaseEntity_ShouldCollide(this.index, collisionGroup, contentsMask);
 	}
 	
 	//The following functions are for vscript mods only
@@ -695,6 +662,15 @@ stock bool BaseEntity_IsCombatItem(int entity)
 	}
 	
 	return false;
+}
+
+stock bool BaseEntity_ShouldCollide(int entity, int collisionGroup, int contentsMask)
+{
+	if (GetEntProp(entity, Prop_Send, "m_CollisionGroup") == COLLISION_GROUP_DEBRIS)
+		if (!(contentsMask & CONTENTS_DEBRIS))
+			return false;
+	
+	return true;
 }
 
 //BELOW FUNCTIONS ARE FOR VSCRIPT GAMES ONLY

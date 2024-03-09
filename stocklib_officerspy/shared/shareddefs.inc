@@ -1,17 +1,154 @@
-#define TEAM_ANY	-2
-#define	TEAM_INVALID	-1
-#define TEAM_UNASSIGNED	0
-#define TEAM_SPECTATOR	1
-#define LAST_SHARED_TEAM	TEAM_SPECTATOR
+#if defined _stock_officerspy_shareddefs_included
+	#endinput
+#endif
+#define _stock_officerspy_shareddefs_included
 
-#define FIRST_GAME_TEAM	LAST_SHARED_TEAM + 1
+#define TIME_TO_DUCK		0.4
+#define TIME_TO_DUCK_MS		400.0
 
-#define MAX_TEAMS	32
+//TF2 specific
+#define TF_TIME_TO_DUCK		0.2
+#define TF_TIME_TO_DUCK_MS		200.0
+
+#define TIME_TO_UNDUCK		0.2
+#define TIME_TO_UNDUCK_MS	200.0
+
+#define MAX_WEAPON_SLOTS		6
+#define MAX_WEAPON_POSITIONS	20
+#define MAX_ITEM_TYPES			6
+#define MAX_WEAPONS				48
+
+#define MAX_ITEMS				5
+
+#define WEAPON_NOCLIP			-1
+
+#define	MAX_AMMO_TYPES	32
+#define MAX_AMMO_SLOTS  32
+
+#define HUD_PRINTNOTIFY		1
+#define HUD_PRINTCONSOLE	2
+#define HUD_PRINTTALK		3
+#define HUD_PRINTCENTER		4
+
+#define MAX_PLAYERS MAXPLAYERS //SourceMod handles it
+
+#define MAX_PLACE_NAME_LENGTH		18
+
+#define MAX_FOV						90
+
+#define TEAM_ANY				-2
+#define	TEAM_INVALID			-1
+#define TEAM_UNASSIGNED			0
+#define TEAM_SPECTATOR			1
+#define LAST_SHARED_TEAM		TEAM_SPECTATOR
+
+#define FIRST_GAME_TEAM			LAST_SHARED_TEAM + 1
+
+#define MAX_TEAMS				32
 #define MAX_TEAM_NAME_LENGTH	32
 
-//Vision filters
-//These exist in the source-sdk-2013, but they seem to be TF2 specific
+#define DMG_LASTGENERICFLAG	DMG_BUCKSHOT
+
+#define	DAMAGE_NO				0
+#define DAMAGE_EVENTS_ONLY		1
+#define	DAMAGE_YES				2
+#define	DAMAGE_AIM				3
+
+#if !defined ENUMERATION_OBS_MODE
+enum
+{
+	OBS_MODE_NONE = 0,
+	OBS_MODE_DEATHCAM,
+	OBS_MODE_FREEZECAM,
+	OBS_MODE_FIXED,
+	OBS_MODE_IN_EYE,
+	OBS_MODE_CHASE,
+	OBS_MODE_POI,
+	OBS_MODE_ROAMING,
+	NUM_OBSERVER_MODES
+};
+#define ENUMERATION_OBS_MODE
+#endif
+
+#define LAST_PLAYER_OBSERVERMODE	OBS_MODE_ROAMING
+
+#if !defined ENUMERATION_OBS_ALLOW
+enum
+{
+	OBS_ALLOW_ALL = 0,
+	OBS_ALLOW_TEAM,
+	OBS_ALLOW_NONE,
+	OBS_ALLOW_NUM_MODES
+};
+#define ENUMERATION_OBS_ALLOW
+#endif
+
+#if !defined ENUMERATION_BLOOD_COLOR
+enum
+{
+	DONT_BLEED = -1,
+	BLOOD_COLOR_RED = 0,
+	BLOOD_COLOR_YELLOW,
+	BLOOD_COLOR_GREEN,
+	BLOOD_COLOR_MECH
+};
+#define ENUMERATION_BLOOD_COLOR
+#endif
+
+#if !defined ENUMERATION_EFL
+enum
+{
+	EFL_KILLME	=				(1 << 0),
+	EFL_DORMANT	=				(1 << 1),
+	EFL_NOCLIP_ACTIVE =			(1 << 2),
+	EFL_SETTING_UP_BONES =		(1 << 3),
+	EFL_KEEP_ON_RECREATE_ENTITIES = (1 << 4),
+	EFL_HAS_PLAYER_CHILD =		(1 << 4),
+	EFL_DIRTY_SHADOWUPDATE =	(1 << 5),
+	EFL_NOTIFY =				(1 << 6),
+	EFL_FORCE_CHECK_TRANSMIT =	(1 << 7),
+	EFL_BOT_FROZEN =			(1 << 8),
+	EFL_SERVER_ONLY =			(1 << 9),
+	EFL_NO_AUTO_EDICT_ATTACH =	(1 << 10),
+	EFL_DIRTY_ABSTRANSFORM =	(1 << 11),
+	EFL_DIRTY_ABSVELOCITY =		(1 << 12),
+	EFL_DIRTY_ABSANGVELOCITY =	(1 << 13),
+	// EFL_DIRTY_SURROUNDING_COLLISION_BOUNDS	= (1 << 14), //FIXME: throws error in compile unless a letter is removed (wtf?)
+	EFL_DIRTY_SPATIAL_PARTITION = (1 << 15),
+	EFL_IN_SKYBOX =				(1 << 17),
+	EFL_USE_PARTITION_WHEN_NOT_SOLID = (1 << 18),
+	EFL_TOUCHING_FLUID =		(1 << 19),
+	EFL_IS_BEING_LIFTED_BY_BARNACLE = (1 << 20),
+	EFL_NO_ROTORWASH_PUSH =		(1 << 21),
+	EFL_NO_THINK_FUNCTION =		(1 << 22),
+	EFL_NO_GAME_PHYSICS_SIMULATION = (1 << 23),
+	EFL_CHECK_UNTOUCH =			(1 << 24),
+	EFL_DONTBLOCKLOS =			(1 << 25),
+	EFL_DONTWALKON =			(1 << 26),
+	EFL_NO_DISSOLVE =			(1 << 27),
+	EFL_NO_MEGAPHYSCANNON_RAGDOLL = (1 << 28),
+	EFL_NO_WATER_VELOCITY_CHANGE  =	(1 << 29),
+	EFL_NO_PHYSCANNON_INTERACTION =	(1 << 30),
+	EFL_NO_DAMAGE_FORCES =		(1 << 31)
+};
+#define ENUMERATION_EFL
+#endif
+
+//TF2 specific
 #define TF_VISION_FILTER_NONE			0
-#define TF_VISION_FILTER_PYRO			(1<<0)
-#define TF_VISION_FILTER_HALLOWEEN		(1<<1)
-#define TF_VISION_FILTER_ROME			(1<<2)
+#define TF_VISION_FILTER_PYRO			(1 << 0)
+#define TF_VISION_FILTER_HALLOWEEN		(1 << 1)
+#define TF_VISION_FILTER_ROME			(1 << 2)
+
+//TF2 specific
+#if !defined ENUMERATION_VISON_MODE
+enum
+{
+	VISION_MODE_NONE = 0,
+	VISION_MODE_PYRO,
+	VISION_MODE_HALLOWEEN,
+	VISION_MODE_ROME,
+	MAX_VISION_MODES
+};
+#define ENUMERATION_VISON_MODE
+#endif

@@ -10,51 +10,6 @@
 #include <stocklib_officerspy/other/cpp>
 #include <stocklib_officerspy/other/cpp_valve>
 
-#if !defined ENUMERATION_OBS_MODE
-enum
-{
-	OBS_MODE_NONE = 0,
-	OBS_MODE_DEATHCAM,
-	OBS_MODE_FREEZECAM,
-	OBS_MODE_FIXED,
-	OBS_MODE_IN_EYE,
-	OBS_MODE_CHASE,
-	OBS_MODE_POI,
-	OBS_MODE_ROAMING,
-	NUM_OBSERVER_MODES,
-};
-#define ENUMERATION_OBS_MODE
-#endif
-
-#if !defined ETFAmmoType_ENABLED
-enum //ETFAmmoType
-{
-	TF_AMMO_DUMMY = 0,
-	TF_AMMO_PRIMARY,
-	TF_AMMO_SECONDARY,
-	TF_AMMO_METAL,
-	TF_AMMO_GRENADES1,
-	TF_AMMO_GRENADES2,
-	TF_AMMO_GRENADES3,
-	TF_AMMO_COUNT
-};
-#define ETFAmmoType_ENABLED
-#endif
-
-#if !defined ETFFlagType_ENABLED
-enum ETFFlagType
-{
-	TF_FLAGTYPE_CTF = 0,
-	TF_FLAGTYPE_ATTACK_DEFEND,
-	TF_FLAGTYPE_TERRITORY_CONTROL,
-	TF_FLAGTYPE_INVADE,
-	TF_FLAGTYPE_RESOURCE_CONTROL,
-	TF_FLAGTYPE_ROBOT_DESTRUCTION,
-	TF_FLAGTYPE_PLAYER_DESTRUCTION
-};
-#define ETFFlagType_ENABLED
-#endif
-
 methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 {
 	public OSTFPlayer(int index)
@@ -270,6 +225,11 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 	public int GiveAmmo(int iCount, int iAmmoIndex, bool bSuppressSound = false)
 	{
 		return TF2_GiveAmmo(this.index, iCount, iAmmoIndex, bSuppressSound);
+	}
+	
+	public bool ShouldCollide(int collisionGroup, int contentsMask)
+	{
+		return TFPlayer_ShouldCollide(this.index, collisionGroup, contentsMask);
 	}
 	
 	public bool HasItem()
@@ -944,6 +904,28 @@ stock int TF2_GetActiveTFWeapon(int client)
 stock int TF2_GiveAmmo(int client, int iCount, int iAmmoIndex, bool bSuppressSound = false)
 {
 	return GivePlayerAmmo(client, iCount, iAmmoIndex, bSuppressSound);
+}
+
+stock bool TFPlayer_ShouldCollide(int client, int collisionGroup, int contentsMask)
+{
+	if ((collisionGroup == COLLISION_GROUP_PLAYER_MOVEMENT && FindConVar("tf_avoidteammates").BoolValue) || collisionGroup == TFCOLLISION_GROUP_ROCKETS || collisionGroup == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS)
+	{
+		switch(TF2_GetClientTeam(client))
+		{
+			case TFTeam_Red:
+			{
+				if (!(contentsMask & CONTENTS_REDTEAM))
+					return false;
+			}
+			case TFTeam_Blue:
+			{
+				if (!(contentsMask & CONTENTS_BLUETEAM))
+					return false;
+			}
+		}
+	}
+	
+	return BaseEntity_ShouldCollide(client, collisionGroup, contentsMask);
 }
 
 stock bool TF2_HasItem(int client)

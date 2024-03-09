@@ -3,32 +3,9 @@
 #endif
 #define _stock_officerspy_player_included
 
+#include <stocklib_officerspy/shared/shareddefs>
 #include <stocklib_officerspy/basecombatcharacter>
 #include <stocklib_officerspy/gamerules>
-
-#if !defined TEAM_ANY
-#define TEAM_ANY	-2
-#endif
-
-#if !defined TEAM_INVALID
-#define	TEAM_INVALID	-1
-#endif
-
-#if !defined TEAM_UNASSIGNED
-#define TEAM_UNASSIGNED	0
-#endif
-
-#if !defined TEAM_SPECTATOR
-#define TEAM_SPECTATOR	1
-#endif
-
-#if !defined LAST_SHARED_TEAM
-#define LAST_SHARED_TEAM	TEAM_SPECTATOR
-#endif
-
-#if !defined MAX_FOV
-#define MAX_FOV	90
-#endif
 
 methodmap OSBasePlayer < OSBaseCombatCharacter
 {

@@ -3,11 +3,8 @@
 #endif
 #define _stock_officerspy_basecombatcharacter_included
 
+#include <stocklib_officerspy/shared/shareddefs>
 #include <stocklib_officerspy/baseflex>
-
-#if !defined MAX_WEAPONS
-#define MAX_WEAPONS	48
-#endif
 
 methodmap OSBaseCombatCharacter < OSBaseFlex
 {

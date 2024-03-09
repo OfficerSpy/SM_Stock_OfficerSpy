@@ -6,14 +6,6 @@
 #include <stocklib_officerspy/baseentity>
 #include <stocklib_officerspy/shared/tf_shareddefs>
 
-#if !defined TF_FIRST_NORMAL_CLASS
-#define TF_FIRST_NORMAL_CLASS	TFClass_Scout
-#endif
-
-#if !defined TF_LAST_NORMAL_CLASS
-#define TF_LAST_NORMAL_CLASS	TFClass_Engineer + 1
-#endif
-
 stock bool CTFBot_IsLineOfFireClear(int client, const float from[3], const float to[3])
 {
 	Handle trace = TR_TraceRayFilterEx(from, to, MASK_SOLID_BRUSHONLY, RayType_EndPoint, TraceFilterTFBot, client);

@@ -6,31 +6,6 @@
 #include <stocklib_officerspy/player>
 #include <stocklib_officerspy/stocklib_extra_vscript>
 
-#if !defined TF_TEAM_PVE_INVADERS
-#define TF_TEAM_PVE_INVADERS	TFTeam_Blue
-#endif
-
-#if !defined TF_TEAM_PVE_DEFENDERS
-#define TF_TEAM_PVE_DEFENDERS	TFTeam_Red
-#endif
-
-#if !defined ETFGameType_ENABLED
-enum ETFGameType
-{
-	TF_GAMETYPE_UNDEFINED = 0,
-	TF_GAMETYPE_CTF,
-	TF_GAMETYPE_CP,
-	TF_GAMETYPE_ESCORT,
-	TF_GAMETYPE_ARENA,
-	TF_GAMETYPE_MVM,
-	TF_GAMETYPE_RD,
-	TF_GAMETYPE_PASSTIME,
-	TF_GAMETYPE_PD,
-	TF_GAMETYPE_COUNT
-};
-#define ETFGameType_ENABLED
-#endif
-
 stock bool TF2_IsInArenaMode()
 {
 	return view_as<ETFGameType>(GameRules_GetProp("m_nGameType")) == TF_GAMETYPE_ARENA;
@@ -78,7 +53,7 @@ stock bool TF2_GameModeUsesMiniBosses()
 
 stock bool TF2_IsPasstimeMode()
 {
-	return GameRules_GetProp("m_nGameType") == TF_GAMETYPE_PASSTIME;
+	return view_as<ETFGameType>(GameRules_GetProp("m_nGameType")) == TF_GAMETYPE_PASSTIME;
 }
 
 stock bool TF2_IsMannVsMachineRespecEnabled()
@@ -123,7 +98,7 @@ stock bool TF2_IsPVEModeControlled(int who)
 	//This assumes the entity is always a player and honestly
 	//it should never be anything else as far as I know
 	if (TF2_IsMannVsMachineMode())
-		return TF2_GetClientTeam(who) == TF_TEAM_PVE_INVADERS ? true : false;
+		return GetClientTeam(who) == TF_TEAM_PVE_INVADERS ? true : false;
 	
 	if (TF2_IsPVEModeActive())
 		return TF2_GetClientTeam(who) == TFTeam_Red ? true : false;
@@ -237,4 +212,65 @@ stock void TF2_PushAllPlayersAway(const float vFromThisPoint[3], float flRange, 
 			VS_ApplyAbsVelocityImpulse(player, vPush);
 		}
 	}
+}
+
+stock bool TFGameRules_ShouldCollide(int collisionGroup0, int collisionGroup1)
+{
+	if (collisionGroup0 > collisionGroup1)
+	{
+		//Swap places
+		int old = collisionGroup0;
+		collisionGroup0 = collisionGroup1;
+		collisionGroup1 = old;
+	}
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == COLLISION_GROUP_WEAPON)
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == COLLISION_GROUP_PROJECTILE)
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return true;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_WEAPON && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == TF_COLLISIONGROUP_GRENADES && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PROJECTILE && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == TFCOLLISION_GROUP_ROCKETS && (collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS && (collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER && collisionGroup1 == TF_COLLISIONGROUP_GRENADES)
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == TF_COLLISIONGROUP_GRENADES)
+		return false;
+	
+	if (collisionGroup1 == TFCOLLISION_GROUP_RESPAWNROOMS)
+		return collisionGroup0 == COLLISION_GROUP_PLAYER || collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT;
+	
+	if (collisionGroup0 == TF_COLLISIONGROUP_GRENADES && collisionGroup1 == TF_COLLISIONGROUP_GRENADES)
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == TFCOLLISION_GROUP_COMBATOBJECT)
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER && collisionGroup1 == TFCOLLISION_GROUP_COMBATOBJECT)
+		return false;
+	
+	if ((collisionGroup0 == COLLISION_GROUP_PLAYER || collisionGroup0 ==  COLLISION_GROUP_PLAYER_MOVEMENT) && collisionGroup1 == TFCOLLISION_GROUP_TANK)
+		return false;
+	
+	return CGameRules_ShouldCollide(collisionGroup0, collisionGroup1);
 }
