@@ -1669,7 +1669,7 @@ enum MM_PlayerConnectionState_t
 #define MM_PlayerConnectionState_t_ENABLED
 #endif
 
-const char g_aPlayerClassNames_NonLocalized[] =
+char g_aPlayerClassNames_NonLocalized[][] =
 {
 	"Undefined",
 	"Scout",
