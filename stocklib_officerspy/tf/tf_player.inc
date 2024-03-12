@@ -928,6 +928,22 @@ stock bool TFPlayer_ShouldCollide(int client, int collisionGroup, int contentsMa
 	return BaseEntity_ShouldCollide(client, collisionGroup, contentsMask);
 }
 
+stock void TF2_HandleCommand_JoinClass(int client, const char[] pClassName, bool bAllowSpawn = true)
+{
+	if (GameRules_GetRoundState() == RoundState_GameOver)
+		return;
+	
+	//MISSING: if ( TFGameRules()->IsCompetitiveMode() )
+	
+	if (TF2_IsCoaching(client))
+		return;
+	
+	if (GetClientTeam(client) <= LAST_SHARED_TEAM && TF2_IsInArenaMode() == false)
+		return;
+	
+	//TODO: the rest
+}
+
 stock bool TF2_HasItem(int client)
 {
 	return GetEntPropEnt(client, Prop_Send, "m_hItem") != -1;

@@ -11,16 +11,6 @@ It's better to just set them to a constant number to enforce a consistent value 
 
 #include <stocklib_officerspy/team_objectiveresource>
 
-#if !defined MVM_CLASS_FLAG_NONE
-#define MVM_CLASS_FLAG_NONE				0
-#define MVM_CLASS_FLAG_NORMAL			(1<<0)
-#define MVM_CLASS_FLAG_SUPPORT			(1<<1)
-#define MVM_CLASS_FLAG_MISSION			(1<<2)
-#define MVM_CLASS_FLAG_MINIBOSS			(1<<3)
-#define MVM_CLASS_FLAG_ALWAYSCRIT		(1<<4)
-#define MVM_CLASS_FLAG_SUPPORT_LIMITED	(1<<5)
-#endif
-
 #if !defined TFOR_TELEPORTER_STRING
 #define TFOR_TELEPORTER_STRING	"teleporter"
 #endif
