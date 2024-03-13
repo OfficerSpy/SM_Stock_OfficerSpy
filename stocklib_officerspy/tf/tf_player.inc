@@ -227,6 +227,11 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 		return TF2_GiveAmmo(this.index, iCount, iAmmoIndex, bSuppressSound);
 	}
 	
+	public void SetClassMenuOpen(bool bOpen)
+	{
+		TF2_SetClassMenuOpen(this.index, bOpen);
+	}
+	
 	public bool ShouldCollide(int collisionGroup, int contentsMask)
 	{
 		return TFPlayer_ShouldCollide(this.index, collisionGroup, contentsMask);
@@ -906,6 +911,12 @@ stock int TF2_GiveAmmo(int client, int iCount, int iAmmoIndex, bool bSuppressSou
 	return GivePlayerAmmo(client, iCount, iAmmoIndex, bSuppressSound);
 }
 
+stock void TF2_SetClassMenuOpen(int client, bool bOpen)
+{
+	//TODO: set offset of m_bIsClassMenuOpen instead
+	FakeClientCommand(client, bOpen ? "menuopen" : "menuclosed");
+}
+
 stock bool TFPlayer_ShouldCollide(int client, int collisionGroup, int contentsMask)
 {
 	if ((collisionGroup == COLLISION_GROUP_PLAYER_MOVEMENT && FindConVar("tf_avoidteammates").BoolValue) || collisionGroup == TFCOLLISION_GROUP_ROCKETS || collisionGroup == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS)
@@ -940,6 +951,20 @@ stock void TF2_HandleCommand_JoinClass(int client, const char[] pClassName, bool
 	
 	if (GetClientTeam(client) <= LAST_SHARED_TEAM && TF2_IsInArenaMode() == false)
 		return;
+	
+	TF2_SetClassMenuOpen(client, false);
+	
+	if (TeamplayRoundBasedRules_InStalemate() && TF2_IsInArenaMode() == false)
+	{
+		if (IsPlayerAlive(client)) //MISSING: !TFGameRules()->CanChangeClassInStalemate()
+		{
+			char szTime[6];
+			Format(szTime, sizeof(szTime), "%d", FindConVar("tf_stalematechangeclasstime").IntValue);
+			
+			PrintToChat(client, "#game_stalemate_cant_change_class", szTime);
+			return;
+		}
+	}
 	
 	//TODO: the rest
 }
