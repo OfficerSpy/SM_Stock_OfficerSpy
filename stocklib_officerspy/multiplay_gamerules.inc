@@ -3,6 +3,7 @@
 #endif
 #define _stock_officerspy_multiplaygamerules_included
 
+#include <stocklib_officerspy/shared/shareddefs>
 #include <stocklib_officerspy/basemultiplayerplayer>
 
 stock void MultiplayRules_HaveAllPlayersSpeakConceptIfAllowed(int iConcept, int iTeam = TEAM_UNASSIGNED)

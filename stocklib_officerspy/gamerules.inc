@@ -3,6 +3,8 @@
 #endif
 #define _stock_officerspy_gamerules_included
 
+#include <stocklib_officerspy/public/const>
+
 stock int CGameRules_DefaultFOV()
 {
 	switch(GetEngineVersion())

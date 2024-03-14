@@ -3,6 +3,8 @@
 #endif
 #define _stock_officerspy_halloween_base_boss_included
 
+#include <stocklib_officerspy/shared/tf_shareddefs>
+
 stock int TF2_SpawnBossAtPos(HalloweenBossType bossType, const float vSpawnPos[3], int nTeam = TF_TEAM_HALLOWEEN, int owner = INVALID_ENT_REFERENCE)
 {
 	char strBossType[20];

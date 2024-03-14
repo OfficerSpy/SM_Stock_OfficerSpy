@@ -1,4 +1,0 @@
-#if defined _stock_officerspy_baseentityshared_included
-	#endinput
-#endif
-#define _stock_officerspy_baseentityshared_included

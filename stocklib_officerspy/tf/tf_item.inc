@@ -3,6 +3,8 @@
 #endif
 #define _stock_officerspy_tfitem_included
 
+#include <stocklib_officerspy/shared/tf_shareddefs>
+
 stock int TF2_GetItemID(int entity)
 {
 	//GetItemID is actually a virtual function, so here it's just based on entity class

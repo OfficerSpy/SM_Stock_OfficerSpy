@@ -10,6 +10,7 @@ It's better to just set them to a constant number to enforce a consistent value 
 #define _stock_officerspy_tfobjectiveresource_included
 
 #include <stocklib_officerspy/team_objectiveresource>
+#include <stocklib_officerspy/shared/tf_shareddefs>
 
 #if !defined TFOR_TELEPORTER_STRING
 #define TFOR_TELEPORTER_STRING	"teleporter"

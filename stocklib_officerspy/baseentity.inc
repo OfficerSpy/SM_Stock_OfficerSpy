@@ -3,17 +3,8 @@
 #endif
 #define _stock_officerspy_baseentity_included
 
-#if !defined CONTENTS_BLOCKLOS
-#define CONTENTS_BLOCKLOS	CONTENTS_MIST
-#endif
-
-#if !defined MASK_BLOCKLOS
-#define MASK_BLOCKLOS	CONTENTS_SOLID|CONTENTS_MOVEABLE|CONTENTS_BLOCKLOS
-#endif
-
-#if !defined MASK_BLOCKLOS_AND_NPCS
-#define MASK_BLOCKLOS_AND_NPCS	MASK_BLOCKLOS|CONTENTS_MONSTER
-#endif
+#include <stocklib_officerspy/public/const>
+#include <stocklib_officerspy/public/bspflags>
 
 methodmap OSBaseEntity
 {

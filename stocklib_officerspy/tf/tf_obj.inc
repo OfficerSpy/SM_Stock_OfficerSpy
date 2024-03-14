@@ -3,6 +3,8 @@
 #endif
 #define _stock_officerspy_tfobj_included
 
+#include <tf2_stocks>
+#include <sdkhooks>
 #include <stocklib_officerspy/basecombatcharacter>
 #include <stocklib_officerspy/other/cpp_valve>
 
