@@ -10,7 +10,7 @@ stock int EconItemView_GetID(int entity)
 
 stock bool EconItemView_IsValid(int entity)
 {
-	return GetEntProp(entity, Prop_Send, "m_bInitialized");
+	return view_as<bool>(GetEntProp(entity, Prop_Send, "m_bInitialized"));
 }
 
 stock void EconItemView_Invalidate(int entity)
