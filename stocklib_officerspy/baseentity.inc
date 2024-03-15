@@ -258,10 +258,10 @@ methodmap OSBaseEntity
 		BaseEntity_ApplyAbsVelocityImpulse(this.index, inVecImpulse);
 	}
 	
-	/* public void WorldSpaceCenter(float buffer[3])
+	public void WorldSpaceCenter(float buffer[3])
 	{
 		BaseEntity_WorldSpaceCenter(this.index, buffer);
-	} */
+	}
 	
 	public void AddEffects(int nEffects)
 	{
@@ -614,14 +614,20 @@ stock void BaseEntity_ApplyAbsVelocityImpulse(int entity, const float inVecImpul
 	}
 }
 
-#pragma deprecated This function is not correct
 stock void BaseEntity_WorldSpaceCenter(int entity, float buffer[3])
 {
-	/* TOOD: this is not how this function works!
-	The actual function goes through like this:
+	/* The actual function goes through like this:
 	CBaseEntity::WorldSpaceCenter < CCollisionProperty::WorldSpaceCenter */
 	
-	GetEntPropVector(entity, Prop_Data, "m_vecAbsOrigin", buffer);
+	//NOTE: for now, let's just use this method created by Mikusch
+	float vecOrigin[3], vecMins[3], vecMaxs[3], vecOffset[3];
+	GetEntPropVector(entity, Prop_Data, "m_vecAbsOrigin", vecOrigin);
+	GetEntPropVector(entity, Prop_Data, "m_vecMins", vecMins);
+	GetEntPropVector(entity, Prop_Data, "m_vecMaxs", vecMaxs);
+	
+	AddVectors(vecMins, vecMaxs, vecOffset);
+	ScaleVector(vecOffset, 0.5);
+	AddVectors(vecOrigin, vecOffset, buffer);
 }
 
 stock void BaseEntity_AddEffects(int entity, int nEffects)

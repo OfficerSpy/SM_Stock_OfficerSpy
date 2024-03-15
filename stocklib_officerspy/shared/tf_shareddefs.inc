@@ -482,6 +482,7 @@ enum
 #define DMG_IGNORE_DEBUFFS		DMG_SLASH
 
 //ETFDmgCustom types are defined in tf2_stocks.inc
+#define TF_DMG_CUSTOM_NONE	0
 #define TF_DMG_CUSTOM_END	TF_CUSTOM_AXTINGUISHER_BOOSTED + 1
 
 #if !defined ENUMERATION_TFCOLLISIONGROUP
