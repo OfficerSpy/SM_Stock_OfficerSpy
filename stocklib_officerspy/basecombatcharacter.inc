@@ -28,6 +28,16 @@ methodmap OSBaseCombatCharacter < OSBaseFlex
 		return BaseCombatCharacter_IsGlowEffectActive(this.index);
 	}
 	
+	public int BloodColor()
+	{
+		return BaseCombatCharacter_BloodColor(this.index);
+	}
+	
+	public void SetBloodColor(int nBloodColor)
+	{
+		BaseCombatCharacter_SetBloodColor(this.index, nBloodColor);
+	}
+	
 	public int GetActiveWeapon()
 	{
 		return BaseCombatCharacter_GetActiveWeapon(this.index);
@@ -62,6 +72,16 @@ stock void BaseCombatCharacter_RemoveGlowEffect(int entity)
 stock bool BaseCombatCharacter_IsGlowEffectActive(int entity)
 {
 	return view_as<bool>(GetEntProp(entity, Prop_Send, "m_bGlowEnabled"));
+}
+
+stock int BaseCombatCharacter_BloodColor(int entity)
+{
+	return GetEntProp(entity, Prop_Data, "m_bloodColor");
+}
+
+stock void BaseCombatCharacter_SetBloodColor(int entity, int nBloodColor)
+{
+	SetEntProp(entity, Prop_Data, "m_bloodColor", nBloodColor);
 }
 
 stock int BaseCombatCharacter_GetActiveWeapon(int entity)

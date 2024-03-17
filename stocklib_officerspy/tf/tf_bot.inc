@@ -66,6 +66,20 @@ enum DifficultyType
 #define DifficultyType_ENABLED
 #endif
 
+#if !defined MissionType_ENABLED
+enum MissionType
+{
+	CTFBot_NO_MISSION = 0,
+	CTFBot_MISSION_SEEK_AND_DESTROY,
+	CTFBot_MISSION_DESTROY_SENTRIES,
+	CTFBot_MISSION_SNIPER,
+	CTFBot_MISSION_SPY,
+	CTFBot_MISSION_ENGINEER,
+	CTFBot_MISSION_REPROGRAMMED
+};
+#define MissionType_ENABLED
+#endif
+
 stock bool TF2_IsLineOfFireClear(int client, const float from[3], const float to[3])
 {
 	Handle trace = TR_TraceRayFilterEx(from, to, MASK_SOLID_BRUSHONLY, RayType_EndPoint, TraceFilterTFBot, client);
