@@ -237,6 +237,16 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 		return TFPlayer_ShouldCollide(this.index, collisionGroup, contentsMask);
 	}
 	
+	public void TeleportEffect()
+	{
+		TF2_TeleportEffect(this.index);
+	}
+	
+	public void RemoveTeleportEffect()
+	{
+		TF2_RemoveTeleportEffect(this.index);
+	}
+	
 	public bool HasItem()
 	{
 		return TF2_HasItem(this.index);
@@ -969,6 +979,24 @@ stock void TF2_HandleCommand_JoinClass(int client, const char[] pClassName, bool
 	//TODO: the rest
 }
 
+stock void TF2_TeleportEffect(int client)
+{
+	TF2_AddCondition(client, TFCond_TeleportedGlow);
+	
+	float flDuration = 12.0;
+	
+	if (TF2_IsMannVsMachineMode() && GetEntProp(client, Prop_Send, "m_bIsABot") == 1) //MISSING: IsBotOfType
+		flDuration = 30.0;
+	
+	//In game code, this is a think context, but what's the point in doing that when you can set a duration?
+	CreateTimer(flDuration, Timer_RemoveTeleportEffect, client, TIMER_FLAG_NO_MAPCHANGE);
+}
+
+stock void TF2_RemoveTeleportEffect(int client)
+{
+	TF2_RemoveCondition(client, TFCond_TeleportedGlow);
+}
+
 stock bool TF2_HasItem(int client)
 {
 	return GetEntPropEnt(client, Prop_Send, "m_hItem") != -1;
@@ -1034,4 +1062,12 @@ stock int TF2_GetClosestCaptureZone(int client)
 	}
 	
 	return pCaptureZone;
+}
+
+static Action Timer_RemoveTeleportEffect(Handle timer, any data)
+{
+	if (IsClientInGame(data))
+		TF2_RemoveTeleportEffect(data);
+	
+	return Plugin_Stop;
 }

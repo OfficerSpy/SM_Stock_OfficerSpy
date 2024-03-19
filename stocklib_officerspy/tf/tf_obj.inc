@@ -34,6 +34,16 @@ methodmap OSBaseObject < OSBaseCombatCharacter
 		return TF2_IsCarried(this.index);
 	}
 	
+	public bool HasSapper()
+	{
+		return TF2_HasSapper(this.index);
+	}
+	
+	public bool IsPlasmaDisabled()
+	{
+		return TF2_IsPlasmaDisabled(this.index);
+	}
+	
 	public int GetObjectFlags()
 	{
 		return TF2_GetObjectFlags(this.index);
@@ -188,6 +198,16 @@ stock bool TF2_IsPlacing(int entity)
 stock bool TF2_IsCarried(int entity)
 {
 	return view_as<bool>(GetEntProp(entity, Prop_Send, "m_bCarried"));
+}
+
+stock bool TF2_HasSapper(int entity)
+{
+	return view_as<bool>(GetEntProp(entity, Prop_Send, "m_bHasSapper"));
+}
+
+stock bool TF2_IsPlasmaDisabled(int entity)
+{
+	return view_as<bool>(GetEntProp(entity, Prop_Send, "m_bPlasmaDisable"));
 }
 
 stock int TF2_GetObjectFlags(int entity)
