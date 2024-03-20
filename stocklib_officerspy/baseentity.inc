@@ -268,6 +268,11 @@ methodmap OSBaseEntity
 		BaseEntity_AddEffects(this.index, nEffects);
 	}
 	
+	public bool IsPlayer()
+	{
+		return BaseEntity_IsPlayer(this.index);
+	}
+	
 	public bool IsCombatItem()
 	{
 		return BaseEntity_IsCombatItem(this.index);

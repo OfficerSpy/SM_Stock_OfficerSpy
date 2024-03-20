@@ -536,6 +536,21 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 		return TF2_GetDuckTimer(this.index);
 	}
 	
+	public void StunPlayer(float flTime, float flReductionAmount, int iStunFlags = TF_STUN_MOVEMENT, int pAttacker = -1)
+	{
+		TF2_StunPlayer(this.index, flTime, flReductionAmount, iStunFlags, pAttacker);
+	}
+	
+	public bool IsLoserStateStunned()
+	{
+		return TF2_IsLoserStateStunned(this.index);
+	}
+	
+	public bool IsControlStunned()
+	{
+		return TF2_IsControlStunned(this.index);
+	}
+	
 	public float GetDisguiseCompleteTime()
 	{
 		return TF2_GetDisguiseCompleteTime(this.index);

@@ -4,7 +4,6 @@
 #define _stock_officerspy_tfgamerules_included
 
 #include <stocklib_officerspy/shared/tf_shareddefs>
-#include <stocklib_officerspy/player>
 #include <stocklib_officerspy/stocklib_extra_vscript>
 
 stock bool TF2_IsInArenaMode()
@@ -190,12 +189,16 @@ stock bool TF2_IsBountyMode()
 
 stock void TF2_PushAllPlayersAway(const float vFromThisPoint[3], float flRange, float flForce, TFTeam nTeam)
 {
-	ArrayList adtPlayer;
-	CollectPlayers(adtPlayer, view_as<int>(nTeam), true);
+	//CollectPlayers
+	int iTotal = 0;
+	int[] iArrPlayers = new int[MaxClients];
+	for (int i = 1; i <= MaxClients; i++)
+		if (IsClientInGame(i) && TF2_GetClientTeam(i) == nTeam && IsPlayerAlive(i))
+			iArrPlayers[iTotal++] = i;
 	
-	for (int i = 0; i < adtPlayer.Length; i++)
+	for (int i = 0; i < iTotal; i++)
 	{
-		int player = adtPlayer.Get(i);
+		int player = iArrPlayers[i];
 		
 		float eyePosition[3]; GetClientEyePosition(player, eyePosition);
 		

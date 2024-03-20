@@ -241,6 +241,32 @@ stock float TF2_GetDuckTimer(int client)
 	return GetEntPropFloat(client, Prop_Send, "m_flDuckTimer");
 }
 
+#pragma deprecated Use TF2_StunPlayer instead
+stock void TFPlayerShared_StunPlayer(int client, float flTime, float flReductionAmount, int iStunFlags = TF_STUN_MOVEMENT, int pAttacker = -1)
+{
+	TF2_StunPlayer(client, flTime, flReductionAmount, iStunFlags, pAttacker);
+}
+
+stock bool TF2_IsLoserStateStunned(int client)
+{
+	//MISSING: GetActiveStunInfo
+	
+	if (TF2_IsPlayerInCondition(client, TFCond_Dazed) && GetEntProp(client, Prop_Send, "m_iStunFlags") & TF_STUN_LOSER_STATE)
+		return true;
+	
+	return false;
+}
+
+stock bool TF2_IsControlStunned(int client)
+{
+	//MISSING: GetActiveStunInfo
+	
+	if (TF2_IsPlayerInCondition(client, TFCond_Dazed) && GetEntProp(client, Prop_Send, "m_iStunFlags") & TF_STUN_CONTROLS)
+		return true;
+	
+	return false;
+}
+
 stock float TF2_GetDisguiseCompleteTime(int client)
 {
 	return GetEntPropFloat(client, Prop_Data, "m_flDisguiseCompleteTime");
