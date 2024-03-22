@@ -64,7 +64,7 @@ stock void TransmitShakeEvent(int player, float localAmplitude, float frequency,
 }
 
 const float MAX_SHAKE_AMPLITUDE = 16.0;
-stock void UTIL_ScreenShake(const float center[3], float amplitude, float frequency, float duration, float radius, ShakeCommand_t eCommand, bool bAirShake)
+stock void UTIL_ScreenShake(const float center[3], float amplitude, float frequency, float duration, float radius, ShakeCommand_t eCommand, bool bAirShake = false)
 {
 	float localAmplitude;
 	

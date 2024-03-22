@@ -753,7 +753,7 @@ enum
 #define TF_PLAYER_ENEMY_BLASTED_ME	(1 << 2)
 
 #if !defined taunts_t_ENABLED
-enum taunts_t
+enum //taunts_t
 {
 	TAUNT_BASE_WEAPON,
 	TAUNT_MISC_ITEM,

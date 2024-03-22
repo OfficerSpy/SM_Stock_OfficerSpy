@@ -18,6 +18,30 @@ methodmap OSBaseEntity
 		public get()	{ return view_as<int>(this); }
 	}
 	
+	property int m_lifeState
+	{
+		public get()	{ return GetEntProp(this.index, Prop_Data, "m_lifeState"); }
+		public set(int value)	{ SetEntProp(this.index, Prop_Data, "m_lifeState", value); }
+	}
+	
+	property int m_takedamage
+	{
+		public get()	{ return GetEntProp(this.index, Prop_Data, "m_takedamage"); }
+		public set(int value)	{ SetEntProp(this.index, Prop_Data, "m_takedamage", value); }
+	}
+	
+	property int m_iMaxHealth
+	{
+		public get()	{ return GetEntProp(this.index, Prop_Data, "m_iMaxHealth"); }
+		public set(int value)	{ SetEntProp(this.index, Prop_Data, "m_iMaxHealth", value); }
+	}
+	
+	property int m_iHealth
+	{
+		public get()	{ return GetEntProp(this.index, Prop_Data, "m_iHealth"); }
+		public set(int value)	{ SetEntProp(this.index, Prop_Data, "m_iHealth", value); }
+	}
+	
 	public void ClearModelIndexOverrides()
 	{
 		BaseEntity_ClearModelIndexOverrides(this.index);

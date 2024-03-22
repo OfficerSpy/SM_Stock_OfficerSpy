@@ -1,11 +1,13 @@
-#if defined _stock_officerspy_tf_extra_vscript_included
+#if defined _stock_officerspy_extra_vscript_tf_included
 	#endinput
 #endif
-#define _stock_officerspy_tf_extra_vscript_included
+#define _stock_officerspy_extra_vscript_tf_included
 
+#include <stocklib_officerspy/shared/tf_shareddefs>
 #include <stocklib_officerspy/tf/tf_bot>
 
 //CTFPlayer
+
 stock void VS_AddCustomAttribute(int client, char[] name, float value, float delay = -1.0)
 {
 	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.AddCustomAttribute(\"%s\", %f, %f)", name, value, delay);
@@ -30,7 +32,16 @@ stock void VS_RemoveCondEx(int client, TFCond cond, bool ignoreDuration = false)
 	AcceptEntityInput(client, "RunScriptCode");
 }
 
+stock void VS_Taunt(int client, int taunt_index = TAUNT_BASE_WEAPON, int taunt_concept = 0)
+{
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.Taunt(%d, %d)", taunt_index, taunt_concept);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(client, "RunScriptCode");
+}
+
 //CTFBot
+
 stock void VS_AddBotAttribute(int tfbot, AttributeType attributeFlags)
 {
 	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.AddBotAttribute(%d)", attributeFlags)

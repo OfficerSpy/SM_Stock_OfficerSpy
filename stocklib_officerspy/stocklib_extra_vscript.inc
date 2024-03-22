@@ -7,6 +7,18 @@ They will do nothing useful otherwise. */
 #endif
 #define _stock_officerspy_extra_vscript_included
 
+/* Globals
+Although these aren't methods of specific entity classes, you still need an entity to execute the code */
+
+stock void VS_DispatchParticleEffect(int entity, const char[] name, float origin[3], float angles[3])
+{
+	char buffer[PLATFORM_MAX_PATH];
+	Format(buffer, sizeof(buffer), "DispatchParticleEffect(%s, Vector(%f, %f, %f), Vector(%f, %f, %f))", name, origin[0], origin[1], origin[2], angles[0], angles[1], angles[2]);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(entity, "RunScriptCode");
+}
+
 stock void VS_ApplyAbsVelocityImpulse(int entity, float inVecImpulse[3])
 {
 	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.ApplyAbsVelocityImpulse(Vector(%f, %f, %f))", inVecImpulse[0], inVecImpulse[1], inVecImpulse[2]);
