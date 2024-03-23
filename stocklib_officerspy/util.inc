@@ -53,7 +53,7 @@ stock void TransmitShakeEvent(int player, float localAmplitude, float frequency,
 		BfWrite msg = UserMessageToBfWrite(StartMessageOne("Shake", player, USERMSG_RELIABLE));
 		if (msg != null)
 		{
-			msg.WriteByte(eCommand);
+			msg.WriteByte(view_as<int>(eCommand));
 			msg.WriteFloat(localAmplitude);
 			msg.WriteFloat(frequency);
 			msg.WriteFloat(duration);
