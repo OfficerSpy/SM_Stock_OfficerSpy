@@ -39,7 +39,14 @@ methodmap OSBaseEntity
 	property int m_iHealth
 	{
 		public get()	{ return GetEntProp(this.index, Prop_Data, "m_iHealth"); }
-		public set(int value)	{ SetEntProp(this.index, Prop_Data, "m_iHealth", value); }
+		public set(int value)
+		{
+			SetEntProp(this.index, Prop_Data, "m_iHealth", value);
+			
+			//Only on CBasePlayer
+			if (HasEntProp(this.index, Prop_Send, "m_iHealth"))
+				SetEntProp(this.index, Prop_Send, "m_iHealth", value);
+		}
 	}
 	
 	public void ClearModelIndexOverrides()

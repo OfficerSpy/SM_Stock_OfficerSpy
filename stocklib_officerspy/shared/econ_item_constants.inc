@@ -3,7 +3,7 @@
 #endif
 #define _stock_officerspy_econitemconstants_included
 
-enum EEconItemQuality
+enum //EEconItemQuality
 {
 	AE_UNDEFINED = -1,
 	AE_NORMAL = 0,
