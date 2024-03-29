@@ -42,3 +42,14 @@ stock float MaxFloat(const float val1, const float val2)
 {
 	return val1 > val2 ? val1 : val2;
 }
+
+stock float RemapValClamped(float val, float A, float B, float C, float D)
+{
+	if (A == B)
+		return val >= B ? D : C;
+	
+	float cVal = (val - A) / (B - A);
+	cVal = clamp(cVal, 0.0, 1.0);
+
+	return C + (D - C) * cVal;
+}
