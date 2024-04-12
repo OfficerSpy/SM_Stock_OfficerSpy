@@ -26,6 +26,11 @@ methodmap OSBaseAnimating < OSBaseEntity
 	{
 		BaseAnimating_SetModelScale(this.index, scale, change_duration);
 	}
+	
+	public float GetModelScale()
+	{
+		return BaseAnimating_GetModelScale(this.index);
+	}
 }
 
 stock void BaseAnimating_SetModelScale(int entity, float scale, float change_duration = 0.0)
@@ -36,4 +41,9 @@ stock void BaseAnimating_SetModelScale(int entity, float scale, float change_dur
 	
 	SetVariantVector3D(vec);
 	AcceptEntityInput(entity, "SetModelScale");
+}
+
+stock float BaseAnimating_GetModelScale(int entity)
+{
+	return GetEntPropFloat(entity, Prop_Data, "m_flModelScale");
 }

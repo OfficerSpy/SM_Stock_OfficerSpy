@@ -4,9 +4,11 @@
 #define _stock_officerspy_tfplayer_included
 
 #include <stocklib_officerspy/basemultiplayerplayer>
+#include <stocklib_officerspy/teamplayroundbased_gamerules>
 #include <stocklib_officerspy/tf/tf_playerclass_shared>
 #include <stocklib_officerspy/tf/tf_player_shared>
 #include <stocklib_officerspy/tf/tf_item>
+#include <stocklib_officerspy/tf/tf_gamerules>
 #include <stocklib_officerspy/other/cpp>
 #include <stocklib_officerspy/other/cpp_valve>
 
@@ -719,6 +721,11 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 	public bool AddToSpyCloakMeter(float val)
 	{
 		return TF2_AddToSpyCloakMeter(this.index, val);
+	}
+	
+	public bool IsInvulnerable()
+	{
+		return TF2_IsInvulnerable(this.index);
 	}
 }
 

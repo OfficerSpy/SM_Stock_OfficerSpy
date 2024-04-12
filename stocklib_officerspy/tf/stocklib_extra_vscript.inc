@@ -70,6 +70,30 @@ stock void VS_ClearWeaponRestrictions(int tfbot)
 	AcceptEntityInput(tfbot, "RunScriptCode");
 }
 
+stock void VS_PressAltFireButton(int bot, float duration = -1.0)
+{
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.PressAltFireButton(%f)", duration);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(bot, "RunScriptCode");
+}
+
+stock void VS_PressFireButton(int bot, float duration = -1.0)
+{
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.PressFireButton(%f)", duration);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(bot, "RunScriptCode");
+}
+
+stock void VS_PressSpecialFireButton(int bot, float duration = -1.0)
+{
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.PressSpecialFireButton(%f)", duration);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(bot, "RunScriptCode");
+}
+
 stock void VS_SetDifficulty(int tfbot, DifficultyType difficulty)
 {
 	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.SetDifficulty(%d)", difficulty);

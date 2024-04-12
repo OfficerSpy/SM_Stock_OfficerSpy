@@ -465,3 +465,10 @@ stock bool TF2_AddToSpyCloakMeter(int client, float val) //MISSING: bForce
 	
 	return bResult;
 }
+
+stock bool TF2_IsInvulnerable(int client)
+{
+	bool bInvuln = TF2_IsPlayerInCondition(client, TFCond_Ubercharged) || TF2_IsPlayerInCondition(client, TFCond_UberchargedCanteen) || TF2_IsPlayerInCondition(client, TFCond_UberchargedHidden) || TF2_IsPlayerInCondition(client, TFCond_UberchargedOnTakeDamage);
+	
+	return bInvuln;
+}
