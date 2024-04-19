@@ -448,7 +448,12 @@ stock int TF2_GetHealerByIndex(int client, int index)
 	Address pHealers = view_as<Address>(LoadFromAddress(pShared, NumberType_Int32)); //m_aHealers
 	
 	//m_aHealers[index].pHealer
-	return (LoadFromAddress(pHealers + view_as<Address>(index * 0x24), NumberType_Int32) & 0xFFF);
+	return LoadFromAddress(pHealers + view_as<Address>(index * 0x24), NumberType_Int32) & 0xFFF;
+}
+
+stock int TF2_GetNumHealers(int client)
+{
+	return GetEntProp(client, Prop_Send, "m_nNumHealers");
 }
 
 stock bool TF2_AddToSpyCloakMeter(int client, float val) //MISSING: bForce

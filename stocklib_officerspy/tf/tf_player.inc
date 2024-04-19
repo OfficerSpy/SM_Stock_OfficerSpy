@@ -718,6 +718,11 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 		return TF2_GetHealerByIndex(this.index, index);
 	}
 	
+	public int GetNumHealers(int index)
+	{
+		return TF2_GetNumHealers(this.index);
+	}
+	
 	public bool AddToSpyCloakMeter(float val)
 	{
 		return TF2_AddToSpyCloakMeter(this.index, val);

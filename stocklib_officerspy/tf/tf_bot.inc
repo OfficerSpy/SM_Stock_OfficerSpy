@@ -137,7 +137,7 @@ stock void TF2_DisguiseAsMemberOfEnemyTeam(int client)
 
 // EXTRA UTILITY FUNCTIONS
 
-public bool TraceFilterTFBot(int entity, int contentsMask, any data)
+static bool TraceFilterTFBot(int entity, int contentsMask, any data)
 {
 	//NextBotTraceFilterIgnoreActors
 	if (IsBaseCombatCharacter(entity))
