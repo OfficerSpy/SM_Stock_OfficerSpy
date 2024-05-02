@@ -552,7 +552,7 @@ stock bool BaseEntity_FVisible1(int entity, int pEntity, int traceMask, int ppBl
 	
 	Handle trace;
 	
-	if (GetConVarBool(FindConVar("ai_LOS_mode")))
+	if (FindConVar("ai_LOS_mode").BoolValue)
 	{
 		trace = TR_TraceRayEx(vecLookerOrigin, vecTargetOrigin, traceMask, RayType_EndPoint);
 	}
@@ -561,11 +561,10 @@ stock bool BaseEntity_FVisible1(int entity, int pEntity, int traceMask, int ppBl
 		if (traceMask == MASK_BLOCKLOS)
 			traceMask = MASK_BLOCKLOS_AND_NPCS;
 		
-		if (entity > 0 && entity <= MaxClients)
+		if (BaseEntity_IsPlayer(entity))
 			traceMask &= ~CONTENTS_BLOCKLOS;
 		
-		//TODO: filter?
-		trace = TR_TraceRayEx(vecLookerOrigin, vecTargetOrigin, traceMask, RayType_EndPoint);
+		trace = TR_TraceRayFilterEx(vecLookerOrigin, vecTargetOrigin, traceMask, RayType_EndPoint, TraceFilterLOS);
 	}
 	
 	if (TR_GetFraction(trace) != 1.0 || TR_StartSolid(trace))
@@ -706,9 +705,25 @@ stock bool BaseEntity_ShouldCollide(int entity, int collisionGroup, int contents
 	return true;
 }
 
+stock bool BaseEntity_BlocksLOS(int entity)
+{
+	return !(GetEntProp(entity, Prop_Data, "m_iEFlags") & EFL_DONTBLOCKLOS);
+}
+
 //BELOW FUNCTIONS ARE FOR VSCRIPT GAMES ONLY
 
 stock void BaseEntity_MarkNeedsNamePurge(int entity)
 {
 	SetEntProp(entity, Prop_Data, "m_bForcePurgeFixedupStrings", true);
+}
+
+// EXTRA UTILITY FUNCTIONS
+
+static bool TraceFilterLOS(int entity, int contentsMask, any data)
+{
+	if (!BaseEntity_BlocksLOS(entity))
+		return false;
+	
+	//TODO: finish me
+	return true;
 }
