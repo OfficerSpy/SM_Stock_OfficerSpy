@@ -3,6 +3,7 @@
 #endif
 #define _stock_officerspy_tfshareddefs_included
 
+#include <tf2_stocks>
 #include <stocklib_officerspy/shared/shareddefs>
 #include <stocklib_officerspy/public/const>
 
@@ -102,7 +103,7 @@ enum
 	TF_CLASS_HEAVYWEAPONS,
 	TF_CLASS_PYRO,
 	TF_CLASS_SPY,
-	TF_CLASS_ENGINEER,		
+	TF_CLASS_ENGINEER,
 	TF_CLASS_CIVILIAN,
 	TF_CLASS_COUNT_ALL,
 	TF_CLASS_RANDOM
