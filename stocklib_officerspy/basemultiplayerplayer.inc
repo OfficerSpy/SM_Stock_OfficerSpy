@@ -6,6 +6,10 @@
 #include <stocklib_officerspy/player>
 #include <stocklib_officerspy/shared/mp_shareddefs>
 
+#if !defined COMMAND_MAX_RATE
+#define COMMAND_MAX_RATE  0.3
+#endif
+
 methodmap OSBaseMultiplayerPlayer < OSBasePlayer
 {
 	public OSBaseMultiplayerPlayer(int index)
@@ -24,15 +28,6 @@ methodmap OSBaseMultiplayerPlayer < OSBasePlayer
 	}
 }
 
-stock bool BaseMultiplayerPlayer_SpeakConceptIfAllowed(int client, int iConcept)
-{
-	char strConcept[PLATFORM_MAX_PATH]; GetMPConceptStringFromIndex(iConcept, strConcept, sizeof(strConcept));
-	
-	SetVariantString(strConcept);
-	
-	return AcceptEntityInput(client, "SpeakResponseConcept");
-}
-
 stock void BaseMultiplayerPlayer_AwardAchievement(int client, int iAchievement, int iCount = 1)
 {
 	Handle bf = StartMessageOne("AchievementEvent", client, USERMSG_RELIABLE);
@@ -43,4 +38,13 @@ stock void BaseMultiplayerPlayer_AwardAchievement(int client, int iAchievement, 
 		BfWriteShort(bf, iCount);
 		EndMessage();
 	}
+}
+
+stock bool BaseMultiplayerPlayer_SpeakConceptIfAllowed(int client, int iConcept)
+{
+	char strConcept[PLATFORM_MAX_PATH]; GetMPConceptStringFromIndex(iConcept, strConcept, sizeof(strConcept));
+	
+	SetVariantString(strConcept);
+	
+	return AcceptEntityInput(client, "SpeakResponseConcept");
 }

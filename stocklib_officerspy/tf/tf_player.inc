@@ -732,6 +732,11 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 	{
 		return TF2_IsInvulnerable(this.index);
 	}
+	
+	public bool IsCritBoosted()
+	{
+		return TF2_IsCritBoosted(this.index);
+	}
 }
 
 stock TFClassType TF2_GetDesiredPlayerClassIndex(int client)

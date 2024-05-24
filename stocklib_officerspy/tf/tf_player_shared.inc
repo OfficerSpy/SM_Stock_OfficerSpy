@@ -477,3 +477,23 @@ stock bool TF2_IsInvulnerable(int client)
 	
 	return bInvuln;
 }
+
+stock bool TF2_IsCritBoosted(int client)
+{
+	bool bAllWeaponCritActive = (TF2_IsPlayerInCondition(client, TFCond_Kritzkrieged)
+	|| TF2_IsPlayerInCondition(client, TFCond_HalloweenCritCandy)
+	|| TF2_IsPlayerInCondition(client, TFCond_CritOnFirstBlood)
+	|| TF2_IsPlayerInCondition(client, TFCond_CritOnWin)
+	|| TF2_IsPlayerInCondition(client, TFCond_CritOnFlagCapture)
+	|| TF2_IsPlayerInCondition(client, TFCond_CritOnKill)
+	|| TF2_IsPlayerInCondition(client, TFCond_CritOnDamage)
+	|| TF2_IsPlayerInCondition(client, TFCond_CritRuneTemp));
+	
+	if (bAllWeaponCritActive)
+		return true;
+	
+	//MISSING: pyro rage stuff
+	//MISSING: attribute mult_crit_when_health_is_below_percent 
+	
+	return false;
+}
