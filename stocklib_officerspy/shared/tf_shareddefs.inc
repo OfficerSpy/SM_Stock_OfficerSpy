@@ -43,7 +43,7 @@ enum HalloweenBossType
 #endif
 
 #if !defined PowerupBottleType_t_ENABLED
-enum PowerupBottleType_t
+enum //PowerupBottleType_t
 {
 	POWERUP_BOTTLE_NONE,
 	POWERUP_BOTTLE_CRITBOOST,
@@ -839,7 +839,7 @@ enum mvm_announcement_t
 #define MAX_RAIDMODE_UPGRADES		60
 
 #if !defined mvm_upgrade_uigroups_t_ENABLED
-enum mvm_upgrade_uigroups_t
+enum //mvm_upgrade_uigroups_t
 {
 	UIGROUP_UPGRADE_ATTACHED_TO_ITEM = 0,
 	UIGROUP_UPGRADE_ATTACHED_TO_PLAYER,
