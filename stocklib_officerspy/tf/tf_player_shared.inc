@@ -497,3 +497,8 @@ stock bool TF2_IsCritBoosted(int client)
 	
 	return false;
 }
+
+stock bool TF2_IsStealthed(int client)
+{
+	return TF2_IsPlayerInCondition(client, TFCond_Cloaked) || TF2_IsPlayerInCondition(client, TFCond_Stealthed) || TF2_IsPlayerInCondition(client, TFCond_StealthedUserBuffFade);
+}

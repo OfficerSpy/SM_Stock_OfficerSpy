@@ -4,6 +4,7 @@
 #define _stock_officerspy_tfgamerules_included
 
 #include <stocklib_officerspy/shared/tf_shareddefs>
+#include <stocklib_officerspy/gamerules>
 #include <stocklib_officerspy/stocklib_extra_vscript>
 
 stock bool TF2_IsInArenaMode()
