@@ -121,7 +121,7 @@ methodmap OSBaseObject < OSBaseCombatCharacter
 	
 	public void SetObjectMode(int iVal)
 	{
-		TF2_SetObjectFlags(this.index, iVal)
+		TF2_SetObjectMode(this.index, iVal)
 	}
 	
 	public TFObjectMode GetObjectMode()
