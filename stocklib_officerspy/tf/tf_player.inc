@@ -737,6 +737,11 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 	{
 		return TF2_IsCritBoosted(this.index);
 	}
+	
+	public bool IsStealthed()
+	{
+		return TF2_IsStealthed(this.index);
+	}
 }
 
 stock TFClassType TF2_GetDesiredPlayerClassIndex(int client)

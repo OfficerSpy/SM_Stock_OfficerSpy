@@ -13,7 +13,7 @@ enum ETFStreak
 	kTFStreak_Kills	= 0,
 	kTFStreak_KillsAll	= 1,
 	kTFStreak_Ducks	= 2,
-	kTFStreak_Duck_levelup	= 3, 
+	kTFStreak_Duck_levelup	= 3,
 	kTFStreak_COUNT	= 4
 };
 #define ETFStreak_ENABLED
