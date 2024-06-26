@@ -70,7 +70,7 @@ stock void TE_TFExplosion(float flDelay, const float vecOrigin[3], const float v
 	TE_SendToAll(flDelay);
 }
 
-stock void TE_TFParticleEffect(float flDelay, const char[] pszParticleName, int iAttachType, int pEntity = -1, int iAttachmentPoint = -1, bool bResetAllParticlesOnEntity = false)
+stock void TE_TFParticleEffect(float flDelay, const char[] pszParticleName, ParticleAttachment_t iAttachType, int pEntity = -1, int iAttachmentPoint = -1, bool bResetAllParticlesOnEntity = false)
 {
 	TE_Start("TFParticleEffect");
 	TE_WriteNum("m_iParticleSystemIndex", GetParticleSystemIndex(pszParticleName));
@@ -119,7 +119,9 @@ stock void TE_TFParticleEffectComplex(float flDelay, const char[] pszParticleNam
 	{
 		TE_WriteNum("m_bControlPoint1", 1);
 		TE_WriteNum("m_ControlPoint1.m_eParticleAttachment", eParticleAttachment);
-		TE_WriteVector("m_ControlPoint1.m_vecOffset", vecOffset);
+		TE_WriteFloat("m_ControlPoint1.m_vecOffset[0]", vecOffset[0]);
+		TE_WriteFloat("m_ControlPoint1.m_vecOffset[1]", vecOffset[1]);
+		TE_WriteFloat("m_ControlPoint1.m_vecOffset[2]", vecOffset[2]);
 	}
 	
 	TE_SendToAll(flDelay);
