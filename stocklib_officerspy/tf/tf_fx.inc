@@ -78,7 +78,7 @@ stock void TE_TFParticleEffect(float flDelay, const char[] pszParticleName, Part
 	if (pEntity != -1)
 		TE_WriteNum("entindex", pEntity);
 	
-	TE_WriteNum("m_iAttachType", iAttachType);
+	TE_WriteNum("m_iAttachType", view_as<int>(iAttachType));
 	TE_WriteNum("m_iAttachmentPointIndex", iAttachmentPoint);
 	
 	if (bResetAllParticlesOnEntity)

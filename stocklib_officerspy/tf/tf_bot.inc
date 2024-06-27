@@ -67,7 +67,7 @@ enum DifficultyType
 #endif
 
 #if !defined MissionType_ENABLED
-enum MissionType
+enum //MissionType
 {
 	CTFBot_NO_MISSION = 0,
 	CTFBot_MISSION_SEEK_AND_DESTROY,

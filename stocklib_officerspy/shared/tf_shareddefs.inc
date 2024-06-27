@@ -780,7 +780,7 @@ enum eEurekaTeleportTargets
 #define TF_HIGHFIVE_HINT_MASK			0x10100
 
 #if !defined BombDeployingState_t_ENABLED
-enum BombDeployingState_t
+enum //BombDeployingState_t
 {
 	TF_BOMB_DEPLOYING_NONE,
 	TF_BOMB_DEPLOYING_DELAY,
