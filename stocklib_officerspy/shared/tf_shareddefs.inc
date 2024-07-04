@@ -1708,7 +1708,7 @@ stock TFClassType TF2_GetClassIndexFromString(const char[] pClassName, int nLast
 		if (strlen(pClassName) < classnameLength)
 			continue;
 
-		if (!strcmp(g_aPlayerClassNames_NonLocalized[i], pClassName))
+		if (!strcmp(g_aPlayerClassNames_NonLocalized[i], pClassName, false))
 			return view_as<TFClassType>(i);
 	}
 

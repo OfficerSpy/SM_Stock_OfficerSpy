@@ -28,7 +28,10 @@ stock void TF2_SetClassIconName(int client, char[] iszClassIcon)
 	char currentIcon[PLATFORM_MAX_PATH]; GetEntPropString(client, Prop_Send, "m_iszClassIcon", currentIcon, sizeof(currentIcon));
 	
 	if (strlen(currentIcon) < 1)
-		ThrowError("Property \"m_iszClassIcon\" has not yet been initialized!");
+	{
+		LogError("TF2_SetClassIconName: Property \"m_iszClassIcon\" has not yet been initialized!");
+		return;
+	}
 	
 	SetEntPropString(client, Prop_Send, "m_iszClassIcon", iszClassIcon);
 }
