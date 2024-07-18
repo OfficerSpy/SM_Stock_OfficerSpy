@@ -6,6 +6,30 @@
 #include <stocklib_officerspy/shared/tf_shareddefs>
 #include <stocklib_officerspy/tf/tf_bot>
 
+// CEconEntity
+
+stock void VS_AddAttribute(int entity, const char[] name, float value, float duration = -1.0)
+{
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.AddAttribute(\"%s\", %f, %f)", name, value, duration);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(entity, "RunScriptCode");
+}
+
+stock void VS_RemoveAttribute(int entity, const char[] name)
+{
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.RemoveAttribute(\"%s\")", name);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(entity, "RunScriptCode");
+}
+
+stock void VS_ReapplyProvision(int entity)
+{
+	SetVariantString("self.ReapplyProvision()");
+	AcceptEntityInput(entity, "RunScriptCode");
+}
+
 //CTFPlayer
 
 stock void VS_AddCustomAttribute(int client, char[] name, float value, float delay = -1.0)
