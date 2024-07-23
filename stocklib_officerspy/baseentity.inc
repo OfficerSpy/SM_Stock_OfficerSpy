@@ -595,6 +595,12 @@ stock int BaseEntity_GetTeamNumber(int entity)
 
 stock void BaseEntity_EyePosition(int entity, float buffer[3])
 {
+	if (BaseEntity_IsPlayer(entity))
+	{
+		GetClientEyePosition(entity, buffer);
+		return;
+	}
+	
 	float absOrigin[3]; GetEntPropVector(entity, Prop_Data, "m_vecAbsOrigin", absOrigin); //GetAbsOrigin
 	float viewOffset[3]; GetEntPropVector(entity, Prop_Data, "m_vecViewOffset", viewOffset); //GetViewOffset
 	
