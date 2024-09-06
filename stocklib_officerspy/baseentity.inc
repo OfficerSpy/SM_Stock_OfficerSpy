@@ -3,6 +3,7 @@
 #endif
 #define _stock_officerspy_baseentity_included
 
+#include <stocklib_officerspy/shared/shareddefs>
 #include <stocklib_officerspy/public/const>
 #include <stocklib_officerspy/public/bspflags>
 
@@ -346,6 +347,10 @@ stock int BaseEntity_GetMaxHealth(int entity)
 
 stock void BaseEntity_SetMaxHealth(int entity, int amt)
 {
+	//Depends on the game, some entities have this also as sendprop
+	if (HasEntProp(entity, Prop_Send, "m_iMaxHealth"))
+		SetEntProp(entity, Prop_Send, "m_iMaxHealth", amt);
+	
 	SetEntProp(entity, Prop_Data, "m_iMaxHealth", amt);
 }
 

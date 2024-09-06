@@ -1,0 +1,4 @@
+#if defined _stock_officerspy_tfweaponmedigun_included
+	#endinput
+#endif
+#define _stock_officerspy_tfweaponmedigun_included

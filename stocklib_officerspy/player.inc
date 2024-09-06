@@ -178,6 +178,7 @@ stock int BasePlayer_GetObserverTarget(int client)
 stock void BasePlayer_SetMaxSpeed(int client, float flMaxSpeed)
 {
 	SetEntPropFloat(client, Prop_Data, "m_flMaxspeed", flMaxSpeed);
+	SetEntPropFloat(client, Prop_Send, "m_flMaxspeed", flMaxSpeed);
 }
 
 stock bool BasePlayer_IsBot(int client)
