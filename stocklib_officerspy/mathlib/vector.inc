@@ -3,6 +3,11 @@
 #endif
 #define _stock_officerspy_vector_included
 
+stock bool Vector_IsZero(float vec[3], float tolerance = 0.01)
+{
+	return vec[0] > -tolerance && vec[0] < tolerance && vec[1] > -tolerance && vec[1] < tolerance && vec[2] > -tolerance && vec[2] < tolerance;
+}
+
 stock bool PointWithinViewAngle(const float vecSrcPosition[3], const float vecTargetPosition[3], const float vecLookDirection[3], float flCosHalfFOV)
 {
 	float vecDelta[3]; SubtractVectors(vecTargetPosition, vecSrcPosition, vecDelta);

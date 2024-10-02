@@ -361,15 +361,9 @@ stock int BaseEntity_GetHealth(int entity)
 
 stock void BaseEntity_SetHealth(int entity, int amt)
 {
-	if (BaseEntity_IsPlayer(entity))
-	{
-		// SetEntProp(entity, Prop_Send, "m_iHealth", amt);
-		
-		SetVariantInt(amt);
-		AcceptEntityInput(entity, "SetHealth");
-		
-		return;
-	}
+	//I onlu ever see this networked on CBasePlayer
+	if (HasEntProp(entity, Prop_Send, "m_iHealth"))
+		SetEntProp(entity, Prop_Send, "m_iHealth", amt);
 	
 	SetEntProp(entity, Prop_Data, "m_iHealth", amt);
 }
