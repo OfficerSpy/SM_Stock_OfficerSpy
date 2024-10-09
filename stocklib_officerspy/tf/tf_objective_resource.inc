@@ -570,7 +570,7 @@ stock void TF2_AddCustomTankIcon(int iResource, char[] name, int count, bool isC
 stock int TF2_GetWaveIconSpawnCount(int iResource, char[] name, int flags)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
-	char classNames[128];
+	char classNames[PLATFORM_MAX_PATH];
 	
 	for (int i = 0; i < sizeArray /* * 2 */; i++)
 	{
@@ -597,7 +597,7 @@ stock int TF2_GetWaveIconSpawnCount(int iResource, char[] name, int flags)
 stock void TF2_SetWaveIconSpawnCount(int iResource, char[] name, int flags, int count, bool changeMaxEnemyCount = true)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
-	char nameSlot[128];
+	char nameSlot[PLATFORM_MAX_PATH];
 	
 	for (int i = 0; i < sizeArray; i++)
 	{
@@ -684,7 +684,7 @@ stock void TF2_IncrementWaveIconSpawnCount(int iResource, char[] name, int flags
 stock void TF2_DecrementWaveIconSpawnCount(int iResource, char[] name, int flags, int count = 1, bool changeMaxEnemyCount = false)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
-	char nameSlot[128];
+	char nameSlot[PLATFORM_MAX_PATH];
 	
 	for (int i = 0; i < sizeArray; i++)
 	{
@@ -739,7 +739,7 @@ stock void TF2_DecrementWaveIconSpawnCount(int iResource, char[] name, int flags
 stock void TF2_SetWaveIconActive(int iResource, char[] name, int flags, bool active)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
-	char nameSlot[128];
+	char nameSlot[PLATFORM_MAX_PATH];
 	
 	for (int i = 0; i < sizeArray; i++)
 	{
@@ -768,7 +768,7 @@ stock void TF2_SetWaveIconActive(int iResource, char[] name, int flags, bool act
 stock bool TF2_GetWaveIconActive(int iResource, char[] name, int flags)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
-	char nameSlot[128];
+	char nameSlot[PLATFORM_MAX_PATH];
 	
 	for (int i = 0; i < sizeArray; i++)
 	{

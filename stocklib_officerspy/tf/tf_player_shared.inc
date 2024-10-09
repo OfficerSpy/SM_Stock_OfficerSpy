@@ -49,6 +49,11 @@ stock bool TF2_InCond(int client, TFCond eCond)
 	return TF2_IsPlayerInCondition(client, eCond);
 }
 
+stock TFTeam TF2_GetDisguiseTeam(int client)
+{
+	return TF2_IsPlayerInCondition(client, TFCond_DisguisedAsDispenser) ? (TF2_GetClientTeam(client) == TFTeam_Red ? TFTeam_Blue : TFTeam_Red) : view_as<TFTeam>(GetEntProp(client, Prop_Send, "m_nDisguiseTeam"));
+}
+
 stock TFClassType TF2_GetDisguiseClass(int client)
 {
 	return TF2_IsPlayerInCondition(client, TFCond_DisguisedAsDispenser) ? TFClass_Engineer : view_as<TFClassType>(GetEntProp(client, Prop_Send, "m_nDisguiseClass"));

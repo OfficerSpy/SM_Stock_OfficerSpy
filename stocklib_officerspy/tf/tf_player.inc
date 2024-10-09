@@ -348,6 +348,11 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 		return TF2_IsPlayerInCondition(this.index, eCond);
 	}
 	
+	public TFTeam GetDisguiseTeam()
+	{
+		return TF2_GetDisguiseTeam(this.index);
+	}
+	
 	public TFClassType GetDisguiseClass()
 	{
 		return TF2_GetDisguiseClass(this.index);
