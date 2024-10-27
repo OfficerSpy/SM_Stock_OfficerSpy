@@ -108,7 +108,7 @@ stock bool IsValidPickupWeaponSlot(int iSlot)
 		|| iSlot == LOADOUT_POSITION_MELEE;
 }
 
-#define LOADOUT_COUNT	10 + 1
+#define LOADOUT_COUNT	(10 + 1)
 
 enum EHalloweenMap
 {

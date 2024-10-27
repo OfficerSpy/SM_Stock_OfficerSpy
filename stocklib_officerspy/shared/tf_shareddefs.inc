@@ -19,7 +19,7 @@ enum
 #define ENUMERATION_TF_TEAM
 #endif
 
-#define TF_TEAM_AUTOASSIGN TF_TEAM_COUNT + 1
+#define TF_TEAM_AUTOASSIGN (TF_TEAM_COUNT + 1)
 
 #define TF_TEAM_HALLOWEEN	TF_TEAM_AUTOASSIGN
 
@@ -86,10 +86,10 @@ enum
 
 #define TF_CLASS_COUNT			TF_CLASS_COUNT_ALL
 
-#define TF_FIRST_NORMAL_CLASS	TF_CLASS_UNDEFINED + 1
+#define TF_FIRST_NORMAL_CLASS	(TF_CLASS_UNDEFINED + 1)
 #define TF_LAST_NORMAL_CLASS	TF_CLASS_CIVILIAN
 
-#define	TF_CLASS_MENU_BUTTONS	TF_CLASS_RANDOM + 1
+#define	TF_CLASS_MENU_BUTTONS	(TF_CLASS_RANDOM + 1)
 
 #if !defined ENUMERATION_TF_CLASS
 enum
@@ -207,7 +207,7 @@ enum //ETFAmmoType
 #define TF_WEAPON_ZOOM_FOV								20
 
 //All ETFWeaponType types are defined in tf2_stocks.inc
-#define TF_WEAPON_COUNT	TF_WEAPON_FLAME_BALL + 1
+#define TF_WEAPON_COUNT	(TF_WEAPON_FLAME_BALL + 1)
 
 #if !defined BaseProjectileType_t_ENABLED
 enum BaseProjectileType_t
@@ -319,11 +319,11 @@ enum death_calling_card_models
 #define TF_SCOUT_NUMBEROFPHASEATTACHMENTS	5
 
 #define SHOW_DISGUISE_EFFECT 1
-#define TF_DISGUISE_TARGET_INDEX_NONE	MAX_PLAYERS + 1
-#define TF_PLAYER_INDEX_NONE			MAX_PLAYERS + 1
+#define TF_DISGUISE_TARGET_INDEX_NONE	(MAX_PLAYERS + 1)
+#define TF_PLAYER_INDEX_NONE			(MAX_PLAYERS + 1)
 
 //ETFCond types are all defined in tf2.inc
-#define TF_COND_LAST TFCond_ImmuneToPushback + 1
+#define TF_COND_LAST	(TFCond_ImmuneToPushback + 1)
 
 #if !defined ENUMERATION_TF_STATE
 enum 
@@ -484,7 +484,7 @@ enum
 
 //ETFDmgCustom types are defined in tf2_stocks.inc
 #define TF_DMG_CUSTOM_NONE	0
-#define TF_DMG_CUSTOM_END	TF_CUSTOM_AXTINGUISHER_BOOSTED + 1
+#define TF_DMG_CUSTOM_END	(TF_CUSTOM_AXTINGUISHER_BOOSTED + 1)
 
 #if !defined ENUMERATION_TFCOLLISIONGROUP
 enum
