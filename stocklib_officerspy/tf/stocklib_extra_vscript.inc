@@ -48,6 +48,14 @@ stock void VS_ForceChangeTeam(int client, int team, bool fullTeamSwitch = false)
 	AcceptEntityInput(client, "RunScriptCode");
 }
 
+stock void VS_HandleTauntCommand(int client, int taunt_slot = 0)
+{
+	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.HandleTauntCommand(%d)", taunt_slot);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(client, "RunScriptCode");
+}
+
 stock void VS_RemoveCondEx(int client, TFCond cond, bool ignoreDuration = false)
 {
 	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.RemoveCondEx(%d, %s)", cond, ignoreDuration ? "true" : "false");
