@@ -43,10 +43,6 @@ methodmap OSBaseEntity
 		public set(int value)
 		{
 			SetEntProp(this.index, Prop_Data, "m_iHealth", value);
-			
-			//Only on CBasePlayer
-			if (HasEntProp(this.index, Prop_Send, "m_iHealth"))
-				SetEntProp(this.index, Prop_Send, "m_iHealth", value);
 		}
 	}
 	
@@ -347,10 +343,6 @@ stock int BaseEntity_GetMaxHealth(int entity)
 
 stock void BaseEntity_SetMaxHealth(int entity, int amt)
 {
-	//Depends on the game, some entities have this also as sendprop
-	if (HasEntProp(entity, Prop_Send, "m_iMaxHealth"))
-		SetEntProp(entity, Prop_Send, "m_iMaxHealth", amt);
-	
 	SetEntProp(entity, Prop_Data, "m_iMaxHealth", amt);
 }
 
@@ -361,10 +353,6 @@ stock int BaseEntity_GetHealth(int entity)
 
 stock void BaseEntity_SetHealth(int entity, int amt)
 {
-	//I onlu ever see this networked on CBasePlayer
-	if (HasEntProp(entity, Prop_Send, "m_iHealth"))
-		SetEntProp(entity, Prop_Send, "m_iHealth", amt);
-	
 	SetEntProp(entity, Prop_Data, "m_iHealth", amt);
 }
 
