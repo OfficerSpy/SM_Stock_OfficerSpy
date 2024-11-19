@@ -487,6 +487,7 @@ stock bool TF2_IsCritBoosted(int client)
 {
 	bool bAllWeaponCritActive = (TF2_IsPlayerInCondition(client, TFCond_Kritzkrieged)
 	|| TF2_IsPlayerInCondition(client, TFCond_HalloweenCritCandy)
+	|| TF2_IsPlayerInCondition(client, TFCond_CritCanteen)
 	|| TF2_IsPlayerInCondition(client, TFCond_CritOnFirstBlood)
 	|| TF2_IsPlayerInCondition(client, TFCond_CritOnWin)
 	|| TF2_IsPlayerInCondition(client, TFCond_CritOnFlagCapture)
