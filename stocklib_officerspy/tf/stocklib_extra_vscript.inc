@@ -102,6 +102,14 @@ stock void VS_ClearWeaponRestrictions(int tfbot)
 	AcceptEntityInput(tfbot, "RunScriptCode");
 }
 
+stock void VS_DelayedThreatNotice(int tfbot, int threat, float delay)
+{
+	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "self.DelayedThreatNotice(EntIndexToHScript(%i), %f)", threat, delay);
+	
+	SetVariantString(buffer);
+	AcceptEntityInput(tfbot, "RunScriptCode");
+}
+
 stock void VS_PressAltFireButton(int bot, float duration = -1.0)
 {
 	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "self.PressAltFireButton(%f)", duration);
@@ -147,5 +155,11 @@ stock void VS_SetMaxVisionRangeOverride(int tfbot, float range)
 	char buffer[PLATFORM_MAX_PATH]; Format(buffer, sizeof(buffer), "!self.SetMaxVisionRangeOverride(%f)", range);
 
 	SetVariantString(buffer);
+	AcceptEntityInput(tfbot, "RunScriptCode");
+}
+
+stock void VS_UpdateDelayedThreatNotices(int tfbot)
+{
+	SetVariantString("self.UpdateDelayedThreatNotices()");
 	AcceptEntityInput(tfbot, "RunScriptCode");
 }
