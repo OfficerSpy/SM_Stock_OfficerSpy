@@ -82,7 +82,7 @@ enum //MissionType
 
 stock bool TF2_IsLineOfFireClear(int client, const float from[3], const float to[3])
 {
-	Handle trace = TR_TraceRayFilterEx(from, to, MASK_SOLID_BRUSHONLY, RayType_EndPoint, TraceFilterTFBot, client);
+	Handle trace = TR_TraceRayFilterEx(from, to, MASK_SOLID_BRUSHONLY, RayType_EndPoint, OSTraceFilterTFBot, client);
 	bool result = !TR_DidHit(trace);
 	
 	delete trace;
@@ -101,7 +101,7 @@ stock bool TF2_IsLineOfFireClear3(int client, const float from[3], int who)
 {
 	float spaceCenter[3]; BaseEntity_WorldSpaceCenter(who, spaceCenter);
 	
-	Handle trace = TR_TraceRayFilterEx(from, spaceCenter, MASK_SOLID_BRUSHONLY, RayType_EndPoint, TraceFilterTFBot, client);
+	Handle trace = TR_TraceRayFilterEx(from, spaceCenter, MASK_SOLID_BRUSHONLY, RayType_EndPoint, OSTraceFilterTFBot, client);
 	bool result = !TR_DidHit(trace) || TR_GetEntityIndex(trace) == who;
 	
 	delete trace;
@@ -137,7 +137,7 @@ stock void TF2_DisguiseAsMemberOfEnemyTeam(int client)
 
 // EXTRA UTILITY FUNCTIONS
 
-static bool TraceFilterTFBot(int entity, int contentsMask, any data)
+static bool OSTraceFilterTFBot(int entity, int contentsMask, any data)
 {
 	//NextBotTraceFilterIgnoreActors
 	if (IsBaseCombatCharacter(entity))
