@@ -113,6 +113,11 @@ methodmap OSBasePlayer < OSBaseCombatCharacter
 	{
 		return BasePlayer_GetDefaultFOV(this.index);
 	}
+	
+	public void SetPlayerName(const char[] name)
+	{
+		BasePlayer_SetPlayerName(this.index, name);
+	}
 }
 
 stock int BasePlayer_FragCount(int client)
@@ -178,7 +183,6 @@ stock int BasePlayer_GetObserverTarget(int client)
 stock void BasePlayer_SetMaxSpeed(int client, float flMaxSpeed)
 {
 	SetEntPropFloat(client, Prop_Data, "m_flMaxspeed", flMaxSpeed);
-	SetEntPropFloat(client, Prop_Send, "m_flMaxspeed", flMaxSpeed);
 }
 
 stock bool BasePlayer_IsBot(int client)
@@ -242,6 +246,14 @@ stock int BasePlayer_GetDefaultFOV(int client)
 		iFOV = MAX_FOV;
 	
 	return iFOV;
+}
+
+/* Similar to SetClientName, however it doesn't fire OnClientSettingsChanged to the server
+Names should not be longer than MAX_NAME_LENGTH or else there might be problems! */
+stock void BasePlayer_SetPlayerName(int client, const char[] name)
+{
+	if (!IsNullString(name))
+		SetEntPropString(client, Prop_Data, "m_szNetname", name);
 }
 
 stock int CollectPlayers(ArrayList players, int team = TEAM_ANY, bool isAlive = false, bool shouldAppend = false)
