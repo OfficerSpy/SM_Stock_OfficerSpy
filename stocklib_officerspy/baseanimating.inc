@@ -17,7 +17,6 @@ methodmap OSBaseAnimating < OSBaseEntity
 		public get()	{ return GetEntProp(this.index, Prop_Data, "m_nSkin"); }
 		public set(int value)
 		{
-			SetEntProp(this.index, Prop_Send, "m_nSkin", value);
 			SetEntProp(this.index, Prop_Data, "m_nSkin", value);
 		}
 	}

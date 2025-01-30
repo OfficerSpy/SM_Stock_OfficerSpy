@@ -36,7 +36,10 @@
 
 #define MAX_FOV						90
 
+#if !defined TEAM_ANY
 #define TEAM_ANY				-2
+#endif
+
 #define	TEAM_INVALID			-1
 #define TEAM_UNASSIGNED			0
 #define TEAM_SPECTATOR			1
@@ -49,10 +52,21 @@
 
 #define DMG_LASTGENERICFLAG	DMG_BUCKSHOT
 
+#if !defined DAMAGE_NO
 #define	DAMAGE_NO				0
+#endif
+
+#if !defined DAMAGE_EVENTS_ONLY
 #define DAMAGE_EVENTS_ONLY		1
+#endif
+
+#if !defined DAMAGE_YES
 #define	DAMAGE_YES				2
+#endif
+
+#if !defined DAMAGE_AIM
 #define	DAMAGE_AIM				3
+#endif
 
 #if !defined ENUMERATION_OBS_MODE
 enum
