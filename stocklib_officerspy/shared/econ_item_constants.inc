@@ -3,6 +3,8 @@
 #endif
 #define _stock_officerspy_econitemconstants_included
 
+#define MAX_ATTRIBUTE_DESCRIPTION_LENGTH	128
+
 enum //EEconItemQuality
 {
 	AE_UNDEFINED = -1,
