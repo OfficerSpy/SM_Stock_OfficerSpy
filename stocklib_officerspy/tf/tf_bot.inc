@@ -144,10 +144,10 @@ static stock bool OSTraceFilterTFBot(int entity, int contentsMask, int data)
 		return false;
 	
 	//CTraceFilterIgnoreFriendlyCombatItems
-	int teamNum = GetClientTeam(data);
+	int ignoreTeam = GetClientTeam(data);
 	if (BaseEntity_IsCombatItem(entity))
 	{
-		if (BaseEntity_GetTeamNumber(entity) == teamNum)
+		if (BaseEntity_GetTeamNumber(entity) == ignoreTeam)
 			return false;
 		
 		//m_bCallerIsProjectile but we don't care about it
