@@ -28,6 +28,16 @@ methodmap OSBaseCombatCharacter < OSBaseFlex
 		return BaseCombatCharacter_IsGlowEffectActive(this.index);
 	}
 	
+	public int LastHitGroup()
+	{
+		return BaseCombatCharacter_LastHitGroup(this.index);
+	}
+	
+	public void SetLastHitGroup(int nHitGroup)
+	{
+		BaseCombatCharacter_SetLastHitGroup(this.index, nHitGroup);
+	}
+	
 	public int BloodColor()
 	{
 		return BaseCombatCharacter_BloodColor(this.index);
@@ -72,6 +82,16 @@ stock void BaseCombatCharacter_RemoveGlowEffect(int entity)
 stock bool BaseCombatCharacter_IsGlowEffectActive(int entity)
 {
 	return view_as<bool>(GetEntProp(entity, Prop_Send, "m_bGlowEnabled"));
+}
+
+stock int BaseCombatCharacter_LastHitGroup(int entity)
+{
+	return GetEntProp(entity, Prop_Data, "m_LastHitGroup");
+}
+
+stock void BaseCombatCharacter_SetLastHitGroup(int entity, int nHitGroup)
+{
+	SetEntProp(entity, Prop_Data, "m_LastHitGroup", nHitGroup);
 }
 
 stock int BaseCombatCharacter_BloodColor(int entity)
@@ -121,7 +141,7 @@ stock void BaseCombatCharacter_RemoveAllWeapons(int entity)
 
 // EXTRA UTILITY FUNCTIONS
 
-stock bool IsBaseCombatCharacter(int entity)
+stock bool OSLib_IsBaseCombatCharacter(int entity)
 {
 	//Rather obscure way of determing if this is CBCC
 	return HasEntProp(entity, Prop_Data, "m_eHull");

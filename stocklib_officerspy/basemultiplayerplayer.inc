@@ -42,7 +42,7 @@ stock void BaseMultiplayerPlayer_AwardAchievement(int client, int iAchievement, 
 
 stock bool BaseMultiplayerPlayer_SpeakConceptIfAllowed(int client, int iConcept)
 {
-	char strConcept[PLATFORM_MAX_PATH]; GetMPConceptStringFromIndex(iConcept, strConcept, sizeof(strConcept));
+	char strConcept[PLATFORM_MAX_PATH]; OSLib_GetMPConceptStringFromIndex(iConcept, strConcept, sizeof(strConcept));
 	
 	SetVariantString(strConcept);
 	

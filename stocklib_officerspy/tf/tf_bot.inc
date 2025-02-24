@@ -140,7 +140,7 @@ stock void TF2_DisguiseAsMemberOfEnemyTeam(int client)
 static stock bool OSTraceFilterTFBot(int entity, int contentsMask, int data)
 {
 	//NextBotTraceFilterIgnoreActors
-	if (IsBaseCombatCharacter(entity))
+	if (OSLib_IsBaseCombatCharacter(entity))
 		return false;
 	
 	//CTraceFilterIgnoreFriendlyCombatItems

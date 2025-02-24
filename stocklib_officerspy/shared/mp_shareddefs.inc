@@ -390,7 +390,7 @@ stock int GetMPConceptIndexFromString(const char[] pszConcept)
 }
 
 //Not from the SDK, but we need way to get the strings in another function
-stock int GetMPConceptStringFromIndex(int conceptIndex, char[] buffer, int maxlen)
+stock int OSLib_GetMPConceptStringFromIndex(int conceptIndex, char[] buffer, int maxlen)
 {
 	return strcopy(buffer, maxlen, g_pszMPConcepts[conceptIndex]);
 }
