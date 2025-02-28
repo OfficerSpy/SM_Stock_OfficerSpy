@@ -188,9 +188,9 @@ methodmap OSTFObjectiveResource < OSBaseTeamObjectiveResource
 		TF2_DecrementTeleporterCount(this.index);
 	}
 	
-	public void GetTeleporterString(int iResource, char[] buffer, int maxlen)
+	public void GetTeleporterString(char[] buffer, int maxlen)
 	{
-		TF2_GetTeleporterString(this.index, buffer, maxlen);
+		TF2_GetTeleporterString(buffer, maxlen);
 	}
 }
 
@@ -533,7 +533,7 @@ stock void TF2_DecrementTeleporterCount(int iResource)
 	TF2_DecrementMannVsMachineWaveClassCount(iResource, TFOR_TELEPORTER_STRING, MVM_CLASS_FLAG_MISSION);
 }
 
-stock void TF2_GetTeleporterString(int iResource, char[] buffer, int maxlen)
+stock void TF2_GetTeleporterString(char[] buffer, int maxlen)
 {
 	strcopy(buffer, maxlen, TFOR_TELEPORTER_STRING);
 }

@@ -723,7 +723,7 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 		return TF2_GetHealerByIndex(this.index, index);
 	}
 	
-	public int GetNumHealers(int index)
+	public int GetNumHealers()
 	{
 		return TF2_GetNumHealers(this.index);
 	}
