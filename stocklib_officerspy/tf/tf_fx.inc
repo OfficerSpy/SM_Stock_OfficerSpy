@@ -4,6 +4,7 @@
 #define _stock_officerspy_tffx_included
 
 #include <stocklib_officerspy/gameinterface>
+#include <stocklib_officerspy/shared/particle_parse>
 
 #if !defined WeaponSound_t_ENABLED
 enum WeaponSound_t
@@ -27,20 +28,6 @@ enum WeaponSound_t
 	NUM_SHOOT_SOUND_TYPES,
 };
 #define WeaponSound_t_ENABLED
-#endif
-
-#if !defined ParticleAttachment_t_ENABLED
-enum ParticleAttachment_t
-{
-	PATTACH_ABSORIGIN = 0,
-	PATTACH_ABSORIGIN_FOLLOW,
-	PATTACH_CUSTOMORIGIN,
-	PATTACH_POINT,
-	PATTACH_POINT_FOLLOW,
-	PATTACH_WORLDORIGIN,
-	PATTACH_ROOTBONE_FOLLOW
-};
-#define ParticleAttachment_t_ENABLED
 #endif
 
 stock void TE_FireBullets(int iPlayerIndex, const float vOrigin[3], const float vAngles[3], int iWeaponID, int iMode, int iSeed, float flSpread, bool bCritical)
