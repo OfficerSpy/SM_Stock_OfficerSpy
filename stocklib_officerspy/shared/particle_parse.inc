@@ -39,7 +39,7 @@ enum struct te_tf_particle_effects_control_point_t
 #include <stocklib_officerspy/shared/effect_dispatch_data>
 #include <stocklib_officerspy/te_effect_dispatch>
 
-stock void DispatchParticleEffect(const char[] sParticleName, ParticleAttachment_t iAttachType, int iEntity, const char[] sAttachmentName, bool bResetAllParticlesOnEntity)
+stock void DispatchParticleEffect(const char[] sParticleName, ParticleAttachment_t iAttachType, int iEntity, const char[] sAttachmentName, bool bResetAllParticlesOnEntity = false)
 {
 	int iAttachment = -1;
 	
@@ -57,7 +57,7 @@ stock void DispatchParticleEffect(const char[] sParticleName, ParticleAttachment
 	DispatchParticleEffect2(sParticleName, iAttachType, iEntity, iAttachment, bResetAllParticlesOnEntity);
 }
 
-stock void DispatchParticleEffect2(const char[] sParticleName, ParticleAttachment_t iAttachType, int iEntity, int iAttachmentPoint, bool bResetAllParticlesOnEntity)
+stock void DispatchParticleEffect2(const char[] sParticleName, ParticleAttachment_t iAttachType, int iEntity = -1, int iAttachmentPoint = -1, bool bResetAllParticlesOnEntity = false)
 {
 	CEffectData data;
 	
@@ -79,7 +79,7 @@ stock void DispatchParticleEffect2(const char[] sParticleName, ParticleAttachmen
 	TE_DispatchEffect(0.0, "ParticleEffect", data);
 }
 
-stock void DispatchParticleEffect3(const char[] sParticleName, ParticleAttachment_t iAttachType, int iEntity, const char[] sAttachmentName, float vecColor1[3], float vecColor2[3], bool bUseColors, bool bResetAllParticlesOnEntity)
+stock void DispatchParticleEffect3(const char[] sParticleName, ParticleAttachment_t iAttachType, int iEntity, const char[] sAttachmentName, float vecColor1[3], float vecColor2[3], bool bUseColors = true, bool bResetAllParticlesOnEntity = false)
 {
 	int iAttachment = -1;
 	
@@ -121,7 +121,7 @@ stock void DispatchParticleEffect3(const char[] sParticleName, ParticleAttachmen
 	TE_DispatchEffect(0.0, "ParticleEffect", data);
 }
 
-stock void DispatchParticleEffect4(int iEffectIndex, float vecOrigin[3], float vecStart[3], float vecAngles[3], int iEntity)
+stock void DispatchParticleEffect4(int iEffectIndex, float vecOrigin[3], float vecStart[3], float vecAngles[3], int iEntity = -1)
 {
 	CEffectData data;
 	
@@ -144,7 +144,7 @@ stock void DispatchParticleEffect4(int iEffectIndex, float vecOrigin[3], float v
 	TE_DispatchEffect(0.0, "ParticleEffect", data);
 }
 
-stock void DispatchParticleEffect5(const char[] sParticleName, float vecOrigin[3], float vecAngles[3], float vecColor1[3], float vecColor2[3], bool bUseColors, int iEntity, int iAttachType)
+stock void DispatchParticleEffect5(const char[] sParticleName, float vecOrigin[3], float vecAngles[3], float vecColor1[3], float vecColor2[3], bool bUseColors = true, int iEntity = -1, int iAttachType = PATTACH_CUSTOMORIGIN)
 {
 	int iEffectIndex = GetParticleSystemIndex(sParticleName);
 	
@@ -175,16 +175,29 @@ stock void DispatchParticleEffect5(const char[] sParticleName, float vecOrigin[3
 	TE_DispatchEffect(0.0, "ParticleEffect", data);
 }
 
-stock void DispatchParticleEffect6(const char[] sParticleName, float vecOrigin[3], float vecAngles[3], int iEntity)
+stock void DispatchParticleEffect6(const char[] sParticleName, float vecOrigin[3], float vecAngles[3], int iEntity = -1)
 {
 	int iIndex = GetParticleSystemIndex(sParticleName);
 	DispatchParticleEffect4(iIndex, vecOrigin, vecOrigin, vecAngles, iEntity);
 }
 
-stock void DispatchParticleEffect7(const char[] sParticleName, float vecOrigin[3], float vecStart[3], float vecAngles[3], int iEntity)
+stock void DispatchParticleEffect7(const char[] sParticleName, float vecOrigin[3], float vecStart[3], float vecAngles[3], int iEntity = -1)
 {
 	int iIndex = GetParticleSystemIndex(sParticleName);
 	DispatchParticleEffect4(iIndex, vecOrigin, vecStart, vecAngles, iEntity);
+}
+
+//Alternatively you can fire input DispatchEffect with param ParticleEffectStop
+stock void StopParticleEffects(int iEntity)
+{
+	CEffectData data;
+	
+	if (iEntity != -1)
+	{
+		data.m_nEntIndex = iEntity;
+	}
+	
+	TE_DispatchEffect(0.0, "ParticleEffectStop", data);
 }
 
 stock void OSLib_DispatchParticleEffect(const char[] sParticleName, ParticleAttachment_t iAttachType, int iEntity, const char[] sAttachmentName, float vecOrigin[3], bool bHasOrigin, float vecColor1[3], float vecColor2[3], bool bUseColors, bool bResetAllParticlesOnEntity, te_tf_particle_effects_control_point_t controlPoint)

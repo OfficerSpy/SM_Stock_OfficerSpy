@@ -73,9 +73,11 @@ stock int OSLib_GetEffectDispatchIndex(const char[] sEffectName)
 	return 0;
 }
 
+/* This should actually be in TE_DispatchEffect but i am intentionally leaving it out
+as a standalone function as you should only need to do this once for each string name */
 stock void OSLib_AddStringToEffectDispatchTable(const char[] sName)
 {
-	static int table = INVALID_STRING_TABLE;
+	int table = INVALID_STRING_TABLE;
 	
 	if (table == INVALID_STRING_TABLE)
 	{
@@ -89,7 +91,7 @@ stock void OSLib_AddStringToEffectDispatchTable(const char[] sName)
 
 stock void OSLib_AddStringToParticleEffectNamesTable(const char[] sName)
 {
-	static int table = INVALID_STRING_TABLE;
+	int table = INVALID_STRING_TABLE;
 	
 	if (table == INVALID_STRING_TABLE)
 	{
