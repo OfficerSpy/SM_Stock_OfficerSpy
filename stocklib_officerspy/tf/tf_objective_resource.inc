@@ -546,7 +546,7 @@ stock int TF2_TFObjectiveResource()
 //The functions below are extra and are not based on code from the game
 
 //Adds a custom tank icon to the wavebar, replacing the default one
-stock void TF2_AddCustomTankIcon(int iResource, char[] name, int count, bool isCrit = false, bool isBoss = true, isSupport = false, isSupportLimited = false)
+stock void OSLib_AddCustomTankIcon(int iResource, char[] name, int count, bool isCrit = false, bool isBoss = true, isSupport = false, isSupportLimited = false)
 {
 	int flags = MVM_CLASS_FLAG_NORMAL;
 	
@@ -562,12 +562,12 @@ stock void TF2_AddCustomTankIcon(int iResource, char[] name, int count, bool isC
 	if (isSupportLimited)
 		flags = flags | MVM_CLASS_FLAG_SUPPORT_LIMITED;
 	
-	TF2_DecrementWaveIconSpawnCount(iResource, "tank", MVM_CLASS_FLAG_NORMAL | MVM_CLASS_FLAG_MINIBOSS | (isSupport ? MVM_CLASS_FLAG_SUPPORT : 0) | (isSupportLimited ? MVM_CLASS_FLAG_SUPPORT_LIMITED : 0), count, false);
-	TF2_IncrementWaveIconSpawnCount(iResource, name, flags, count, false);
+	OSLib_DecrementWaveIconSpawnCount(iResource, "tank", MVM_CLASS_FLAG_NORMAL | MVM_CLASS_FLAG_MINIBOSS | (isSupport ? MVM_CLASS_FLAG_SUPPORT : 0) | (isSupportLimited ? MVM_CLASS_FLAG_SUPPORT_LIMITED : 0), count, false);
+	OSLib_IncrementWaveIconSpawnCount(iResource, name, flags, count, false);
 }
 
 // Get wavebar spawn count of an icon with specified name and flags
-stock int TF2_GetWaveIconSpawnCount(int iResource, char[] name, int flags)
+stock int OSLib_GetWaveIconSpawnCount(int iResource, char[] name, int flags)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	char classNames[PLATFORM_MAX_PATH];
@@ -594,7 +594,7 @@ stock int TF2_GetWaveIconSpawnCount(int iResource, char[] name, int flags)
 // Set wavebar spawn count of an icon with specified name and flags
 // If count is set to 0, removes the icon from the wavebar
 // Can be used to put custom icons on a wavebar
-stock void TF2_SetWaveIconSpawnCount(int iResource, char[] name, int flags, int count, bool changeMaxEnemyCount = true)
+stock void OSLib_SetWaveIconSpawnCount(int iResource, char[] name, int flags, int count, bool changeMaxEnemyCount = true)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	char nameSlot[PLATFORM_MAX_PATH];
@@ -674,14 +674,14 @@ stock void TF2_SetWaveIconSpawnCount(int iResource, char[] name, int flags, int 
 
 // Increment wavebar spawn count of an icon with specified name and flags
 // Can be used to put custom icons on a wavebar
-stock void TF2_IncrementWaveIconSpawnCount(int iResource, char[] name, int flags, int count = 1, bool changeMaxEnemyCount = true)
+stock void OSLib_IncrementWaveIconSpawnCount(int iResource, char[] name, int flags, int count = 1, bool changeMaxEnemyCount = true)
 {
-	TF2_SetWaveIconSpawnCount(iResource, name, flags, TF2_GetWaveIconSpawnCount(iResource, name, flags) + count, changeMaxEnemyCount);
+	OSLib_SetWaveIconSpawnCount(iResource, name, flags, OSLib_GetWaveIconSpawnCount(iResource, name, flags) + count, changeMaxEnemyCount);
 }
 
 // Increment wavebar spawn count of an icon with specified name and flags
 // Use it to decrement the spawn count when the enemy is killed. Should not be used for support type icons
-stock void TF2_DecrementWaveIconSpawnCount(int iResource, char[] name, int flags, int count = 1, bool changeMaxEnemyCount = false)
+stock void OSLib_DecrementWaveIconSpawnCount(int iResource, char[] name, int flags, int count = 1, bool changeMaxEnemyCount = false)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	char nameSlot[PLATFORM_MAX_PATH];
@@ -736,7 +736,7 @@ stock void TF2_DecrementWaveIconSpawnCount(int iResource, char[] name, int flags
 }
 
 // Used for mission and support limited bots to display them on a wavebar during the wave, set by the game automatically when an enemy with this icon spawn
-stock void TF2_SetWaveIconActive(int iResource, char[] name, int flags, bool active)
+stock void OSLib_SetWaveIconActive(int iResource, char[] name, int flags, bool active)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	char nameSlot[PLATFORM_MAX_PATH];
@@ -765,7 +765,7 @@ stock void TF2_SetWaveIconActive(int iResource, char[] name, int flags, bool act
 }
 
 // Used for mission and support limited bots to display them on a wavebar during the wave, set by the game automatically when an enemy with this icon spawn
-stock bool TF2_GetWaveIconActive(int iResource, char[] name, int flags)
+stock bool OSLib_GetWaveIconActive(int iResource, char[] name, int flags)
 {
 	int sizeArray = GetEntPropArraySize(iResource, Prop_Send, "m_nMannVsMachineWaveClassCounts");
 	char nameSlot[PLATFORM_MAX_PATH];
