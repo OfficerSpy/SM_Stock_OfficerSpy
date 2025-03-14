@@ -973,7 +973,7 @@ stock bool TFPlayer_ShouldCollide(int client, int collisionGroup, int contentsMa
 {
 	if ((collisionGroup == COLLISION_GROUP_PLAYER_MOVEMENT && FindConVar("tf_avoidteammates").BoolValue) || collisionGroup == TFCOLLISION_GROUP_ROCKETS || collisionGroup == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS)
 	{
-		switch(TF2_GetClientTeam(client))
+		switch (TF2_GetClientTeam(client))
 		{
 			case TFTeam_Red:
 			{

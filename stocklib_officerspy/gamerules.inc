@@ -34,6 +34,12 @@ stock bool CGameRules_ShouldCollide(int collisionGroup0, int collisionGroup1)
 		collisionGroup1 = old;
 	}
 	
+	if (GetEngineVersion() != Engine_HL2DM)
+	{
+		if ((collisionGroup0 == COLLISION_GROUP_PLAYER || collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT) && collisionGroup1 == COLLISION_GROUP_PUSHAWAY)
+			return false;
+	}
+	
 	if (collisionGroup0 == COLLISION_GROUP_DEBRIS && collisionGroup1 == COLLISION_GROUP_PUSHAWAY)
 		return true;
 	
