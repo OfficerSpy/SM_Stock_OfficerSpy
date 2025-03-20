@@ -80,6 +80,26 @@ enum
 #define TF_DAMAGE_CRIT_MULTIPLIER			3.0
 #define TF_DAMAGE_MINICRIT_MULTIPLIER		1.35
 
+#define PANEL_CLASS_BLUE		"class_blue"
+#define PANEL_CLASS_RED			"class_red"
+#define PANEL_MAPINFO			"mapinfo"
+#define PANEL_ROUNDINFO			"roundinfo"
+
+#define PANEL_CHARACTER_INFO	"character_info"
+
+#define PANEL_ARENA_WIN		"arenawinpanel"
+#define PANEL_ARENA_TEAM	"arenateampanel"
+
+#define PANEL_PVE_WIN		"pvewinpanel"
+
+#define PANEL_GIVEAWAY_ITEM		"giveaway_item"
+
+#define PANEL_MAINMENUOVERRIDE	"MainMenuOverride"
+
+#define MOVIES_FILE				"viewed.res"
+
+#define TF_WEAPON_TAUNT_FRONTIER_JUSTICE_GUITAR_MODEL	"models/player/items/engineer/guitar.mdl"
+
 #define TF_HEALTH_UNDEFINED		1
 
 #define TF_SPY_UNDEFINED		TEAM_UNASSIGNED
