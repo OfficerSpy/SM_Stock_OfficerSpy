@@ -296,6 +296,11 @@ methodmap OSBaseEntity
 		BaseEntity_AddEffects(this.index, nEffects);
 	}
 	
+	public void RemoveEffects(int nEffects)
+	{
+		BaseEntity_RemoveEffects(this.index, nEffects);
+	}
+	
 	public bool IsPlayer()
 	{
 		return BaseEntity_IsPlayer(this.index);
@@ -660,13 +665,23 @@ stock void BaseEntity_WorldSpaceCenter(int entity, float buffer[3])
 
 stock void BaseEntity_AddEffects(int entity, int nEffects)
 {
-	int flags = GetEntProp(entity, Prop_Send, "m_fEffects");
-	flags |= nEffects;
-	SetEntProp(entity, Prop_Send, "m_fEffects", flags);
+	SetEntProp(entity, Prop_Send, "m_fEffects", GetEntProp(entity, Prop_Send, "m_fEffects") | nEffects);
 	
 	if (nEffects & EF_NODRAW)
 	{
 		//MISSING: DispatchUpdateTransmitState
+	}
+}
+
+stock void BaseEntity_RemoveEffects(int entity, int nEffects)
+{
+	SetEntProp(entity, Prop_Send, "m_fEffects", GetEntProp(entity, Prop_Send, "m_fEffects") & ~nEffects);
+	
+	if (nEffects & EF_NODRAW)
+	{
+		/* MISSING:
+		NetworkProp()->MarkPVSInformationDirty();
+		DispatchUpdateTransmitState(); */
 	}
 }
 

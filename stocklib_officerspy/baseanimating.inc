@@ -21,6 +21,21 @@ methodmap OSBaseAnimating < OSBaseEntity
 		}
 	}
 	
+	public float GetPlaybackRate()
+	{
+		return BaseAnimating_GetPlaybackRate(this.index);
+	}
+	
+	public void SetPlaybackRate(float rate)
+	{
+		BaseAnimating_SetPlaybackRate(this.index, rate);
+	}
+	
+	public int GetSequence()
+	{
+		return BaseAnimating_GetSequence(this.index);
+	}
+	
 	public void SetModelScale(float scale, float change_duration = 0.0)
 	{
 		BaseAnimating_SetModelScale(this.index, scale, change_duration);
@@ -30,6 +45,21 @@ methodmap OSBaseAnimating < OSBaseEntity
 	{
 		return BaseAnimating_GetModelScale(this.index);
 	}
+}
+
+stock float BaseAnimating_GetPlaybackRate(int entity)
+{
+	return GetEntPropFloat(entity, Prop_Data, "m_flPlaybackRate");
+}
+
+stock void BaseAnimating_SetPlaybackRate(int entity, float rate)
+{
+	SetEntPropFloat(entity, Prop_Data, "m_flPlaybackRate", rate);
+}
+
+stock int BaseAnimating_GetSequence(int entity)
+{
+	return GetEntProp(entity, Prop_Data, "m_nSequence");
 }
 
 stock void BaseAnimating_SetModelScale(int entity, float scale, float change_duration = 0.0)
