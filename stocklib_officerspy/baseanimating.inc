@@ -36,6 +36,16 @@ methodmap OSBaseAnimating < OSBaseEntity
 		return BaseAnimating_GetSequence(this.index);
 	}
 	
+	public bool IsActivityFinished()
+	{
+		return BaseAnimating_IsActivityFinished(this.index);
+	}
+	
+	public bool IsSequenceFinished()
+	{
+		return BaseAnimating_IsSequenceFinished(this.index);
+	}
+	
 	public void SetModelScale(float scale, float change_duration = 0.0)
 	{
 		BaseAnimating_SetModelScale(this.index, scale, change_duration);
@@ -60,6 +70,16 @@ stock void BaseAnimating_SetPlaybackRate(int entity, float rate)
 stock int BaseAnimating_GetSequence(int entity)
 {
 	return GetEntProp(entity, Prop_Data, "m_nSequence");
+}
+
+stock bool BaseAnimating_IsActivityFinished(int entity)
+{
+	return view_as<bool>(GetEntProp(entity, Prop_Data, "m_bSequenceFinished"));
+}
+
+stock bool BaseAnimating_IsSequenceFinished(int entity)
+{
+	return view_as<bool>(GetEntProp(entity, Prop_Data, "m_bSequenceFinished"));
 }
 
 stock void BaseAnimating_SetModelScale(int entity, float scale, float change_duration = 0.0)
