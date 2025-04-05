@@ -21,6 +21,16 @@ methodmap OSBaseAnimating < OSBaseEntity
 		}
 	}
 	
+	public void SetCycle(float flCycle)
+	{
+		BaseAnimating_SetCycle(this.index, flCycle);
+	}
+	
+	public float GetCycle()
+	{
+		return BaseAnimating_GetCycle(this.index);
+	}
+	
 	public float GetPlaybackRate()
 	{
 		return BaseAnimating_GetPlaybackRate(this.index);
@@ -46,6 +56,26 @@ methodmap OSBaseAnimating < OSBaseEntity
 		return BaseAnimating_IsSequenceFinished(this.index);
 	}
 	
+	public bool SequenceLoops()
+	{
+		return BaseAnimating_SequenceLoops(this.index);
+	}
+	
+	public void StopAnimation()
+	{
+		BaseAnimating_StopAnimation(this.index);
+	}
+	
+	public int GetSkin()
+	{
+		return BaseAnimating_GetSkin(this.index);
+	}
+	
+	public void SetSkin(int nSkin)
+	{
+		BaseAnimating_SetSkin(this.index, nSkin);
+	}
+	
 	public void SetModelScale(float scale, float change_duration = 0.0)
 	{
 		BaseAnimating_SetModelScale(this.index, scale, change_duration);
@@ -55,6 +85,16 @@ methodmap OSBaseAnimating < OSBaseEntity
 	{
 		return BaseAnimating_GetModelScale(this.index);
 	}
+}
+
+stock void BaseAnimating_SetCycle(int entity, float flCycle)
+{
+	SetEntPropFloat(entity, Prop_Data, "m_flCycle", flCycle);
+}
+
+stock float BaseAnimating_GetCycle(int entity)
+{
+	return GetEntPropFloat(entity, Prop_Data, "m_flCycle");
 }
 
 stock float BaseAnimating_GetPlaybackRate(int entity)
@@ -80,6 +120,26 @@ stock bool BaseAnimating_IsActivityFinished(int entity)
 stock bool BaseAnimating_IsSequenceFinished(int entity)
 {
 	return view_as<bool>(GetEntProp(entity, Prop_Data, "m_bSequenceFinished"));
+}
+
+stock bool BaseAnimating_SequenceLoops(int entity)
+{
+	return view_as<bool>(GetEntProp(entity, Prop_Data, "m_bSequenceLoops"));
+}
+
+stock void BaseAnimating_StopAnimation(int entity)
+{
+	SetEntPropFloat(entity, Prop_Data, "m_flPlaybackRate", 0.0);
+}
+
+stock int BaseAnimating_GetSkin(int entity)
+{
+	return GetEntProp(entity, Prop_Data, "m_nSkin");
+}
+
+stock void BaseAnimating_SetSkin(int entity, int nSkin)
+{
+	SetEntProp(entity, Prop_Data, "m_nSkin", nSkin);
 }
 
 stock void BaseAnimating_SetModelScale(int entity, float scale, float change_duration = 0.0)
