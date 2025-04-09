@@ -5,23 +5,18 @@
 
 #include <stocklib_officerspy/shared/tf_shareddefs>
 #include <stocklib_officerspy/tf/tf_bot>
+#include <stocklib_officerspy/stocklib_extra_vscript>
 
 // CEconEntity
 
 stock void VS_AddAttribute(int entity, const char[] name, float value, float duration = -1.0)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "self.AddAttribute(\"%s\", %f, %f)", name, value, duration);
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(entity, "RunScriptCode");
+	OSLib_RunScriptCode(entity, _, _, "self.AddAttribute(\"%s\", %f, %f)", name, value, duration);
 }
 
 stock void VS_RemoveAttribute(int entity, const char[] name)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "self.RemoveAttribute(\"%s\")", name);
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(entity, "RunScriptCode");
+	OSLib_RunScriptCode(entity, _, _, "self.RemoveAttribute(\"%s\")", name);
 }
 
 stock void VS_ReapplyProvision(int entity)
@@ -34,60 +29,39 @@ stock void VS_ReapplyProvision(int entity)
 
 stock void VS_AddCustomAttribute(int client, char[] name, float value, float delay = -1.0)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "!self.AddCustomAttribute(\"%s\", %f, %f)", name, value, delay);
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(client, "RunScriptCode");
+	OSLib_RunScriptCode(client, _, _, "!self.AddCustomAttribute(\"%s\", %f, %f)", name, value, delay);
 }
 
 stock void VS_ForceChangeTeam(int client, int team, bool fullTeamSwitch = false)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "!self.ForceChangeTeam(%d, %s)", team, fullTeamSwitch ? "true" : "false");
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(client, "RunScriptCode");
+	OSLib_RunScriptCode(client, _, _, "!self.ForceChangeTeam(%d, %s)", team, fullTeamSwitch ? "true" : "false");
 }
 
 stock void VS_HandleTauntCommand(int client, int taunt_slot = 0)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "self.HandleTauntCommand(%d)", taunt_slot);
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(client, "RunScriptCode");
+	OSLib_RunScriptCode(client, _, _, "self.HandleTauntCommand(%d)", taunt_slot);
 }
 
 stock void VS_RemoveCondEx(int client, TFCond cond, bool ignoreDuration = false)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "self.RemoveCondEx(%d, %s)", cond, ignoreDuration ? "true" : "false");
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(client, "RunScriptCode");
+	OSLib_RunScriptCode(client, _, _, "self.RemoveCondEx(%d, %s)", cond, ignoreDuration ? "true" : "false");
 }
 
 stock void VS_Taunt(int client, int taunt_index = TAUNT_BASE_WEAPON, int taunt_concept = 0)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "self.Taunt(%d, %d)", taunt_index, taunt_concept);
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(client, "RunScriptCode");
+	OSLib_RunScriptCode(client, _, _, "self.Taunt(%d, %d)", taunt_index, taunt_concept);
 }
 
 //CTFBot
 
 stock void VS_AddBotAttribute(int tfbot, AttributeType attributeFlags)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "!self.AddBotAttribute(%d)", attributeFlags)
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(tfbot, "RunScriptCode");
+	OSLib_RunScriptCode(tfbot, _, _, "!self.AddBotAttribute(%d)", attributeFlags)
 }
 
 stock void VS_AddWeaponRestriction(int tfbot, WeaponRestrictionType restrictionFlags)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "!self.AddWeaponRestriction(%d)", restrictionFlags)
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(tfbot, "RunScriptCode");
+	OSLib_RunScriptCode(tfbot, _, _, "!self.AddWeaponRestriction(%d)", restrictionFlags)
 }
 
 stock void VS_ClearBotAttributes(int tfbot)
@@ -104,58 +78,37 @@ stock void VS_ClearWeaponRestrictions(int tfbot)
 
 stock void VS_DelayedThreatNotice(int tfbot, int threat, float delay)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "self.DelayedThreatNotice(EntIndexToHScript(%i), %f)", threat, delay);
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(tfbot, "RunScriptCode");
+	OSLib_RunScriptCode(tfbot, _, _, "self.DelayedThreatNotice(EntIndexToHScript(%i), %f)", threat, delay);
 }
 
 stock void VS_PressAltFireButton(int bot, float duration = -1.0)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "self.PressAltFireButton(%f)", duration);
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(bot, "RunScriptCode");
+	OSLib_RunScriptCode(bot, _, _, "self.PressAltFireButton(%f)", duration);
 }
 
 stock void VS_PressFireButton(int bot, float duration = -1.0)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "self.PressFireButton(%f)", duration);
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(bot, "RunScriptCode");
+	OSLib_RunScriptCode(bot, _, _, "self.PressFireButton(%f)", duration);
 }
 
 stock void VS_PressSpecialFireButton(int bot, float duration = -1.0)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "self.PressSpecialFireButton(%f)", duration);
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(bot, "RunScriptCode");
+	OSLib_RunScriptCode(bot, _, _, "self.PressSpecialFireButton(%f)", duration);
 }
 
 stock void VS_SetDifficulty(int tfbot, DifficultyType difficulty)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "!self.SetDifficulty(%d)", difficulty);
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(tfbot, "RunScriptCode");
+	OSLib_RunScriptCode(tfbot, _, _, "!self.SetDifficulty(%d)", difficulty);
 }
 
 stock void VS_SetAutoJump(int tfbot, float flAutoJumpMin, float flAutoJumpMax)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "!self.SetAutoJump(%f, %f)", flAutoJumpMin, flAutoJumpMax);
-	
-	SetVariantString(buffer);
-	AcceptEntityInput(tfbot, "RunScriptCode");
+	OSLib_RunScriptCode(tfbot, _, _, "!self.SetAutoJump(%f, %f)", flAutoJumpMin, flAutoJumpMax);
 }
 
 stock void VS_SetMaxVisionRangeOverride(int tfbot, float range)
 {
-	char buffer[PLATFORM_MAX_PATH]; FormatEx(buffer, sizeof(buffer), "!self.SetMaxVisionRangeOverride(%f)", range);
-
-	SetVariantString(buffer);
-	AcceptEntityInput(tfbot, "RunScriptCode");
+	OSLib_RunScriptCode(tfbot, _, _, "!self.SetMaxVisionRangeOverride(%f)", range);
 }
 
 stock void VS_UpdateDelayedThreatNotices(int tfbot)

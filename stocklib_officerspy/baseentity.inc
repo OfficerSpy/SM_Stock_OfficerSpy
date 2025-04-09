@@ -322,6 +322,11 @@ methodmap OSBaseEntity
 	{
 		BaseEntity_MarkNeedsNamePurge(this.index);
 	}
+	
+	public void TerminateScriptScope()
+	{
+		BaseEntity_TerminateScriptScope(this.index);
+	}
 }
 
 stock void BaseEntity_ClearModelIndexOverrides(int entity)
@@ -363,7 +368,10 @@ stock void BaseEntity_SetHealth(int entity, int amt)
 
 stock void BaseEntity_ChangeTeam(int entity, int iTeamNum)
 {
-	SetEntProp(entity, Prop_Send, "m_iTeamNum", iTeamNum);
+	// SetEntProp(entity, Prop_Send, "m_iTeamNum", iTeamNum);
+	
+	SetVariantInt(iTeamNum);
+	AcceptEntityInput(entity, "SetTeam");
 }
 
 stock int BaseEntity_GetMoveParent(int entity)
@@ -723,6 +731,11 @@ stock bool BaseEntity_BlocksLOS(int entity)
 stock void BaseEntity_MarkNeedsNamePurge(int entity)
 {
 	SetEntProp(entity, Prop_Data, "m_bForcePurgeFixedupStrings", true);
+}
+
+stock void BaseEntity_TerminateScriptScope(int entity)
+{
+	AcceptEntityInput(entity, "TerminateScriptScope");
 }
 
 // EXTRA UTILITY FUNCTIONS
