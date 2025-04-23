@@ -13,6 +13,21 @@ methodmap OSBaseCombatCharacter < OSBaseFlex
 		return view_as<OSBaseCombatCharacter>(index);
 	}
 	
+	public void RemoveAmmo(int iCount, int iAmmoIndex)
+	{
+		BaseCombatCharacter_RemoveAmmo(this.index, iCount, iAmmoIndex);
+	}
+	
+	public void RemoveAllAmmo()
+	{
+		BaseCombatCharacter_RemoveAllAmmo(this.index);
+	}
+	
+	public int GetAmmoCount(int iAmmoIndex)
+	{
+		return BaseCombatCharacter_GetAmmoCount(this.index, iAmmoIndex);
+	}
+	
 	public void AddGlowEffect()
 	{
 		BaseCombatCharacter_AddGlowEffect(this.index);
@@ -53,6 +68,11 @@ methodmap OSBaseCombatCharacter < OSBaseFlex
 		return BaseCombatCharacter_GetActiveWeapon(this.index);
 	}
 	
+	public void SetAmmoCount(int iCount, int iAmmoIndex)
+	{
+		BaseCombatCharacter_SetAmmoCount(this.index, iCount, iAmmoIndex);
+	}
+	
 	public void SetActiveWeapon(int pNewWeapon)
 	{
 		BaseCombatCharacter_SetActiveWeapon(this.index, pNewWeapon);
@@ -67,6 +87,34 @@ methodmap OSBaseCombatCharacter < OSBaseFlex
 	{
 		BaseCombatCharacter_RemoveAllWeapons(this.index);
 	}
+}
+
+stock void BaseCombatCharacter_RemoveAmmo(int entity, int iCount, int iAmmoIndex)
+{
+	if (iCount <= 0)
+		return;
+	
+	//MISSING: if ( GetAmmoDef()->MaxCarry( iAmmoIndex ) == INFINITE_AMMO )
+	
+	SetEntProp(entity, Prop_Data, "m_iAmmo", MaxInt(GetEntProp(entity, Prop_Data, "m_iAmmo", _, iAmmoIndex), 0), _, iAmmoIndex);
+}
+
+stock void BaseCombatCharacter_RemoveAllAmmo(int entity)
+{
+	for (int i = 0; i < MAX_AMMO_SLOTS; i++)
+	{
+		SetEntProp(entity, Prop_Data, "m_iAmmo", 0, _, i);
+	}
+}
+
+stock int BaseCombatCharacter_GetAmmoCount(int entity, int iAmmoIndex)
+{
+	if (iAmmoIndex == -1)
+		return 0;
+	
+	//MISSING: if ( GetAmmoDef()->MaxCarry( iAmmoIndex ) == INFINITE_AMMO )
+	
+	return GetEntProp(entity, Prop_Data, "m_iAmmo", _, iAmmoIndex);
 }
 
 stock void BaseCombatCharacter_AddGlowEffect(int entity)
@@ -107,6 +155,11 @@ stock void BaseCombatCharacter_SetBloodColor(int entity, int nBloodColor)
 stock int BaseCombatCharacter_GetActiveWeapon(int entity)
 {
 	return GetEntPropEnt(entity, Prop_Send, "m_hActiveWeapon");
+}
+
+stock void BaseCombatCharacter_SetAmmoCount(int entity, int iCount, int iAmmoIndex)
+{
+	SetEntProp(entity, Prop_Data, "m_iAmmo", iCount, _, iAmmoIndex);
 }
 
 stock void BaseCombatCharacter_SetActiveWeapon(int entity, int pNewWeapon)
