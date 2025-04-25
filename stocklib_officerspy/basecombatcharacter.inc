@@ -96,7 +96,7 @@ stock void BaseCombatCharacter_RemoveAmmo(int entity, int iCount, int iAmmoIndex
 	
 	//MISSING: if ( GetAmmoDef()->MaxCarry( iAmmoIndex ) == INFINITE_AMMO )
 	
-	SetEntProp(entity, Prop_Data, "m_iAmmo", MaxInt(GetEntProp(entity, Prop_Data, "m_iAmmo", _, iAmmoIndex), 0), _, iAmmoIndex);
+	SetEntProp(entity, Prop_Data, "m_iAmmo", MaxInt(GetEntProp(entity, Prop_Data, "m_iAmmo", _, iAmmoIndex) - iCount, 0), _, iAmmoIndex);
 }
 
 stock void BaseCombatCharacter_RemoveAllAmmo(int entity)
