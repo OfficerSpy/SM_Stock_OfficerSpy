@@ -166,6 +166,46 @@ methodmap OSBaseEntity
 		BaseEntity_GetAbsAngles(this.index, buffer);
 	}
 	
+	public SolidType_t GetSolid()
+	{
+		return BaseEntity_GetSolid(this.index);
+	}
+	
+	public int GetSolidFlags()
+	{
+		return BaseEntity_GetSolidFlags(this.index);
+	}
+	
+	public int GetEFlags()
+	{
+		return BaseEntity_GetEFlags(this.index);
+	}
+	
+	public void SetEFlags(int iEFlags)
+	{
+		BaseEntity_SetEFlags(this.index, iEFlags);
+	}
+	
+	public void AddEFlags(int nEFlagMask)
+	{
+		BaseEntity_AddEFlags(this.index, nEFlagMask);
+	}
+	
+	public void RemoveEFlags(int nEFlagMask)
+	{
+		BaseEntity_RemoveEFlags(this.index, nEFlagMask);
+	}
+	
+	public bool IsEFlagSet(int nEFlagMask)
+	{
+		return BaseEntity_IsEFlagSet(this.index, nEFlagMask);
+	}
+	
+	public bool IsTransparent()
+	{
+		return BaseEntity_IsTransparent(this.index);
+	}
+	
 	public void GetLocalVelocity(float buffer[3])
 	{
 		BaseEntity_GetLocalVelocity(this.index, buffer);
@@ -457,6 +497,65 @@ stock void BaseEntity_GetAbsOrigin(int entity, float buffer[3])
 stock void BaseEntity_GetAbsAngles(int entity, float buffer[3])
 {
 	GetEntPropVector(entity, Prop_Data, "m_angAbsRotation", buffer);
+}
+
+stock SolidType_t BaseEntity_GetSolid(int entity)
+{
+	//CCollisionProperty::GetSolid
+	return view_as<SolidType_t>(GetEntProp(entity, Prop_Data, "m_nSolidType"));
+}
+
+stock int BaseEntity_GetSolidFlags(int entity)
+{
+	//CCollisionProperty::GetSolidFlags
+	return GetEntProp(entity, Prop_Data, "m_usSolidFlags");
+}
+
+stock int BaseEntity_GetEFlags(int entity)
+{
+	return GetEntProp(entity, Prop_Data, "m_iEFlags");
+}
+
+stock void BaseEntity_SetEFlags(int entity, int iEFlags)
+{
+	SetEntProp(entity, Prop_Data, "m_iEFlags", iEFlags);
+	
+	if (iEFlags & (EFL_FORCE_CHECK_TRANSMIT | EFL_IN_SKYBOX))
+	{
+		//MISSING: DispatchUpdateTransmitState();
+	}
+}
+
+stock void BaseEntity_AddEFlags(int entity, int nEFlagMask)
+{
+	SetEntProp(entity, Prop_Data, "m_iEFlags", GetEntProp(entity, Prop_Data, "m_iEFlags") | nEFlagMask);
+	
+	if (nEFlagMask & (EFL_FORCE_CHECK_TRANSMIT | EFL_IN_SKYBOX))
+	{
+		//MISSING: DispatchUpdateTransmitState();
+	}
+}
+
+stock void BaseEntity_RemoveEFlags(int entity, int nEFlagMask)
+{
+	SetEntProp(entity, Prop_Data, "m_iEFlags", GetEntProp(entity, Prop_Data, "m_iEFlags") & ~nEFlagMask);
+	
+	if (nEFlagMask & (EFL_FORCE_CHECK_TRANSMIT | EFL_IN_SKYBOX))
+	{
+		//MISSING: DispatchUpdateTransmitState();
+	}
+}
+
+stock bool BaseEntity_IsEFlagSet(int entity, int nEFlagMask)
+{
+	return GetEntProp(entity, Prop_Data, "m_iEFlags") & nEFlagMask != 0;
+}
+
+stock bool BaseEntity_IsTransparent(int entity)
+{
+	// return GetEntProp(entity, Prop_Data, "m_nRenderMode") != kRenderNormal;
+	
+	return GetEntityRenderMode(entity) != RENDER_NORMAL;
 }
 
 stock void BaseEntity_GetLocalVelocity(int entity, float buffer[3])

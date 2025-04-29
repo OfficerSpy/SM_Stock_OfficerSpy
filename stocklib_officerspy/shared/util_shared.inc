@@ -25,3 +25,26 @@ stock bool PassServerEntityFilter(int iTouch, int iPass)
 	
 	return true;
 }
+
+stock bool StandardFilterRules(int iEntity, int fContentsMask)
+{
+	/* if (!IsValidEntity(iEntity))
+		return true; */
+	
+	SolidType_t solid = BaseEntity_GetSolid(iEntity);
+	//MISSING: const model_t *pModel = pCollide->GetModel();
+	
+	if (solid != SOLID_BSP && solid != SOLID_VPHYSICS)
+	{
+		if (fContentsMask & CONTENTS_MONSTER == 0)
+			return false;
+	}
+	
+	if (!(fContentsMask & CONTENTS_WINDOW) && BaseEntity_IsTransparent(iEntity))
+		return false;
+	
+	if (!(fContentsMask & CONTENTS_MOVEABLE) && GetEntityMoveType(iEntity) == MOVETYPE_PUSH)
+		return false;
+	
+	return true;
+}
