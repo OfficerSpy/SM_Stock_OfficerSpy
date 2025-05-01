@@ -800,7 +800,7 @@ stock bool BaseEntity_IsPlayer(int entity)
 
 stock bool BaseEntity_IsCombatItem(int entity)
 {
-	char classname[PLATFORM_MAX_PATH]; GetEntityClassname(entity, classname, sizeof(classname));
+	char classname[PLATFORM_MAX_PATH]; GetEdictClassname(entity, classname, sizeof(classname));
 	
 	if (GetEngineVersion() == Engine_TF2)
 	{

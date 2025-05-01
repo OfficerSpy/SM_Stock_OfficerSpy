@@ -5,7 +5,8 @@
 
 #include <stocklib_officerspy/baseentity>
 
-//NOTE: not using IHandleEntity as this is meant for TraceEntityFilter callbacks
+//NOTE: IHandleEntity is not used here as these are meant for TraceEntityFilter callbacks
+
 stock bool PassServerEntityFilter(int iTouch, int iPass)
 {
 	/* if (!IsValidEntity(iPass))
