@@ -246,6 +246,11 @@ stock float TF2_GetDuckTimer(int client)
 	return GetEntPropFloat(client, Prop_Send, "m_flDuckTimer");
 }
 
+stock float TF2_GetStealthNoAttackExpireTime(int client)
+{
+	return GetEntPropFloat(client, Prop_Send, "m_flStealthNoAttackExpire");
+}
+
 #pragma deprecated Use TF2_StunPlayer instead
 stock void TFPlayerShared_StunPlayer(int client, float flTime, float flReductionAmount, int iStunFlags = TF_STUN_MOVEMENT, int pAttacker = -1)
 {

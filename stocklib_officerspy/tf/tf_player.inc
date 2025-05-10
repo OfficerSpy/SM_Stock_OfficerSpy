@@ -543,6 +543,11 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 		return TF2_GetDuckTimer(this.index);
 	}
 	
+	public float GetStealthNoAttackExpireTime()
+	{
+		return TF2_GetStealthNoAttackExpireTime(this.index);
+	}
+	
 	public void StunPlayer(float flTime, float flReductionAmount, int iStunFlags = TF_STUN_MOVEMENT, int pAttacker = -1)
 	{
 		TF2_StunPlayer(this.index, flTime, flReductionAmount, iStunFlags, pAttacker);

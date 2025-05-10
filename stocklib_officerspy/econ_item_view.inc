@@ -106,5 +106,5 @@ static stock void GetClassPropertyOffsets()
 {
 	//m_iItemID
 	if (m_iOffsetItemID < 0)
-		m_iOffsetItemID = FindSendPropInfo("CEconItemView", "m_iItemIDHigh") - 4;
+		m_iOffsetItemID = FindSendPropInfo("CEconEntity", "m_iItemIDHigh") - 4;
 }
