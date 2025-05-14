@@ -46,8 +46,7 @@ stock void EconItemView_SetItemQuality(int entity, int iQuality)
 	// SetEntProp(entity, Prop_Send, "m_iEntityQuality", iQuality);
 	
 	//NOTE: for reasons unexplained, this property cannot be properly set with SetEntProp
-	char serverClassname[64]; GetEntityNetClass(entity, serverClassname, sizeof(serverClassname));
-	SetEntData(entity, FindSendPropInfo(serverClassname, "m_iEntityQuality"), iQuality);
+	SetEntData(entity, FindSendPropInfo("CEconEntity", "m_iEntityQuality"), iQuality);
 	
 	//MISSING: MarkDescriptionDirty()
 }
@@ -62,8 +61,7 @@ stock void EconItemView_SetItemLevel(int entity, int unLevel)
 	// SetEntProp(entity, Prop_Send, "m_iEntityLevel", unLevel);
 	
 	//NOTE: for reasons unexplained, this property cannot be properly set with SetEntProp
-	char serverClassname[64]; GetEntityNetClass(entity, serverClassname, sizeof(serverClassname));
-	SetEntData(entity, FindSendPropInfo(serverClassname, "m_iEntityLevel"), unLevel);
+	SetEntData(entity, FindSendPropInfo("CEconEntity", "m_iEntityLevel"), unLevel);
 	
 	//MISSING: MarkDescriptionDirty()
 }
