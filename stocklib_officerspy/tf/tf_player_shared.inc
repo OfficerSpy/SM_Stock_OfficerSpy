@@ -4,7 +4,7 @@
 #define _stock_officerspy_tfplayershared_included
 
 #include <tf2_stocks>
-#include <stocklib_officerspy/other/cpp_valve>
+#include <stocklib_officerspy/mathlib/mathlib>
 #include <stocklib_officerspy/tf/stocklib_extra_vscript>
 
 #if !defined ETFStreak_ENABLED
