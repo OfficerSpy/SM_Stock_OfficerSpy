@@ -224,11 +224,6 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 		return TF2_GetActiveTFWeapon(this.index);
 	}
 	
-	public int GiveAmmo(int iCount, int iAmmoIndex, bool bSuppressSound = false)
-	{
-		return TF2_GiveAmmo(this.index, iCount, iAmmoIndex, bSuppressSound);
-	}
-	
 	public void SetClassMenuOpen(bool bOpen)
 	{
 		TF2_SetClassMenuOpen(this.index, bOpen);
@@ -386,6 +381,11 @@ methodmap OSTFPlayer < OSBaseMultiplayerPlayer
 	public int GetDisguiseTargetIndex()
 	{
 		return TF2_GetDisguiseTargetIndex(this.index);
+	}
+	
+	public int GetDisguiseTarget()
+	{
+		return TF2_GetDisguiseTarget(this.index);
 	}
 	
 	public int GetDisguiseWeapon()
@@ -961,11 +961,6 @@ stock int TF2_GetActiveTFWeapon(int client)
 {
 	//The assert is not necessary as it feels like it was meant to return NULL regardless
 	return GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
-}
-
-stock int TF2_GiveAmmo(int client, int iCount, int iAmmoIndex, bool bSuppressSound = false)
-{
-	return GivePlayerAmmo(client, iCount, iAmmoIndex, bSuppressSound);
 }
 
 stock void TF2_SetClassMenuOpen(int client, bool bOpen)

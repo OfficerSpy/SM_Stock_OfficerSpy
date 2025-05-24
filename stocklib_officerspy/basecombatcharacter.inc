@@ -13,6 +13,11 @@ methodmap OSBaseCombatCharacter < OSBaseFlex
 		return view_as<OSBaseCombatCharacter>(index);
 	}
 	
+	public int GiveAmmo(int iCount, int iAmmoIndex, bool bSuppressSound = false)
+	{
+		return GivePlayerAmmo(this.index, iCount, iAmmoIndex, bSuppressSound);
+	}
+	
 	public void RemoveAmmo(int iCount, int iAmmoIndex)
 	{
 		BaseCombatCharacter_RemoveAmmo(this.index, iCount, iAmmoIndex);
@@ -87,6 +92,11 @@ methodmap OSBaseCombatCharacter < OSBaseFlex
 	{
 		BaseCombatCharacter_RemoveAllWeapons(this.index);
 	}
+}
+
+stock int BaseCombatCharacter_GiveAmmo(int entity, int iCount, int iAmmoIndex, bool bSuppressSound = false)
+{
+	return GivePlayerAmmo(entity, iCount, iAmmoIndex, bSuppressSound);
 }
 
 stock void BaseCombatCharacter_RemoveAmmo(int entity, int iCount, int iAmmoIndex)

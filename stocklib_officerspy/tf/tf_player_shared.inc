@@ -89,6 +89,11 @@ stock int TF2_GetDisguiseTargetIndex(int client)
 	return GetEntProp(client, Prop_Send, "m_iDisguiseTargetIndex");
 }
 
+stock int TF2_GetDisguiseTarget(int client)
+{
+	return GetEntPropEnt(client, Prop_Send, "m_hDisguiseTarget");
+}
+
 stock int TF2_GetDisguiseWeapon(int client)
 {
 	return GetEntPropEnt(client, Prop_Send, "m_hDisguiseWeapon");
