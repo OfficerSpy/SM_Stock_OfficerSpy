@@ -3,7 +3,7 @@
 #endif
 #define _stock_officerspy_econitemview_included
 
-static int m_iOffsetItemID = -1;
+static int s_iOffsetItemID = -1;
 
 stock int EconItemView_GetID(int entity)
 {
@@ -22,7 +22,7 @@ stock void EconItemView_Invalidate(int entity)
 	SetEntProp(entity, Prop_Send, "m_bInitialized", false);
 	SetEntProp(entity, Prop_Send, "m_iItemDefinitionIndex", -1);
 	
-	SetEntData(entity, m_iOffsetItemID, -1);
+	SetEntData(entity, s_iOffsetItemID, -1);
 }
 
 stock void EconItemView_SetInitialized(int entity, bool bInit)
@@ -75,7 +75,7 @@ stock void EconItemView_SetItemID(int entity, int iIdx)
 {
 	GetClassPropertyOffsets();
 	
-	SetEntData(entity, m_iOffsetItemID, iIdx);
+	SetEntData(entity, s_iOffsetItemID, iIdx);
 	
 	//At this point, m_iItemID should be equal to our given parameter
 	//So use it for the rest here instead of retrieving the data we just set ourselves
@@ -87,7 +87,7 @@ stock int EconItemView_GetItemID(int entity)
 {
 	GetClassPropertyOffsets();
 	
-	return GetEntData(entity, m_iOffsetItemID);
+	return GetEntData(entity, s_iOffsetItemID);
 }
 
 stock int EconItemView_GetAccountID(int entity)
@@ -103,6 +103,6 @@ stock void EconItemView_SetOverrideAccountID(int entity, int nAccountID)
 static stock void GetClassPropertyOffsets()
 {
 	//m_iItemID
-	if (m_iOffsetItemID < 0)
-		m_iOffsetItemID = FindSendPropInfo("CEconEntity", "m_iItemIDHigh") - 4;
+	if (s_iOffsetItemID < 0)
+		s_iOffsetItemID = FindSendPropInfo("CEconEntity", "m_iItemIDHigh") - 4;
 }

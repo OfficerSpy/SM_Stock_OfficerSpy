@@ -991,6 +991,7 @@ stock bool TFPlayer_ShouldCollide(int client, int collisionGroup, int contentsMa
 	return BaseEntity_ShouldCollide(client, collisionGroup, contentsMask);
 }
 
+#if 0
 stock void TF2_HandleCommand_JoinClass(int client, const char[] pClassName, bool bAllowSpawn = true)
 {
 	if (GameRules_GetRoundState() == RoundState_GameOver)
@@ -1020,6 +1021,7 @@ stock void TF2_HandleCommand_JoinClass(int client, const char[] pClassName, bool
 	
 	//TODO: the rest
 }
+#endif
 
 stock void TF2_TeleportEffect(int client)
 {
