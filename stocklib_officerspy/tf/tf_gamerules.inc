@@ -5,7 +5,156 @@
 
 #include <stocklib_officerspy/shared/tf_shareddefs>
 #include <stocklib_officerspy/gamerules>
+#include <stocklib_officerspy/team_objectiveresource>
 #include <stocklib_officerspy/stocklib_extra_vscript>
+
+stock int TF2_GetFarthestOwnedControlPoint(TFTeam iTeam, bool bWithSpawnpoints)
+{
+	int iRsrc = FindEntityByClassname(-1, "tf_objective_resource");
+	
+	int iOwnedEnd = BaseTeamObjectiveResource_GetBaseControlPointForTeam(iRsrc, iTeam);
+	
+	if (iOwnedEnd == -1)
+		return -1;
+	
+	int iNumControlPoints = BaseTeamObjectiveResource_GetNumControlPoints(iRsrc);
+	int iWalk = 1;
+	int iEnemyEnd = iNumControlPoints - 1;
+	
+	if (iOwnedEnd != 0)
+	{
+		iWalk = -1;
+		iEnemyEnd = 0;
+	}
+	
+	int iFarthestPoint = iOwnedEnd;
+	
+	for (int iPoint = iOwnedEnd; iPoint != iEnemyEnd; iPoint += iWalk)
+	{
+		if (BaseTeamObjectiveResource_GetOwningTeam(iRsrc, iPoint) != view_as<int>(iTeam))
+			break;
+		
+		//MISSING: if ( bWithSpawnpoints && !m_bControlSpawnsPerTeam[iTeam][iPoint] )
+		
+		iFarthestPoint = iPoint;
+	}
+	
+	return iFarthestPoint;
+}
+
+stock bool TFGameRules_TeamMayCapturePoint(TFTeam iTeam, int iPointIndex)
+{
+	if (!FindConVar("tf_caplinear").BoolValue)
+		return true;
+	
+	int iRsrc = FindEntityByClassname(-1, "tf_objective_resource");
+	
+	int iPointNeeded = BaseTeamObjectiveResource_GetPreviousPointForPoint(iRsrc, iPointIndex, iTeam, 0);
+	
+	if (iPointNeeded == iPointIndex)
+		return true;
+	
+	if (TF2_IsInKothMode() && TeamplayRoundBasedRules_IsInWaitingForPlayers())
+		return false;
+	
+	if (BaseTeamObjectiveResource_GetCPLocked(iRsrc, iPointIndex))
+		return false;
+	
+	if (iPointNeeded == -1)
+	{
+		if (TF2_IsInArenaMode() == true)
+		{
+			if (GameRules_GetPropFloat("m_flCapturePointEnableTime") <= GetGameTime() && GameRules_GetRoundState() == RoundState_Stalemate)
+				return true;
+			
+			return false;
+		}
+		
+		if (!BaseTeamObjectiveResource_PlayingMiniRounds(iRsrc))
+		{
+			int iFarthestPoint = TF2_GetFarthestOwnedControlPoint(iTeam, false);
+			return iFarthestPoint - iPointIndex <= 1;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	
+	for (int iPrevPoint = 0; iPrevPoint < MAX_PREVIOUS_POINTS; iPrevPoint++)
+	{
+		iPointNeeded = BaseTeamObjectiveResource_GetPreviousPointForPoint(iRsrc, iPointIndex, iTeam, iPrevPoint);
+		
+		if (iPointNeeded != -1)
+		{
+			if (BaseTeamObjectiveResource_GetOwningTeam(iRsrc, iPointNeeded) != view_as<int>(iTeam))
+				return false;
+		}
+	}
+	
+	return true;
+}
+
+stock bool TFGameRules_ShouldCollide(int collisionGroup0, int collisionGroup1)
+{
+	if (collisionGroup0 > collisionGroup1)
+	{
+		//Swap places
+		int old = collisionGroup0;
+		collisionGroup0 = collisionGroup1;
+		collisionGroup1 = old;
+	}
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == COLLISION_GROUP_WEAPON)
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == COLLISION_GROUP_PROJECTILE)
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return true;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_WEAPON && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == TF_COLLISIONGROUP_GRENADES && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PROJECTILE && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == TFCOLLISION_GROUP_ROCKETS && (collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS && (collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER && collisionGroup1 == TF_COLLISIONGROUP_GRENADES)
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == TF_COLLISIONGROUP_GRENADES)
+		return false;
+	
+	if (collisionGroup1 == TFCOLLISION_GROUP_RESPAWNROOMS)
+		return collisionGroup0 == COLLISION_GROUP_PLAYER || collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT;
+	
+	if (collisionGroup0 == TF_COLLISIONGROUP_GRENADES && collisionGroup1 == TF_COLLISIONGROUP_GRENADES)
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == TFCOLLISION_GROUP_COMBATOBJECT)
+		return false;
+	
+	if (collisionGroup0 == COLLISION_GROUP_PLAYER && collisionGroup1 == TFCOLLISION_GROUP_COMBATOBJECT)
+		return false;
+	
+	if ((collisionGroup0 == COLLISION_GROUP_PLAYER || collisionGroup0 ==  COLLISION_GROUP_PLAYER_MOVEMENT) && collisionGroup1 == TFCOLLISION_GROUP_TANK)
+		return false;
+	
+	return CGameRules_ShouldCollide(collisionGroup0, collisionGroup1);
+}
 
 stock bool TF2_IsInArenaMode()
 {
@@ -217,65 +366,4 @@ stock void TF2_PushAllPlayersAway(const float vFromThisPoint[3], float flRange, 
 			VS_ApplyAbsVelocityImpulse(player, vPush);
 		}
 	}
-}
-
-stock bool TFGameRules_ShouldCollide(int collisionGroup0, int collisionGroup1)
-{
-	if (collisionGroup0 > collisionGroup1)
-	{
-		//Swap places
-		int old = collisionGroup0;
-		collisionGroup0 = collisionGroup1;
-		collisionGroup1 = old;
-	}
-	
-	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == COLLISION_GROUP_WEAPON)
-		return false;
-	
-	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == COLLISION_GROUP_PROJECTILE)
-		return false;
-	
-	if (collisionGroup0 == COLLISION_GROUP_PLAYER && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
-		return true;
-	
-	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
-		return false;
-	
-	if (collisionGroup0 == COLLISION_GROUP_WEAPON && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
-		return false;
-	
-	if (collisionGroup0 == TF_COLLISIONGROUP_GRENADES && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
-		return false;
-	
-	if (collisionGroup0 == COLLISION_GROUP_PROJECTILE && (collisionGroup1 == TFCOLLISION_GROUP_ROCKETS || collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
-		return false;
-	
-	if (collisionGroup0 == TFCOLLISION_GROUP_ROCKETS && (collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
-		return false;
-	
-	if (collisionGroup0 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS && (collisionGroup1 == TFCOLLISION_GROUP_ROCKET_BUT_NOT_WITH_OTHER_ROCKETS))
-		return false;
-	
-	if (collisionGroup0 == COLLISION_GROUP_PLAYER && collisionGroup1 == TF_COLLISIONGROUP_GRENADES)
-		return false;
-	
-	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == TF_COLLISIONGROUP_GRENADES)
-		return false;
-	
-	if (collisionGroup1 == TFCOLLISION_GROUP_RESPAWNROOMS)
-		return collisionGroup0 == COLLISION_GROUP_PLAYER || collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT;
-	
-	if (collisionGroup0 == TF_COLLISIONGROUP_GRENADES && collisionGroup1 == TF_COLLISIONGROUP_GRENADES)
-		return false;
-	
-	if (collisionGroup0 == COLLISION_GROUP_PLAYER_MOVEMENT && collisionGroup1 == TFCOLLISION_GROUP_COMBATOBJECT)
-		return false;
-	
-	if (collisionGroup0 == COLLISION_GROUP_PLAYER && collisionGroup1 == TFCOLLISION_GROUP_COMBATOBJECT)
-		return false;
-	
-	if ((collisionGroup0 == COLLISION_GROUP_PLAYER || collisionGroup0 ==  COLLISION_GROUP_PLAYER_MOVEMENT) && collisionGroup1 == TFCOLLISION_GROUP_TANK)
-		return false;
-	
-	return CGameRules_ShouldCollide(collisionGroup0, collisionGroup1);
 }

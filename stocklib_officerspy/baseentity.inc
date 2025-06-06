@@ -78,7 +78,7 @@ methodmap OSBaseEntity
 	
 	public void SetHealth(int amt)
 	{
-		BaseEntity_SetHealth(this.index, amt);
+		SetEntityHealth(this.index, amt);
 	}
 	
 	public void ChangeTeam(int iTeamNum)
@@ -403,13 +403,11 @@ stock int BaseEntity_GetHealth(int entity)
 
 stock void BaseEntity_SetHealth(int entity, int amt)
 {
-	SetEntProp(entity, Prop_Data, "m_iHealth", amt);
+	SetEntityHealth(entity, amt);
 }
 
 stock void BaseEntity_ChangeTeam(int entity, int iTeamNum)
 {
-	// SetEntProp(entity, Prop_Send, "m_iTeamNum", iTeamNum);
-	
 	SetVariantInt(iTeamNum);
 	AcceptEntityInput(entity, "SetTeam");
 }
@@ -446,7 +444,6 @@ stock void BaseEntity_GetEntityName(int entity, char[] buffer, int maxlen)
 
 stock void BaseEntity_SetName(int entity, char[] newName)
 {
-	// SetEntPropString(entity, Prop_Data, "m_iName", newName);
 	DispatchKeyValue(entity, "targetname", newName);
 }
 
@@ -553,8 +550,6 @@ stock bool BaseEntity_IsEFlagSet(int entity, int nEFlagMask)
 
 stock bool BaseEntity_IsTransparent(int entity)
 {
-	// return GetEntProp(entity, Prop_Data, "m_nRenderMode") != kRenderNormal;
-	
 	return GetEntityRenderMode(entity) != RENDER_NORMAL;
 }
 
