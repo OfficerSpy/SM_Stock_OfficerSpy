@@ -341,14 +341,9 @@ stock TFObjectType TF2_ObjectType(int entity)
 
 stock void TF2_DetonateObject(int entity)
 {
-	float absOrigin[3]; BaseEntity_GetAbsOrigin(entity, absOrigin);
-	
-	// SDKHooks_TakeDamage(entity, entity, entity, 0.0, DMG_GENERIC, _, NULL_VECTOR, absOrigin, false);
-	//MISSING: Killed
-	
-	//We can't fire CBaseObject::Killed ourselves, so instead we will just take the entire health away to destroy it
-	int health = GetEntProp(entity, Prop_Data, "m_iHealth");
-	SDKHooks_TakeDamage(entity, 0, 0, float(health), DMG_GENERIC, _, NULL_VECTOR, absOrigin, false);
+	//Fire this input setting the health <= 0 so it will call CBaseObject::Killed directly
+	SetVariantInt(BaseEntity_GetHealth(entity));
+	AcceptEntityInput(entity, "RemoveHealth", entity, entity);
 }
 
 #pragma deprecated Use TF2_GetObjectType instead
