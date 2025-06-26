@@ -10,102 +10,138 @@
 #define COUNTDOWNTIMER_OFFSET_DURATION	0x4
 #define COUNTDOWNTIMER_OFFSET_TIMESTAMP	0x8
 
-methodmap IntervalTimer < Address
+methodmap IntervalTimer
 {
+	public IntervalTimer(Address pointer)
+	{
+		return view_as<IntervalTimer>(pointer);
+	}
+	
+	property Address Address
+	{
+		public get() { return view_as<Address>(this); }
+	}
+	
 	property float m_timestamp
 	{
 		public get()
 		{
-			return LoadFromAddress(this + INTERVALTIMER_OFFSET_TIMESTAMP, NumberType_Int32);
+			return LoadFromAddress(this.Address + view_as<Address>(INTERVALTIMER_OFFSET_TIMESTAMP), NumberType_Int32);
 		}
 		public set(float value)
 		{
-			StoreToAddress(this + INTERVALTIMER_OFFSET_TIMESTAMP, value, NumberType_Int32, false);
+			StoreToAddress(this.Address + view_as<Address>(INTERVALTIMER_OFFSET_TIMESTAMP), value, NumberType_Int32, false);
 		}
 	}
+	
 	public void Reset()
 	{
 		this.m_timestamp = GetGameTime();
 	}
+	
 	public void Start()
 	{
 		this.m_timestamp = GetGameTime();
 	}
+	
 	public void Invalidate()
 	{
 		this.m_timestamp = -1.0;
 	}
+	
 	public bool HasStarted()
 	{
 		return this.m_timestamp > 0.0;
 	}
+	
 	public float GetElapsedTime()
 	{
 		return this.HasStarted() ? GetGameTime() - this.m_timestamp : 99999.9;
 	}
+	
 	public bool IsLessThen(float duration)
 	{
 		return GetGameTime() - this.m_timestamp < duration ? true : false;
 	}
+	
 	public bool IsGreaterThen(float duration)
 	{
 		return GetGameTime() - this.m_timestamp > duration ? true : false;
 	}
 }
 
-methodmap CountdownTimer < Address
+methodmap CountdownTimer
 {
+	public CountdownTimer(Address pointer)
+	{
+		return view_as<CountdownTimer>(pointer);
+	}
+	
+	property Address Address
+	{
+		public get() { return view_as<Address>(this); }
+	}
+	
 	property float m_duration
 	{
 		public get()
 		{
-			return LoadFromAddress(this + COUNTDOWNTIMER_OFFSET_DURATION, NumberType_Int32);
+			return LoadFromAddress(this.Address + view_as<Address>(COUNTDOWNTIMER_OFFSET_DURATION), NumberType_Int32);
 		}
 		public set(float value)
 		{
-			StoreToAddress(this + COUNTDOWNTIMER_OFFSET_DURATION, value, NumberType_Int32, false);
+			StoreToAddress(this.Address + view_as<Address>(COUNTDOWNTIMER_OFFSET_DURATION), value, NumberType_Int32, false);
 		}
 	}
+	
 	property float m_timestamp
 	{
 		public get()
 		{
-			return LoadFromAddress(this + COUNTDOWNTIMER_OFFSET_TIMESTAMP, NumberType_Int32);
+			return LoadFromAddress(this.Address + view_as<Address>(COUNTDOWNTIMER_OFFSET_TIMESTAMP), NumberType_Int32);
 		}
 		public set(float value)
 		{
-			StoreToAddress(this + COUNTDOWNTIMER_OFFSET_TIMESTAMP, value, NumberType_Int32, false);
+			StoreToAddress(this.Address + view_as<Address>(COUNTDOWNTIMER_OFFSET_TIMESTAMP), value, NumberType_Int32, false);
 		}
 	}
+	
 	public void Reset()
 	{
-		this.m_timestamp = GetGameTime() + m_duration;
+		this.m_timestamp = GetGameTime() + this.m_duration;
 	}
+	
 	public void Start(float duration)
 	{
 		this.m_timestamp = GetGameTime() + duration;
 		this.m_duration = duration;
 	}
+	
 	public void Invalidate()
 	{
 		this.m_timestamp = -1.0;
 	}
+	
 	public bool HasStarted()
 	{
 		return this.m_timestamp > 0.0;
 	}
+	
 	public bool IsElapsed()
 	{
 		return GetGameTime() > this.m_timestamp;
 	}
+	
 	public float GetElapsedTime()
 	{
 		return GetGameTime() - this.m_timestamp + this.m_duration;
 	}
+	
 	public float GetRemainingTime()
 	{
 		return this.m_timestamp - GetGameTime();
 	}
+	
 	public float GetCountdownDuration()
 	{
 		return this.m_timestamp > 0.0 ? this.m_duration : 0.0;
