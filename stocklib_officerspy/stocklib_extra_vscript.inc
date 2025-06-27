@@ -21,12 +21,12 @@ stock void VS_DispatchParticleEffect(int entity, const char[] name, float origin
 
 stock void VS_ApplyAbsVelocityImpulse(int entity, float inVecImpulse[3])
 {
-	OSLib_RunScriptCode(entity, _, _, "!self.ApplyAbsVelocityImpulse(Vector(%f, %f, %f))", inVecImpulse[0], inVecImpulse[1], inVecImpulse[2]);
+	OSLib_RunScriptCode(entity, _, _, "self.ApplyAbsVelocityImpulse(Vector(%f, %f, %f))", inVecImpulse[0], inVecImpulse[1], inVecImpulse[2]);
 }
 
 stock void VS_SetAbsAngles(int entity, float absAngles[3])
 {
-	OSLib_RunScriptCode(entity, _, _, "!self.SetAbsAngles(QAngle(%f, %f, %f))", absAngles[0], absAngles[1], absAngles[2]);
+	OSLib_RunScriptCode(entity, _, _, "self.SetAbsAngles(QAngle(%f, %f, %f))", absAngles[0], absAngles[1], absAngles[2]);
 }
 
 stock void VS_SetAbsVelocity(int entity, float velocity[3])
@@ -36,22 +36,22 @@ stock void VS_SetAbsVelocity(int entity, float velocity[3])
 
 stock void VS_SetAbsOrigin(int entity, float absOrigin[3])
 {
-	OSLib_RunScriptCode(entity, _, _, "!self.SetAbsOrigin(Vector(%f, %f, %f))", absOrigin[0], absOrigin[1], absOrigin[2]);
+	OSLib_RunScriptCode(entity, _, _, "self.SetAbsOrigin(Vector(%f, %f, %f))", absOrigin[0], absOrigin[1], absOrigin[2]);
 }
 
 stock void VS_SetHealth(int entity, int amt)
 {
-	OSLib_RunScriptCode(entity, _, _, "!self.SetHealth(%d)", amt);
+	OSLib_RunScriptCode(entity, _, _, "self.SetHealth(%d)", amt);
 }
 
 stock void VS_SetLocalAngles(int entity, float angles[3])
 {
-	OSLib_RunScriptCode(entity, _, _, "!self.SetLocalAngles(QAngle(%f, %f, %f))", angles[0], angles[1], angles[2]);
+	OSLib_RunScriptCode(entity, _, _, "self.SetLocalAngles(QAngle(%f, %f, %f))", angles[0], angles[1], angles[2]);
 }
 
 stock void VS_SetMaxHealth(int entity, int amt)
 {
-	OSLib_RunScriptCode(entity, _, _, "!self.SetMaxHealth(%d)", amt);
+	OSLib_RunScriptCode(entity, _, _, "self.SetMaxHealth(%d)", amt);
 }
 
 stock void VS_SetSize(int entity, const float mins[3], const float maxs[3])
@@ -68,7 +68,7 @@ stock void VS_SetSolid(int entity, SolidType_t solid)
 
 stock void VS_SetModelScale(int entity, float scale, float change_duration = 0.0)
 {
-	OSLib_RunScriptCode(entity, _, _, "!self.SetModelScale(%f, %f)", scale, change_duration);
+	OSLib_RunScriptCode(entity, _, _, "self.SetModelScale(%f, %f)", scale, change_duration);
 }
 
 // CLASS: CBasePlayer
