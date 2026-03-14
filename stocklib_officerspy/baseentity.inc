@@ -241,6 +241,11 @@ methodmap OSBaseEntity
 		SetEntityGravity(this.index, gravity);
 	}
 	
+	public int GetGroundEntity()
+	{
+		return BaseEntity_GetGroundEntity(this.index);
+	}
+	
 	public bool IsPlayerSimulated()
 	{
 		return BaseEntity_IsPlayerSimulated(this.index);
@@ -588,6 +593,11 @@ stock float BaseEntity_GetGravity(int entity)
 stock void BaseEntity_SetGravity(int entity, float gravity)
 {
 	SetEntPropFloat(entity, Prop_Data, "m_flGravity", gravity);
+}
+
+stock int BaseEntity_GetGroundEntity(int entity)
+{
+	return GetEntPropEnt(entity, Prop_Data, "m_hGroundEntity");
 }
 
 stock bool BaseEntity_IsPlayerSimulated(int entity)

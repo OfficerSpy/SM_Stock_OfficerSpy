@@ -7,6 +7,7 @@
 #include <stocklib_officerspy/gamerules>
 #include <stocklib_officerspy/team_objectiveresource>
 #include <stocklib_officerspy/stocklib_extra_vscript>
+#include <stocklib_officerspy/teamplayroundbased_gamerules>
 
 stock int TF2_GetFarthestOwnedControlPoint(TFTeam iTeam, bool bWithSpawnpoints)
 {
