@@ -116,6 +116,19 @@ stock void VS_SetMaxVisionRangeOverride(int tfbot, float range)
 	OSLib_RunScriptCode(tfbot, _, _, "self.SetMaxVisionRangeOverride(%f)", range);
 }
 
+stock void VS_SetMission(int tfbot, MissionType mission, bool resetBehaviorSystem = true)
+{
+	OSLib_RunScriptCode(tfbot, _, _, "self.SetMission(%d, %s)", mission, resetBehaviorSystem ? "true" : "false");
+}
+
+stock void VS_SetMissionTarget(int tfbot, int target)
+{
+	if (target == -1)
+		OSLib_RunScriptCode(tfbot, _, _, "self.SetMissionTarget(null)");
+	else
+		OSLib_RunScriptCode(tfbot, _, _, "self.SetMissionTarget(EntIndexToHScript(%i))", target);
+}
+
 stock void VS_UpdateDelayedThreatNotices(int tfbot)
 {
 	SetVariantString("self.UpdateDelayedThreatNotices()");
