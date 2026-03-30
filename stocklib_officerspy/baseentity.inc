@@ -336,6 +336,11 @@ methodmap OSBaseEntity
 		BaseEntity_WorldSpaceCenter(this.index, buffer);
 	}
 	
+	public int GetEffects()
+	{
+		return BaseEntity_GetEffects(this.index);
+	}
+	
 	public void AddEffects(int nEffects)
 	{
 		BaseEntity_AddEffects(this.index, nEffects);
@@ -344,6 +349,16 @@ methodmap OSBaseEntity
 	public void RemoveEffects(int nEffects)
 	{
 		BaseEntity_RemoveEffects(this.index, nEffects);
+	}
+	
+	public void ClearEffects()
+	{
+		BaseEntity_ClearEffects(this.index);
+	}
+	
+	public bool IsEffectActive(int nEffects)
+	{
+		return BaseEntity_IsEffectActive(this.index, nEffects);
 	}
 	
 	public bool IsPlayer()
@@ -775,6 +790,11 @@ stock void BaseEntity_WorldSpaceCenter(int entity, float buffer[3])
 	AddVectors(vecOrigin, vecOffset, buffer);
 }
 
+stock int BaseEntity_GetEffects(int entity)
+{
+	return GetEntProp(entity, Prop_Send, "m_fEffects");
+}
+
 stock void BaseEntity_AddEffects(int entity, int nEffects)
 {
 	SetEntProp(entity, Prop_Send, "m_fEffects", GetEntProp(entity, Prop_Send, "m_fEffects") | nEffects);
@@ -795,6 +815,17 @@ stock void BaseEntity_RemoveEffects(int entity, int nEffects)
 		NetworkProp()->MarkPVSInformationDirty();
 		DispatchUpdateTransmitState(); */
 	}
+}
+
+stock void BaseEntity_ClearEffects(int entity)
+{
+	SetEntProp(entity, Prop_Send, "m_fEffects", 0);
+	//MISSING: DispatchUpdateTransmitState
+}
+
+stock bool BaseEntity_IsEffectActive(int entity, int nEffects)
+{
+	return (GetEntProp(entity, Prop_Send, "m_fEffects") & nEffects) != 0;
 }
 
 stock bool BaseEntity_IsPlayer(int entity)
