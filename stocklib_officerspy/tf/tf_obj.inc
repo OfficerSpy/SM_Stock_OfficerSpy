@@ -119,9 +119,9 @@ methodmap OSBaseObject < OSBaseCombatCharacter
 		return TF2_GetBuiltOnObject(this.index);
 	}
 	
-	public void SetObjectMode(int iVal)
+	public void SetObjectMode(TFObjectMode iVal)
 	{
-		TF2_SetObjectMode(this.index, iVal)
+		TF2_SetObjectMode(this.index, iVal);
 	}
 	
 	public TFObjectMode GetObjectMode()
@@ -285,8 +285,22 @@ stock int TF2_GetBuiltOnObject(int entity)
 	return GetEntPropEnt(entity, Prop_Send, "m_hBuiltOnEntity");
 }
 
-stock void TF2_SetObjectMode(int entity, int iVal)
+stock void TF2_SetObjectMode(int entity, TFObjectMode iVal)
 {
+	//CObjectTeleporter::SetObjectMode
+	if (TF2_GetObjectType(entity) == TFObject_Teleporter)
+	{
+		if (iVal == TFObjectMode_Entrance)
+		{
+			DispatchKeyValue(entity, "teleporterType", "1");
+		}
+		else
+		{
+			DispatchKeyValue(entity, "teleporterType", "2");
+		}
+	}
+	
+	//CBaseObject::SetObjectMode
 	SetEntProp(entity, Prop_Send, "m_iObjectMode", iVal);
 }
 
