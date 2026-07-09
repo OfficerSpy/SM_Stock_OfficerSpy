@@ -849,6 +849,7 @@ stock bool BaseEntity_IsCombatItem(int entity)
 
 stock bool BaseEntity_ShouldCollide(int entity, int collisionGroup, int contentsMask)
 {
+	#pragma unused collisionGroup
 	if (GetEntProp(entity, Prop_Send, "m_CollisionGroup") == COLLISION_GROUP_DEBRIS)
 		if (!(contentsMask & CONTENTS_DEBRIS))
 			return false;

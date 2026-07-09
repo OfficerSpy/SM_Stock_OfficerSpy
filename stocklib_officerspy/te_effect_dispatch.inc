@@ -5,9 +5,9 @@
 
 #include <stocklib_officerspy/shared/effect_dispatch_data>
 
-//NOTE: we omitted Vector pos as it doesn't seem to actually be used in this
-stock void TE_DispatchEffect(float delay, const char[] sName, const CEffectData data)
+stock void TE_DispatchEffect(float delay, const float pos[3], const char[] sName, const CEffectData data)
 {
+	#pragma unused pos
 	data.m_iEffectName = OSLib_GetEffectDispatchIndex(sName);
 	
 	TE_Start("EffectDispatch");
