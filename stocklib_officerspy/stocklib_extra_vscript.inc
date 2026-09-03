@@ -81,7 +81,12 @@ stock void VS_SnapEyeAngles(int client, float angles[3])
 stock bool OSLib_RunScriptCode(int entity, int activator = -1, int caller = -1, const char[] fmt, any ...)
 {
 	static char buffer[PLATFORM_MAX_PATH];
+	
+#if defined __sourcepawn2
+	FormatEx(buffer, sizeof(buffer), fmt, ...);
+#else
 	VFormat(buffer, sizeof(buffer), fmt, 5);
+#endif
 	
 	SetVariantString(buffer);
 	
