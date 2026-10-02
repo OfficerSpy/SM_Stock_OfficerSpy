@@ -238,7 +238,7 @@ enum BaseProjectileType_t
 #endif
 
 #if !defined ProjectileType_t_ENABLED
-enum ProjectileType_t
+enum //ProjectileType_t
 {
 	TF_PROJECTILE_NONE,
 	TF_PROJECTILE_BULLET,
